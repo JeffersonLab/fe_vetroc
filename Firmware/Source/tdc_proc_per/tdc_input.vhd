@@ -46,8 +46,8 @@ architecture synthesis of tdc_input is
 	signal FE_OFFSET				: std_logic_vector(2 downto 0);
 	signal FE						: std_logic_vector(7 downto 0);
 	signal GCLK_500_N				: std_logic;
-	signal TRIG_HIT_CNT_DONE	: std_logic;
-	signal TRIG_HIT_CNT			: std_logic_vector(7 downto 0);
+	signal HIT_TRIG_CNT_DONE	: std_logic;
+	signal HIT_TRIG_CNT			: std_logic_vector(7 downto 0);
 begin
 
 	--------------------------------
@@ -214,17 +214,17 @@ begin
 	--------------------------------
 	-- Trigger Pulser Width Generator
 	--------------------------------
-	TRIG_HIT_CNT_DONE <= '1' when TRIG_HIT_CNT = conv_std_logic_vector(0, TRIG_HIT_CNT'width) else '0';
+	HIT_TRIG_CNT_DONE <= '1' when HIT_TRIG_CNT = conv_std_logic_vector(0, HIT_TRIG_CNT'length) else '0';
 	
 	process(GCLK_125)
 	begin
 		if rising_edge(GCLK_125) then
-			TRIG_HIT <= not TRIG_HIT_CNT_DONE;
+			HIT_TRIG <= not HIT_TRIG_CNT_DONE;
 		
 			if RE_HIT = '1' then
-				TRIG_HIT_CNT <= HIT_TRIG_WIDTH;
-			elsif TRIG_HIT_CNT_DONE = '0' then
-				TRIG_HIT_CNT <= TRIG_HIT_CNT - 1;
+				HIT_TRIG_CNT <= HIT_TRIG_WIDTH;
+			elsif HIT_TRIG_CNT_DONE = '0' then
+				HIT_TRIG_CNT <= HIT_TRIG_CNT - 1;
 			end if;
 		end if;
 	end process;

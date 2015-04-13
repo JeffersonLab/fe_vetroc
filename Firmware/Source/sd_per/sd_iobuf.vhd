@@ -14,93 +14,90 @@ entity sd_iobuf is
 		CLK					: in std_logic;
 
 		-- Sync Mux inputs
-		INPUT_1_SYNC		: out std_logic;
-		INPUT_2_SYNC		: out std_logic;
-		INPUT_3_SYNC		: out std_logic;
-		OR_1_0_SYNC			: out std_logic;
-		OR_1_1_SYNC			: out std_logic;
-		OR_2_0_SYNC			: out std_logic;
-		OR_2_1_SYNC			: out std_logic;
-		OR_3_0_SYNC			: out std_logic;
-		OR_3_1_SYNC			: out std_logic;
+		FPGAIN_SYNC			: out std_logic_vector(8 downto 1);
+		TOKENFI_SYNC		: out std_logic;
+		SYNCFI_SYNC			: out std_logic;
+		TRIG1F_SYNC			: out std_logic;
+		TRIG2F_SYNC			: out std_logic;
+		STATA_IN_SYNC		: out std_logic;
+		STATB_IN_SYNC		: out std_logic;
 
 		-- Async Mux inputs
-		INPUT_1_ASYNC		: out std_logic;
-		INPUT_2_ASYNC		: out std_logic;
-		INPUT_3_ASYNC		: out std_logic;
-		OR_1_0_ASYNC		: out std_logic;
-		OR_1_1_ASYNC		: out std_logic;
-		OR_2_0_ASYNC		: out std_logic;
-		OR_2_1_ASYNC		: out std_logic;
-		OR_3_0_ASYNC		: out std_logic;
-		OR_3_1_ASYNC		: out std_logic;
+		FPGAIN_ASYNC		: out std_logic_vector(8 downto 1);
+		TOKENFI_ASYNC		: out std_logic;
+		SYNCFI_ASYNC		: out std_logic;
+		TRIG1F_ASYNC		: out std_logic;
+		TRIG2F_ASYNC		: out std_logic;
+		STATA_IN_ASYNC		: out std_logic;
+		STATB_IN_ASYNC		: out std_logic;
 
 		-- Mux outputs
-		OUTPUT_1_MUX		: in std_logic;
-		OUTPUT_2_MUX		: in std_logic;
-		OUTPUT_3_MUX		: in std_logic;
-		
-		-- MAROC I/O
-		OR_1_0				: in std_logic;
-		OR_1_1				: in std_logic;
-		OR_2_0				: in std_logic;
-		OR_2_1				: in std_logic;
-		OR_3_0				: in std_logic;
-		OR_3_1				: in std_logic;
-	
-		-- Test port I/O
-		INPUT_1				: in std_logic;
-		INPUT_2				: in std_logic;
-		INPUT_3				: in std_logic;
-		OUTPUT_1				: out std_logic;
-		OUTPUT_2				: out std_logic;
-		OUTPUT_3				: out std_logic
+		FPGAOUT_MUX			: in std_logic_vector(8 downto 1);
+		TOKENFO_MUX			: in std_logic;
+		TRIGFO_MUX			: in std_logic;
+		SDLINKF_MUX			: in std_logic;
+		STATA_OUT_MUX		: in std_logic;
+		BUSY_OUT_MUX		: in std_logic;
+
+		-- SD Input Pins
+		FPGAIN				: in std_logic_vector(8 downto 1);
+		TOKENFI				: in std_logic;
+		SYNCFI				: in std_logic;
+		TRIG1F				: in std_logic;
+		TRIG2F				: in std_logic;
+		STATA_IN				: in std_logic;
+		STATB_IN				: in std_logic;
+
+		-- SD Output Pins
+		FPGAOUT				: out std_logic_vector(8 downto 1);
+		TOKENFO				: out std_logic;
+		TRIGFO				: out std_logic;
+		SDLINKF				: out std_logic;
+		STATA_OUT			: out std_logic;
+		BUSY_OUT				: out std_logic
 	);
 end sd_iobuf;
 
-architecture Synthesis of sd_iobuf is
+architecture synthesis of sd_iobuf is
 begin
 
 	-- Single-ended Input Buffers
-	INPUT_1_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => INPUT_1, OUT_ASYNC => INPUT_1_ASYNC, OUT_SYNC => INPUT_1_SYNC);
+	FPGAIN_ibuf_path_gen: for I in FPGAIN'range generate
+		FPGAIN_ibuf_path: ibuf_path
+			generic map(SYNC_STAGES	=> 2)
+			port map(CLK => CLK, I => FPGAIN(I), OUT_ASYNC => FPGAIN_ASYNC(I), OUT_SYNC => FPGAIN_SYNC(I));
+	end generate;
 
-	INPUT_2_ibuf_path: ibuf_path
+	TOKENFI_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => INPUT_2, OUT_ASYNC => INPUT_2_ASYNC, OUT_SYNC => INPUT_2_SYNC);
+		port map(CLK => CLK, I => TOKENFI, OUT_ASYNC => TOKENFI_ASYNC, OUT_SYNC => TOKENFI_SYNC);
 
-	INPUT_3_ibuf_path: ibuf_path
+	SYNCFI_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => INPUT_3, OUT_ASYNC => INPUT_3_ASYNC, OUT_SYNC => INPUT_3_SYNC);
+		port map(CLK => CLK, I => SYNCFI, OUT_ASYNC => SYNCFI_ASYNC, OUT_SYNC => SYNCFI_SYNC);
 
-	OR_1_0_ibuf_path: ibuf_path
+	TRIG1F_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_1_0, OUT_ASYNC => OR_1_0_ASYNC, OUT_SYNC => OR_1_0_SYNC);
+		port map(CLK => CLK, I => TRIG1F, OUT_ASYNC => TRIG1F_ASYNC, OUT_SYNC => TRIG1F_SYNC);
 
-	OR_1_1_ibuf_path: ibuf_path
+	TRIG2F_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_1_1, OUT_ASYNC => OR_1_1_ASYNC, OUT_SYNC => OR_1_1_SYNC);
+		port map(CLK => CLK, I => TRIG2F, OUT_ASYNC => TRIG2F_ASYNC, OUT_SYNC => TRIG2F_SYNC);
 
-	OR_2_0_ibuf_path: ibuf_path
+	STATA_IN_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_2_0, OUT_ASYNC => OR_2_0_ASYNC, OUT_SYNC => OR_2_0_SYNC);
+		port map(CLK => CLK, I => STATA_IN, OUT_ASYNC => STATA_IN_ASYNC, OUT_SYNC => STATA_IN_SYNC);
 
-	OR_2_1_ibuf_path: ibuf_path
+	STATB_IN_ibuf_path: ibuf_path
 		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_2_1, OUT_ASYNC => OR_2_1_ASYNC, OUT_SYNC => OR_2_1_SYNC);
-
-	OR_3_0_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_3_0, OUT_ASYNC => OR_3_0_ASYNC, OUT_SYNC => OR_3_0_SYNC);
-
-	OR_3_1_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
-		port map(CLK => CLK, I => OR_3_1, OUT_ASYNC => OR_3_1_ASYNC, OUT_SYNC => OR_3_1_SYNC);
+		port map(CLK => CLK, I => STATB_IN, OUT_ASYNC => STATB_IN_ASYNC, OUT_SYNC => STATB_IN_SYNC);
 
 	-- Single-ended Output Buffers
-	OUTPUT_1 <= OUTPUT_1_MUX;
-	OUTPUT_2 <= OUTPUT_2_MUX;
-	OUTPUT_3 <= OUTPUT_3_MUX;
+	FPGAOUT <= FPGAOUT_MUX;
+	TOKENFO <= TOKENFO_MUX;
+	TRIGFO <= TRIGFO_MUX;
+	SDLINKF <= SDLINKF_MUX;
+	STATA_OUT <= STATA_OUT_MUX;
+	BUSY_OUT <= BUSY_OUT_MUX;
 
-end Synthesis;
+end synthesis;

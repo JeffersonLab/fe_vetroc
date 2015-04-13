@@ -28,7 +28,6 @@ architecture synthesis of spiflash is
 	signal SPI_CLK		: std_logic;
 begin
 
-
 	STARTUPE2_inst: STARTUPE2
 		generic map(
 			PROG_USR			=> "FALSE",

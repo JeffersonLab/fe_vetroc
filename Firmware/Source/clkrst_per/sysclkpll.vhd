@@ -9,29 +9,21 @@ entity sysclkpll is
 		CLK_33MHZ			: in std_logic;
 		
 		SYSCLK_50_RESET	: out std_logic;
-		SYSCLK_50			: out std_logic;
-
-		SYSCLK_200_RESET	: out std_logic;
-		SYSCLK_200			: out std_logic
+		SYSCLK_50			: out std_logic
 	);
 end sysclkpll;
 
-architecture Synthesis of sysclkpll is
+architecture synthesis of sysclkpll is
 	signal CLK_33MHZ_IBUFG			: std_logic;
 	signal CLK_33MHZ_BUFG			: std_logic;
 	signal SYSCLK_PLLLOCKED			: std_logic;
 	signal SYSCLK_PLLRST				: std_logic;
-	signal SYSCLK_200_RESET_Q		: std_logic_vector(7 downto 0);
 	signal SYSCLK_50_RESET_Q		: std_logic_vector(7 downto 0);
-	signal SYSCLK_200_i				: std_logic;
 	signal SYSCLK_50_i				: std_logic;
 	signal CLKFBOUT					: std_logic;
 	signal CLKOUT0						: std_logic;
-	signal CLKOUT1						: std_logic;
 begin
 
-	SYSCLK_200 <= SYSCLK_200_i;
-	SYSCLK_200_RESET <= SYSCLK_200_RESET_Q(SYSCLK_200_RESET_Q'length-1);
 	SYSCLK_50 <= SYSCLK_50_i;
 	SYSCLK_50_RESET <= SYSCLK_50_RESET_Q(SYSCLK_50_RESET_Q'length-1);
 
@@ -70,14 +62,10 @@ begin
 			CLKFBOUT_MULT_F      => 18.000,
 			CLKFBOUT_PHASE       => 0.000,
 			CLKFBOUT_USE_FINE_PS => FALSE,
-			CLKOUT0_DIVIDE_F     => 3.000,
+			CLKOUT0_DIVIDE_F     => 12.000,
 			CLKOUT0_PHASE        => 0.000,
 			CLKOUT0_DUTY_CYCLE   => 0.5,
 			CLKOUT0_USE_FINE_PS  => FALSE,
-			CLKOUT1_DIVIDE       => 12,
-			CLKOUT1_PHASE        => 0.000,
-			CLKOUT1_DUTY_CYCLE   => 0.5,
-			CLKOUT1_USE_FINE_PS  => FALSE,
 			CLKIN1_PERIOD        => 30.000,
 			REF_JITTER1          => 0.010
 		)
@@ -86,7 +74,7 @@ begin
 			CLKFBOUTB            => open,
 			CLKOUT0              => CLKOUT0,
 			CLKOUT0B             => open,
-			CLKOUT1              => CLKOUT1,
+			CLKOUT1              => open,
 			CLKOUT1B             => open,
 			CLKOUT2              => open,
 			CLKOUT2B             => open,
@@ -117,32 +105,17 @@ begin
 			RST                  => '0'
 		);  
 
-	bufg_clk200mhz: BUFG
-		port map(
-			I     => CLKOUT0,
-			O     => SYSCLK_200_i
-		);
-
 	bufg_clk50mhz: BUFG
 		port map(
-			I     => CLKOUT1,
+			I     => CLKOUT0,
 			O     => SYSCLK_50_i
 		);
-
-	process(SYSCLK_200_i, SYSCLK_PLLLOCKED)
-	begin
-		if SYSCLK_PLLLOCKED = '0' then
-			SYSCLK_200_RESET_Q <= (others=>'1');
-		elsif rising_edge(SYSCLK_200_i) then
-			SYSCLK_200_RESET_Q <= SYSCLK_200_RESET_Q(SYSCLK_200_RESET_Q'length-2 downto 0) & '0';
-		end if;
-	end process;
 
 	process(SYSCLK_50_i, SYSCLK_PLLLOCKED)
 	begin
 		if SYSCLK_PLLLOCKED = '0' then
 			SYSCLK_50_RESET_Q <= (others=>'1');
-		elsif rising_edge(SYSCLK_40_i) then
+		elsif rising_edge(SYSCLK_50_i) then
 			SYSCLK_50_RESET_Q <= SYSCLK_50_RESET_Q(SYSCLK_50_RESET_Q'length-2 downto 0) & '0';
 		end if;
 	end process;

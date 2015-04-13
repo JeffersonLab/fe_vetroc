@@ -110,7 +110,7 @@ architecture synthesis of tdc_proc_per is
 	-- Registers
 	signal ENABLE_N_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal HIT_TRIG_REG				: std_logic_vector(31 downto 0) := x"00000000";
-	signal TDC_SCALER					: slv16a(31 downto 0) := (others=>x"00000000");
+	signal TDC_SCALER					: slv32a(15 downto 0) := (others=>x"00000000");
 
 	-- Register bits
 	signal ENABLE_N					: std_logic_vector(15 downto 0);

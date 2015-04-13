@@ -17,34 +17,35 @@ package sd_per_pkg is
 			----------------------------------------------------
 			CLK					: in std_logic;
 
-			TRIG					: out std_logic;
 			SYNC					: out std_logic;
+			TRIG					: out std_logic;
 			BUSY					: in std_logic;
-			MAROC_ADC_START	: out std_logic;
-			MAROC_OUT_OR		: in std_logic;
+			TOKENIN				: out std_logic;
+			TOKENOUT				: in std_logic;
 
 			SCALER_LATCH		: out std_logic;
 			SCALER_RESET		: out std_logic;
-
-			-- MAROC I/O
-			OR_1_0				: in std_logic;
-			OR_1_1				: in std_logic;
-			OR_2_0				: in std_logic;
-			OR_2_1				: in std_logic;
-			OR_3_0				: in std_logic;
-			OR_3_1				: in std_logic;
 		
-			-- Test port I/O
-			INPUT_1				: in std_logic;
-			INPUT_2				: in std_logic;
-			INPUT_3				: in std_logic;
-			OUTPUT_1				: out std_logic;
-			OUTPUT_2				: out std_logic;
-			OUTPUT_3				: out std_logic;
+			-- I/O ports (fixed)
+			FPGAIN				: in std_logic_vector(8 downto 1);
+			TOKENFI				: in std_logic;
+			SYNCFI				: in std_logic;
+			TRIG1F				: in std_logic;
+			TRIG2F				: in std_logic;
+			STATA_IN				: in std_logic;
+			STATB_IN				: in std_logic;
+
+			FPGAOUT				: out std_logic_vector(8 downto 1);
+			TOKENFO				: out std_logic;
+			TRIGFO				: out std_logic;
+			SDLINKF				: out std_logic;
+			STATA_OUT			: out std_logic;
+			BUSY_OUT				: out std_logic;
 			
 			----------------------------------------------------
 			-- Bus interface ports -----------------------------
 			----------------------------------------------------
+			BUS_CLK				: in std_logic;
 			BUS_RESET			: in std_logic;
 			BUS_RESET_SOFT		: in std_logic;
 			BUS_DIN				: in std_logic_vector(D_WIDTH-1 downto 0);
