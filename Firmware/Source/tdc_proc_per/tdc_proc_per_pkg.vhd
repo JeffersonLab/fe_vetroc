@@ -8,9 +8,9 @@ use unisim.vcomponents.all;
 
 use work.perbus_pkg.all;
 
-package maroc_proc_per_pkg is
+package tdc_proc_per_pkg is
 
-	component maroc_proc_per is
+	component tdc_proc_per is
 		generic(
 			ADDR_INFO			: PER_ADDR_INFO;
 			CHANNEL_START		: integer := 0
@@ -25,14 +25,12 @@ package maroc_proc_per_pkg is
 			GCLK_125				: in std_logic;
 			GCLK_250				: in std_logic;
 			GCLK_500				: in std_logic;
-			GCLK_500_180		: in std_logic;
 
 			SYNC					: in std_logic;
 
-			-- MAROC3 Discriminator Outputs
-			MAROC_OUT			: in std_logic_vector(63 downto 0);
-
-			MAROC_OUT_OR		: out std_logic;
+			-- TDC Inputs, Trigger Outputs
+			HIT					: in std_logic_vector(15 downto 0);
+			HIT_TRIG				: out std_logic_vector(15 downto 0);
 
 			------------------------------
 			-- BUS_CLK domain signals
@@ -63,4 +61,4 @@ package maroc_proc_per_pkg is
 		);
 	end component;
 
-end maroc_proc_per_pkg;
+end tdc_proc_per_pkg;

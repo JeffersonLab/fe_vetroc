@@ -2,13 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library utils;
-use utils.utils_pkg.all;
-
 entity triggerunit is
-	generic(
-		TRIG_FIFO_BUSY_THR	: integer := 2
-	);
 	port(
 		BUSY						: out std_logic;
 		
@@ -21,9 +15,9 @@ entity triggerunit is
 		BUS_CLK					: in std_logic;
 		RESET_SOFT				: in std_logic;
 
+		TRIG_FIFO_BUSY_THR	: in std_logic_vector(7 downto 0);
 		LOOKBACK					: in std_logic_vector(9 downto 0);
 		WINDOW_WIDTH			: in std_logic_vector(9 downto 0);
-		TRIG_DELAY				: in std_logic_vector(9 downto 0);
 
 		TRIG_FIFO_RD_EB		: in std_logic;
 		TRIG_FIFO_DOUT_EB		: out std_logic_vector(47 downto 0);
@@ -70,8 +64,6 @@ architecture synthesis of triggerunit is
 
 	signal TIMER				: std_logic_vector(47 downto 0) := (others=>'0');
 	signal TRIG_Q				: std_logic_vector(1 downto 0);
-	signal TRIGGER				: std_logic;
-	signal TRIGGER_DLY		: std_logic;
 	signal SYNC_Q				: std_logic;
 	signal FULL_EB				: std_logic;
 	signal FULL_CH				: std_logic;
@@ -89,7 +81,7 @@ begin
 	process(CLK)
 	begin
 		if rising_edge(CLK) then
-			if (TRIGGER_DLY = '1') and (FULL_EB = '0') and (FULL_CH = '0') then
+			if (TRIG_Q(0) = '1') and (TRIG_Q(1) = '0') and (FULL_EB = '0') and (FULL_CH = '0') then
 				FIFO_WR <= '1';
 				FIFO_DIN <= TIMER;
 			else
@@ -117,20 +109,6 @@ begin
 		end if;
 	end process;
 
-	TRIGGER <= TRIG_Q(0) and not TRIG_Q(1);
-
-	delay_ram_trig: delay_ram
-		generic map(
-			D_WIDTH		=> 1,
-			A_WIDTH		=> 10
-		)
-		port map(
-			CLK		=> CLK,
-			DELAY		=> TRIG_DELAY,
-			DIN(0)	=> TRIGGER,
-			DOUT(0)	=> TRIGGER_DLY
-		);
-
 	-- BUS_CLK domain signals
 	FIFO_RD_CH <= not FIFO_EMPTY_CH;
 
@@ -156,7 +134,7 @@ begin
 			PROG_FULL			=> FIFO_FULL_EB,
 			DOUT					=> TRIG_FIFO_DOUT_EB,
 			DIN					=> FIFO_DIN,
-			PROG_FULL_THRESH	=> std_logic_vector(to_unsigned(TRIG_FIFO_BUSY_THR, 8))
+			PROG_FULL_THRESH	=> TRIG_FIFO_BUSY_THR
 		);
 
 	xfifo_10b256d_fwft_async_inst_ch: xfifo_10b256d_fwft_async

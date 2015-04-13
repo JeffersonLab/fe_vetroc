@@ -6,8 +6,8 @@ use unisim.vcomponents.all;
 
 entity gclkpll is
 	port(
-		GCLK_125_REF_RST	: in std_logic;
-		GCLK_125_REF		: in std_logic;
+		GCLK_250_REF_RST	: in std_logic;
+		GCLK_250_REF		: in std_logic;
 		
 		GCLK_125_RESET		: out std_logic;
 		GCLK_125				: out std_logic;
@@ -35,7 +35,7 @@ begin
 			COMPENSATION         => "ZHOLD",
 			STARTUP_WAIT         => FALSE,
 			DIVCLK_DIVIDE        => 1,
-			CLKFBOUT_MULT_F      => 8.000,
+			CLKFBOUT_MULT_F      => 4.000,
 			CLKFBOUT_PHASE       => 0.000,
 			CLKFBOUT_USE_FINE_PS => FALSE,
 			CLKOUT0_DIVIDE_F     => 8.000,
@@ -54,7 +54,7 @@ begin
 			CLKOUT3_PHASE        => 0.000,
 			CLKOUT3_DUTY_CYCLE   => 0.5,
 			CLKOUT3_USE_FINE_PS  => FALSE,
-			CLKIN1_PERIOD        => 8.000,
+			CLKIN1_PERIOD        => 4.000,
 			REF_JITTER1          => 0.100
 		)
 		port map(
@@ -72,7 +72,7 @@ begin
 			CLKOUT5              => open,
 			CLKOUT6              => open,
 			CLKFBIN              => CLKFBOUT,
-			CLKIN1               => GCLK_125_REF,
+			CLKIN1               => GCLK_250_REF,
 			CLKIN2               => '0',
 			CLKINSEL             => '1',
 			DADDR                => (others=>'0'),
@@ -90,7 +90,7 @@ begin
 			CLKINSTOPPED         => open,
 			CLKFBSTOPPED         => open,
 			PWRDWN               => '0',
-			RST                  => GCLK_125_REF_RST
+			RST                  => GCLK_250_REF_RST
 		);  
 
 	bufg_clkout0: BUFG

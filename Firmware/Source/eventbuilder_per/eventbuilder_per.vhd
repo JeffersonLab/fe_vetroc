@@ -11,7 +11,6 @@ use work.perbus_pkg.all;
 entity eventbuilder_per is
 	generic(
 		ADDR_INFO				: PER_ADDR_INFO;
-		TRIG_FIFO_BUSY_THR	: integer := 2;
 		EVT_FIFO_ARRAY_NUM	: integer
 	);
 	port(
@@ -39,6 +38,27 @@ entity eventbuilder_per is
 		EVT_FIFO_RD_ARRAY		: out std_logic_vector(EVT_FIFO_ARRAY_NUM-1 downto 0);
 		EVT_FIFO_EMPTY_ARRAY	: in std_logic_vector(EVT_FIFO_ARRAY_NUM-1 downto 0);
 
+		SLOTID					: in std_logic_vector(4 downto 0);
+		A32_BASE_ADDR			: out std_logic_vector(8 downto 0);
+		A32_BASE_ADDR_EN		: out std_logic;		
+		A32M_ADDR_MIN			: out std_logic_vector(8 downto 0);
+		A32M_ADDR_MAX			: out std_logic_vector(8 downto 0);
+		A32M_ADDR_EN			: out std_logic;
+		TOKEN_FIRST				: out std_logic;
+		TOKEN_LAST				: out std_logic;
+		TOKEN_STATUS			: in std_logic;
+		TOKEN_TAKE				: out std_logic;
+		USER_INT_ID				: out std_logic_vector(7 downto 0);
+		USER_INT_LEVEL			: out std_logic_vector(2 downto 0);
+		USER_BERR_EN			: out std_logic;
+		USER_INT					: out std_logic;
+		USER_FIFO_DATA_1		: out std_logic_vector(35 downto 0);
+		USER_FIFO_EMPTY_1		: out std_logic;
+		USER_FIFO_RDREQ_1		: in std_logic;
+		USER_FIFO_DATA_2		: out std_logic_vector(35 downto 0);
+		USER_FIFO_EMPTY_2		: out std_logic;
+		USER_FIFO_RDREQ_2		: in std_logic;
+
 		-- Bus interface ports -----------------------------
 		BUS_CLK					: in std_logic;
 		BUS_RESET				: in std_logic;
@@ -54,9 +74,6 @@ end eventbuilder_per;
 
 architecture Synthesis of eventbuilder_per is
 	component triggerunit is
-		generic(
-			TRIG_FIFO_BUSY_THR	: integer := 2
-		);
 		port(
 			BUSY						: out std_logic;
 			
@@ -69,9 +86,9 @@ architecture Synthesis of eventbuilder_per is
 			BUS_CLK					: in std_logic;
 			RESET_SOFT				: in std_logic;
 
+			TRIG_FIFO_BUSY_THR	: in std_logic_vector(7 downto 0);
 			LOOKBACK					: in std_logic_vector(9 downto 0);
 			WINDOW_WIDTH			: in std_logic_vector(9 downto 0);
-			TRIG_DELAY				: in std_logic_vector(9 downto 0);
 
 			TRIG_FIFO_RD_EB		: in std_logic;
 			TRIG_FIFO_DOUT_EB		: out std_logic_vector(47 downto 0);
@@ -92,20 +109,29 @@ architecture Synthesis of eventbuilder_per is
 			TRIG_FIFO_DATA			: in std_logic_vector(47 downto 0);
 			TRIG_FIFO_EMPTY		: in std_logic;
 			
-			DEVICEID					: in std_logic_vector(4 downto 0);
+			SLOTID					: in std_logic_vector(4 downto 0);
 			BLOCK_SIZE				: in std_logic_vector(7 downto 0);
 			
-			USER_FIFO_DATA			: out std_logic_vector(35 downto 0);
-			USER_FIFO_EMPTY		: out std_logic;
-			USER_FIFO_RDREQ		: in std_logic;
+			USER_FIFO_DATA_1		: out std_logic_vector(35 downto 0);
+			USER_FIFO_EMPTY_1		: out std_logic;
+			USER_FIFO_RDREQ_1		: in std_logic;
+			USER_FIFO_DATA_2		: out std_logic_vector(35 downto 0);
+			USER_FIFO_EMPTY_2		: out std_logic;
+			USER_FIFO_RDREQ_2		: in std_logic;
 		
 			BLD_DATA					: in std_logic_vector(31 downto 0);
 			BLD_EVTEND				: in std_logic;
 			BLD_EMPTY				: in std_logic;
 			BLD_READ					: out std_logic;
 			
+			USER_INT					: out std_logic;
+			USER_INT_ACKED			: in std_logic;
+			USER_INT_ENABLED		: in std_logic;
 			USER_FIFO_WORD_CNT	: out std_logic_vector(31 downto 0); 
-			USER_FIFO_EVENT_CNT	: out std_logic_vector(31 downto 0)
+			USER_FIFO_EVENT_CNT	: out std_logic_vector(31 downto 0);
+			USER_FIFO_BLOCK_CNT	: out std_logic_vector(31 downto 0);
+			EVT_WORD_INT_LEVEL	: in std_logic_vector(15 downto 0); 
+			EVT_NUM_INT_LEVEL		: in std_logic_vector(14 downto 0) 
 		);
 	end component;
 
@@ -133,25 +159,29 @@ architecture Synthesis of eventbuilder_per is
 	signal PO							: pbus_if_o;
 
 	-- Registers
+	signal TRIG_FIFO_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal LOOKBACK_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal WINDOW_WIDTH_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal BLOCK_CFG_REG				: std_logic_vector(31 downto 0) := x"00000000";
-	signal DEVICEID_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	signal ADR32_REG					: std_logic_vector(31 downto 0) := x"00000000";
+	signal ADR32M_REG					: std_logic_vector(31 downto 0) := x"00000000";
+	signal USER_INT_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal READOUT_CFG_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal READOUT_STATUS_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIFO_BLOCK_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIFO_WORD_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIFO_EVENT_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
-	signal TRIG_DELAY_REG			: std_logic_vector(31 downto 0) := x"00000000";
 
 	-- Register bits
+	signal TRIG_FIFO_BUSY_THR		: std_logic_vector(7 downto 0);
 	signal LOOKBACK					: std_logic_vector(9 downto 0);
 	signal WINDOW_WIDTH				: std_logic_vector(9 downto 0);
-	signal TRIG_DELAY					: std_logic_vector(9 downto 0);
 	signal BLOCK_SIZE					: std_logic_vector(7 downto 0);
-	signal DEVICEID					: std_logic_vector(4 downto 0);
+	signal USER_INT_ENABLED			: std_logic;
+	signal USER_INT_ACKED			: std_logic;
 	signal USER_FIFO_WORD_CNT		: std_logic_vector(31 downto 0);
 	signal USER_FIFO_EVENT_CNT		: std_logic_vector(31 downto 0);
+	signal USER_FIFO_BLOCK_CNT		: std_logic_vector(31 downto 0);
 	signal EVT_WORD_INT_LEVEL		: std_logic_vector(15 downto 0);
 	signal EVT_NUM_INT_LEVEL		: std_logic_vector(14 downto 0);
 
@@ -160,19 +190,12 @@ architecture Synthesis of eventbuilder_per is
 	signal BLD_EMPTY					: std_logic;
 	signal BLD_READ					: std_logic;
 
-	signal USER_FIFO_DATA			: std_logic_vector(35 downto 0);
-	signal USER_FIFO_EMPTY			: std_logic;
-	signal USER_FIFO_RDREQ			: std_logic;
-
 	signal TRIG_FIFO_RD_EB			: std_logic;
 	signal TRIG_FIFO_DOUT_EB		: std_logic_vector(47 downto 0);
 	signal TRIG_FIFO_EMPTY_EB		: std_logic;
 begin
 
 	triggerunit_inst: triggerunit
-		generic map(
-			TRIG_FIFO_BUSY_THR	=> TRIG_FIFO_BUSY_THR
-		)
 		port map(
 			BUSY						=> BUSY,
 			CLK						=> CLK,
@@ -180,9 +203,9 @@ begin
 			SYNC						=> SYNC,
 			BUS_CLK					=> BUS_CLK,
 			RESET_SOFT				=> PI.RESET_SOFT,
+			TRIG_FIFO_BUSY_THR	=> TRIG_FIFO_BUSY_THR,
 			LOOKBACK					=> LOOKBACK,
 			WINDOW_WIDTH			=> WINDOW_WIDTH,
-			TRIG_DELAY				=> TRIG_DELAY,
 			TRIG_FIFO_RD_EB		=> TRIG_FIFO_RD_EB,
 			TRIG_FIFO_DOUT_EB		=> TRIG_FIFO_DOUT_EB,
 			TRIG_FIFO_EMPTY_EB	=> TRIG_FIFO_EMPTY_EB,
@@ -198,17 +221,26 @@ begin
 			TRIG_FIFO_RD			=> TRIG_FIFO_RD_EB,
 			TRIG_FIFO_DATA			=> TRIG_FIFO_DOUT_EB,
 			TRIG_FIFO_EMPTY		=> TRIG_FIFO_EMPTY_EB,
-			DEVICEID					=> DEVICEID,
+			SLOTID					=> SLOTID,
 			BLOCK_SIZE				=> BLOCK_SIZE,
-			USER_FIFO_DATA			=> USER_FIFO_DATA,
-			USER_FIFO_EMPTY		=> USER_FIFO_EMPTY,
-			USER_FIFO_RDREQ		=> USER_FIFO_RDREQ,
+			USER_FIFO_DATA_1		=> USER_FIFO_DATA_1,
+			USER_FIFO_EMPTY_1		=> USER_FIFO_EMPTY_1,
+			USER_FIFO_RDREQ_1		=> USER_FIFO_RDREQ_1,
+			USER_FIFO_DATA_2		=> USER_FIFO_DATA_2,
+			USER_FIFO_EMPTY_2		=> USER_FIFO_EMPTY_2,
+			USER_FIFO_RDREQ_2		=> USER_FIFO_RDREQ_2,
 			BLD_DATA					=> BLD_DATA(31 downto 0),
 			BLD_EVTEND				=> BLD_DATA(32),
 			BLD_EMPTY				=> BLD_EMPTY,
 			BLD_READ					=> BLD_READ,
+			USER_INT					=> USER_INT,
+			USER_INT_ACKED			=> USER_INT_ACKED,
+			USER_INT_ENABLED		=> USER_INT_ENABLED,
 			USER_FIFO_WORD_CNT	=> USER_FIFO_WORD_CNT,
-			USER_FIFO_EVENT_CNT	=> USER_FIFO_EVENT_CNT
+			USER_FIFO_EVENT_CNT	=> USER_FIFO_EVENT_CNT,
+			USER_FIFO_BLOCK_CNT	=> USER_FIFO_BLOCK_CNT,
+			EVT_WORD_INT_LEVEL	=> EVT_WORD_INT_LEVEL,
+			EVT_NUM_INT_LEVEL		=> EVT_NUM_INT_LEVEL
 		);
 
 	evtbuilderstage_inst: evtbuilderstage
@@ -258,11 +290,17 @@ begin
 
 -- Register bits
 
+	-- FIFO_BLOCK_CNT_REG
+	FIFO_BLOCK_CNT_REG <= USER_FIFO_BLOCK_CNT;
+
 	-- FIFO_WORD_CNT_REG
 	FIFO_WORD_CNT_REG <= USER_FIFO_WORD_CNT;
 
 	-- FIFO_EVENT_CNT_REG
 	FIFO_EVENT_CNT_REG <= USER_FIFO_EVENT_CNT;
+
+	--TRIG_FIFO_REG
+	TRIG_FIFO_BUSY_THR <= TRIG_FIFO_REG(7 downto 0);
 
 	--LOOKBACK_REG
 	LOOKBACK <= LOOKBACK_REG(9 downto 0);
@@ -273,11 +311,31 @@ begin
 	--BLOCK_CFG_REG
 	BLOCK_SIZE <= BLOCK_CFG_REG(7 downto 0);
 
-	--DEVICEID_REG
-	DEVICEID <= DEVICEID_REG(4 downto 0);
+	--ADR32_REG
+	A32_BASE_ADDR <= ADR32_REG(15 downto 7);
+	A32_BASE_ADDR_EN <= ADR32_REG(0);
 
-	--TRIG_DELAY_REG
-	TRIG_DELAY <= TRIG_DELAY_REG(9 downto 0);
+	--USER_INT_REG
+	USER_INT_ID <= USER_INT_REG(7 downto 0);
+	USER_INT_LEVEL <= USER_INT_REG(10 downto 8);
+	USER_INT_ENABLED <= USER_INT_REG(11);
+	USER_INT_ACKED <= USER_INT_REG(31);
+
+	--READOUT_CFG_REG
+	USER_BERR_EN <= READOUT_CFG_REG(0);
+	EVT_WORD_INT_LEVEL <= READOUT_CFG_REG(31 downto 16);
+	EVT_NUM_INT_LEVEL <= READOUT_CFG_REG(15 downto 1);
+
+	--ADR32M_REG
+	A32M_ADDR_MIN <= ADR32M_REG(8 downto 0);
+	A32M_ADDR_MAX <= ADR32M_REG(24 downto 16);
+	A32M_ADDR_EN <= ADR32M_REG(25);
+	TOKEN_FIRST <= ADR32M_REG(26);
+	TOKEN_LAST <= ADR32M_REG(27);
+	TOKEN_TAKE <= ADR32M_REG(28);
+
+	--READOUT_STATUS_REG
+	READOUT_STATUS_REG(0) <= TOKEN_STATUS;
 
 	process(BUS_CLK)
 	begin
@@ -287,11 +345,15 @@ begin
 			rw_reg(		REG => LOOKBACK_REG			,PI=>PI,PO=>PO, A => x"0000", RW => x"000003FF");
 			rw_reg(		REG => WINDOW_WIDTH_REG		,PI=>PI,PO=>PO, A => x"0004", RW => x"000003FF");
 			rw_reg(		REG => BLOCK_CFG_REG			,PI=>PI,PO=>PO, A => x"0008", RW => x"000000FF");
-			rw_reg(		REG => DEVICEID_REG			,PI=>PI,PO=>PO, A => x"0010", RW => x"0000001F");
-			rw_reg(		REG => TRIG_DELAY_REG		,PI=>PI,PO=>PO, A => x"0014", RW => x"000003FF");
+			rw_reg(		REG => ADR32_REG				,PI=>PI,PO=>PO, A => x"000C", RW => x"0000FF81");
+			rw_reg(		REG => ADR32M_REG				,PI=>PI,PO=>PO, A => x"0010", RW => x"FFFFFFFF");
+			rw_reg(		REG => USER_INT_REG			,PI=>PI,PO=>PO, A => x"0014", RW => x"80000FFF", R => x"80000000");
+			rw_reg(		REG => READOUT_CFG_REG		,PI=>PI,PO=>PO, A => x"0018", RW => x"FFFFFFFF");
+			ro_reg(		REG => READOUT_STATUS_REG	,PI=>PI,PO=>PO, A => x"001C", RO => x"00000001");
+			ro_reg(		REG => FIFO_BLOCK_CNT_REG	,PI=>PI,PO=>PO, A => x"0020", RO => x"FFFFFFFF");
 			ro_reg(		REG => FIFO_WORD_CNT_REG	,PI=>PI,PO=>PO, A => x"0024", RO => x"FFFFFFFF");
 			ro_reg(		REG => FIFO_EVENT_CNT_REG	,PI=>PI,PO=>PO, A => x"0028", RO => x"FFFFFFFF");
-			ro_reg_ack(	REG => USER_FIFO_DATA(31 downto 0)	,PI=>PI,PO=>PO, A => x"0080", RO => x"FFFFFFFF", ACK => USER_FIFO_RDREQ);
+			rw_reg(		REG => TRIG_FIFO_REG			,PI=>PI,PO=>PO, A => x"002C", RW => x"000000FF", I => x"00000002");
 		end if;
 	end process;
 

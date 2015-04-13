@@ -328,73 +328,21 @@ begin
 			BUSY					=> BUSY,
 			TRIG					=> TRIG_i,
 			SYNC					=> SYNC_i,
-			OR_1_0_SYNC			=> OR_1_0_SYNC,
-			OR_1_1_SYNC			=> OR_1_1_SYNC,
-			OR_2_0_SYNC			=> OR_2_0_SYNC,
-			OR_2_1_SYNC			=> OR_2_1_SYNC,
-			OR_3_0_SYNC			=> OR_3_0_SYNC,
-			OR_3_1_SYNC			=> OR_3_1_SYNC,
-			INPUT_1_SYNC		=> INPUT_1_SYNC,
-			INPUT_2_SYNC		=> INPUT_2_SYNC,
-			INPUT_3_SYNC		=> INPUT_3_SYNC,
-			OUTPUT_1_MUX		=> OUTPUT_1_MUX,
-			OUTPUT_2_MUX		=> OUTPUT_2_MUX,
-			OUTPUT_3_MUX		=> OUTPUT_3_MUX,
 			SCALER_LATCH		=> SCALER_LATCH_i,
 			SCALER_RESET		=> SCALER_RESET_i,
-			SCALER_GCLK_125	=> SCALER_GCLK_125,
+			SCALER_GCLK_250	=> SCALER_GCLK_250,
 			SCALER_SYNC			=> SCALER_SYNC,
 			SCALER_TRIG			=> SCALER_TRIG,
-			SCALER_BUSY			=> SCALER_BUSY,
-			SCALER_BUSYCYCLES	=> SCALER_BUSYCYCLES,
-			SCALER_OR_1_0		=> SCALER_OR_1_0,
-			SCALER_OR_1_1		=> SCALER_OR_1_1,
-			SCALER_OR_2_0		=> SCALER_OR_2_0,
-			SCALER_OR_2_1		=> SCALER_OR_2_1,
-			SCALER_OR_3_0		=> SCALER_OR_3_0,
-			SCALER_OR_3_1		=> SCALER_OR_3_1,
-			SCALER_INPUT_1		=> SCALER_INPUT_1,
-			SCALER_INPUT_2		=> SCALER_INPUT_2,
-			SCALER_INPUT_3		=> SCALER_INPUT_3,
-			SCALER_OUTPUT_1	=> SCALER_OUTPUT_1,
-			SCALER_OUTPUT_2	=> SCALER_OUTPUT_2,
-			SCALER_OUTPUT_3	=> SCALER_OUTPUT_3
+			SCALER_BUSYCYCLES	=> SCALER_BUSYCYCLES
 		);
 
 	sd_mux_inst: sd_mux
 		port map(
 			CLK					=> CLK,
-			INPUT_1_SYNC		=> INPUT_1_SYNC,
-			INPUT_2_SYNC		=> INPUT_2_SYNC,
-			INPUT_3_SYNC		=> INPUT_3_SYNC,
-			OR_1_0_SYNC			=> OR_1_0_SYNC,
-			OR_1_1_SYNC			=> OR_1_1_SYNC,
-			OR_2_0_SYNC			=> OR_2_0_SYNC,
-			OR_2_1_SYNC			=> OR_2_1_SYNC,
-			OR_3_0_SYNC			=> OR_3_0_SYNC,
-			OR_3_1_SYNC			=> OR_3_1_SYNC,
 			PULSER_OUTPUT		=> PULSER_OUTPUT,
-			INPUT_1_ASYNC		=> INPUT_1_ASYNC,
-			INPUT_2_ASYNC		=> INPUT_2_ASYNC,
-			INPUT_3_ASYNC		=> INPUT_3_ASYNC,
-			OR_1_0_ASYNC		=> OR_1_0_ASYNC,
-			OR_1_1_ASYNC		=> OR_1_1_ASYNC,
-			OR_2_0_ASYNC		=> OR_2_0_ASYNC,
-			OR_2_1_ASYNC		=> OR_2_1_ASYNC,
-			OR_3_0_ASYNC		=> OR_3_0_ASYNC,
-			OR_3_1_ASYNC		=> OR_3_1_ASYNC,
 			BUSY					=> BUSY,
-			MAROC_OUT_OR		=> MAROC_OUT_OR,
-			OUTPUT_1_MUX		=> OUTPUT_1_MUX,
-			OUTPUT_2_MUX		=> OUTPUT_2_MUX,
-			OUTPUT_3_MUX		=> OUTPUT_3_MUX,
 			SYNC					=> SYNC_i,
 			TRIG					=> TRIG_i,
-			ADC_START			=> MAROC_ADC_START,
-			OUTPUT_1_SRC		=> OUTPUT_1_SRC,
-			OUTPUT_2_SRC		=> OUTPUT_2_SRC,
-			OUTPUT_3_SRC		=> OUTPUT_3_SRC,
-			ADC_START_SRC		=> ADC_START_SRC,
 			TRIG_SRC				=> TRIG_SRC,
 			SYNC_SRC				=> SYNC_SRC
 		);
@@ -450,12 +398,8 @@ begin
 	-----------------------------------
 	-- Register *_SRC Mapping
 	-----------------------------------	
-	OUTPUT_1_SRC <= OUTPUT_1_SRC_REG(4 downto 0);
-	OUTPUT_2_SRC <= OUTPUT_2_SRC_REG(4 downto 0);
-	OUTPUT_3_SRC <= OUTPUT_3_SRC_REG(4 downto 0);
 	TRIG_SRC <= TRIG_SRC_REG(4 downto 0);
 	SYNC_SRC <= SYNC_SRC_REG(4 downto 0);
-	ADC_START_SRC <= ADC_START_SRC_REG(4 downto 0);
 
 	-----------------------------------
 	-- Register SCALER_LATCH_REG Mapping
@@ -468,10 +412,6 @@ begin
 		if rising_edge(CLK) then
 			PO.ACK <= '0';
 
-			rw_reg(		REG => OUTPUT_1_SRC_REG			,PI=>PI,PO=>PO, A => x"0000", RW => x"0000001F");
-			rw_reg(		REG => OUTPUT_2_SRC_REG			,PI=>PI,PO=>PO, A => x"0004", RW => x"0000001F");
-			rw_reg(		REG => OUTPUT_3_SRC_REG			,PI=>PI,PO=>PO, A => x"0008", RW => x"0000001F");
-			rw_reg(		REG => ADC_START_SRC_REG		,PI=>PI,PO=>PO, A => x"0038", RW => x"0000001F");
 			rw_reg(		REG => TRIG_SRC_REG				,PI=>PI,PO=>PO, A => x"003C", RW => x"0000001F");
 			rw_reg(		REG => SYNC_SRC_REG				,PI=>PI,PO=>PO, A => x"0040", RW => x"0000001F");
 
@@ -482,22 +422,9 @@ begin
 			ro_reg(		REG => PULSER_STATUS_REG		,PI=>PI,PO=>PO, A => x"0090", RO => x"00000001");
 
 			rw_reg(		REG => SCALER_LATCH_REG			,PI=>PI,PO=>PO, A => x"0100", RW => x"00000003");
-			ro_reg(		REG => SCALER_GCLK_125			,PI=>PI,PO=>PO, A => x"0108", RO => x"FFFFFFFF");
+			ro_reg(		REG => SCALER_GCLK_250			,PI=>PI,PO=>PO, A => x"0108", RO => x"FFFFFFFF");
 			ro_reg(		REG => SCALER_SYNC				,PI=>PI,PO=>PO, A => x"010C", RO => x"FFFFFFFF");
 			ro_reg(		REG => SCALER_TRIG				,PI=>PI,PO=>PO, A => x"0110", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_INPUT_1			,PI=>PI,PO=>PO, A => x"0114", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_INPUT_2			,PI=>PI,PO=>PO, A => x"0118", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_INPUT_3			,PI=>PI,PO=>PO, A => x"011C", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OUTPUT_1			,PI=>PI,PO=>PO, A => x"0120", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OUTPUT_2			,PI=>PI,PO=>PO, A => x"0124", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OUTPUT_3			,PI=>PI,PO=>PO, A => x"0128", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_1_0				,PI=>PI,PO=>PO, A => x"012C", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_1_1				,PI=>PI,PO=>PO, A => x"0130", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_2_0				,PI=>PI,PO=>PO, A => x"0134", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_2_1				,PI=>PI,PO=>PO, A => x"0138", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_3_0				,PI=>PI,PO=>PO, A => x"013C", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_OR_3_1				,PI=>PI,PO=>PO, A => x"0140", RO => x"FFFFFFFF");
-			ro_reg(		REG => SCALER_BUSY				,PI=>PI,PO=>PO, A => x"0144", RO => x"FFFFFFFF");
 			ro_reg(		REG => SCALER_BUSYCYCLES		,PI=>PI,PO=>PO, A => x"0148", RO => x"FFFFFFFF");
 		end if;
 	end process;

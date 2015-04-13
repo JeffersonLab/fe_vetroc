@@ -63,7 +63,7 @@ entity fe_vetroc is
 		IACK_N		: in std_logic;
 		IACK_O_EN	: out std_logic;
 		
-		IRQ7_N		: out std_logic_vector(7 downto 1);
+		IRQ_N			: out std_logic_vector(7 downto 1);
 		IRQOE_N		: out std_logic;
 
 		-- VME P2 Expansion
@@ -176,6 +176,8 @@ entity fe_vetroc is
 end fe_vetroc;
 
 architecture synthesis of fe_vetroc is
+	signal RETRY					: std_logic;
+	
 	signal SYSCLK_50_RESET		: std_logic;
 	signal SYSCLK_50				: std_logic;
 	signal SYSCLK_200_RESET		: std_logic;
@@ -186,17 +188,12 @@ architecture synthesis of fe_vetroc is
 	signal GCLK_125				: std_logic;
 	signal GCLK_250				: std_logic;
 	signal GCLK_500				: std_logic;
-	signal GCLK_500_180			: std_logic;
 
 	signal TRIG						: std_logic;
 	signal SYNC						: std_logic;
 	signal BUSY						: std_logic;
 	signal SCALER_LATCH			: std_logic;
 	signal SCALER_RESET			: std_logic;
-	signal MAROC_ADC_START		: std_logic;
-	signal MAROC_OUT_OR			: std_logic;
-	signal MAROC_OUT_OR_ARRAY	: std_logic_vector(2 downto 0);
-
 	signal SYNC_ARRAY				: std_logic_vector(3 downto 0);
 
 	signal BUS_CLK					: std_logic;
@@ -212,8 +209,7 @@ architecture synthesis of fe_vetroc is
 	signal BUS_DOUT_ARRAY		: slv32a(PER_ADDR_INFO_CFG'range) := (others=>(others=>'0'));
 
 	-- event builder & trigger fifo interface count
-	constant TRIG_FIFO_BUSY_THR	: integer := 2;
-	constant EVT_FIFO_ARRAY_NUM	: integer := 3;
+	constant EVT_FIFO_ARRAY_NUM	: integer := 8;
 
 	signal EVT_FIFO_CLK				: std_logic;
 	signal EVT_FIFO_DOUT_ARRAY		: slv33a(EVT_FIFO_ARRAY_NUM-1 downto 0);
@@ -224,6 +220,9 @@ architecture synthesis of fe_vetroc is
 	signal TRIG_FIFO_WR				: std_logic;
 	signal TRIG_FIFO_START			: std_logic_vector(9 downto 0);
 	signal TRIG_FIFO_STOP			: std_logic_vector(9 downto 0);
+	
+	signal HIT							: std_logic_vector(127 downto 0);
+	signal HIT_TRIG					: std_logic_vector(127 downto 0);
 begin
 
 	BUS_CLK <= SYSCLK_50;
@@ -282,29 +281,30 @@ begin
 			USER_FIFO_EMPTY_2	=> USER_FIFO_EMPTY_2,
 			USER_FIFO_RDREQ_2	=> USER_FIFO_RDREQ_2,
 			VME_ADR				=> ,
-			IACK_O_N				=> ,
-			IACK_I_N				=> ,
-			IACK_N				=> ,
-			RETRY					=> ,
-			RETRY_OE				=> ,
-			BERR_I_N				=> ,
-			BERR_O_N				=> ,
-			DTACK_I_N			=> ,
-			DTACK_O_N			=> ,
-			DTACK_OE				=> ,
-			W_N					=> ,
+			IACK_O_N				=> open,
+			IACK_I_N				=> IACK_I_N,
+			IACK_N				=> IACK_N,
+			RETRY					=> RETRY,
+			RETRY_OE				=> open,
+			BERR_I_N				=> BERR_N,
+			BERR_O_N				=> BERR_EN,
+			DTACK_I_N			=> DTACK_N,
+			DTACK_O_N			=> DTACK_FPGA,
+			DTACK_OE				=> DTACK_EN,
+			W_N					=> WRITE_N,
 			AM						=> AM,
 			A						=> A,
 			A_LE					=> A_LE,
-			AS_N					=> ,
+			AS_N					=> AS_N,
 			A_OE_N				=> A_OE_N,
 			A_DIR					=> A_DIR,
 			D						=> D,
 			D_LE					=> D_LE,
-			DS_N					=> ,
+			DS_N(0)				=> DS0_N,
+			DS_N(1)				=> DS1_N,
 			D_OE_N				=> D_OE_N,
 			D_DIR					=> D_DIR,
-			IRQ_N					=> ,
+			IRQ_N					=> IRQ_N,
 			GA_N					=> GA_N,
 			GAP					=> GAP_N,
 			BUS_CLK				=> BUS_CLK,
@@ -317,42 +317,29 @@ begin
 			BUS_ACK				=> BUS_ACK
 		);
 
-A_CLKAB <= '0';
-A_CLKBA <= '0';
-D_CLKAB <= '0';
-D_CLKBA <= '0';
-
-BG3OUT_EN <= '0';
-SYSRST_EN <= '0';
-SYSFAIL_EN <= '0';
-BUSY_EN <= '0';
-BUSRQ_EN <= '0';
---BG3IN_N		: in std_logic;
---SYSRESET_N	: in std_logic;
---SYSFAIL_N	: in std_logic;
---BUSY_N		: in std_logic;
-
-RETRY_N		: in std_logic;
-RETRY_OE		: out std_logic;
-WRITE_EN		: out std_logic;
-WRITE_N		: in std_logic;
-AS_EN			: out std_logic;
-AS_N			: in std_logic;
-BERR_EN		: out std_logic;
-BERR_N		: in std_logic;
-DS0_EN		: out std_logic;
-DS0_N			: in std_logic;
-DS1_EN		: out std_logic;
-DS1_N			: in std_logic;
-DTACK_EN		: out std_logic;
-DTACK_FPGA	: out std_logic;
-DTACK_N		: in std_logic;
-IACK_EN		: out std_logic;
-IACK_I_N		: in std_logic;
-IACK_N		: in std_logic;
-IACK_O_EN	: out std_logic;
-IRQ7_N		: out std_logic_vector(7 downto 1);
-IRQOE_N		: out std_logic;
+	-- Tie unused master VME conrol features
+	RETRY_OE <= not RETRY;
+	A_CLKAB <= '0';
+	A_CLKBA <= '0';
+	D_CLKAB <= '0';
+	D_CLKBA <= '0';
+	WRITE_EN <= '0';
+	AS_EN <= '0';
+	DS0_EN <= '0';
+	DS1_EN <= '0';
+	IACK_O_EN <= '1';
+	IACK_EN <= '0';
+	IRQOE_N <= '0';
+	BG3OUT_EN <= '0';
+	SYSRST_EN <= '0';
+	SYSFAIL_EN <= '0';
+	BUSY_EN <= '0';
+	BUSRQ_EN <= '0';
+	--BG3IN_N		: in std_logic;
+	--SYSRESET_N	: in std_logic;
+	--SYSFAIL_N	: in std_logic;
+	--BUSY_N		: in std_logic;
+	--RETRY_N		: in std_logic;
 
 		
 	-----------------------------------------------------
@@ -361,11 +348,10 @@ IRQOE_N		: out std_logic;
 	eventbuilder_per_inst: eventbuilder_per
 		generic map(
 			ADDR_INFO				=> PER_ADDR_INFO_CFG(PER_ID_EVTBUILDER),
-			TRIG_FIFO_BUSY_THR	=> TRIG_FIFO_BUSY_THR,
 			EVT_FIFO_ARRAY_NUM	=> EVT_FIFO_ARRAY_NUM
 		)
 		port map(
-			CLK						=> GCLK_125,
+			CLK						=> GCLK_250,
 			TRIG						=> TRIG,
 			SYNC						=> SYNC,
 			BUSY						=> BUSY,
@@ -375,6 +361,26 @@ IRQOE_N		: out std_logic;
 			EVT_FIFO_DOUT_ARRAY	=> EVT_FIFO_DOUT_ARRAY,
 			EVT_FIFO_RD_ARRAY		=> EVT_FIFO_RD_ARRAY,
 			EVT_FIFO_EMPTY_ARRAY	=> EVT_FIFO_EMPTY_ARRAY,
+			SLOTID					=> SLOTID,
+			A32_BASE_ADDR			=> A32_BASE_ADDR,
+			A32_BASE_ADDR_EN		=> A32_BASE_ADDR_EN,
+			A32M_ADDR_MIN			=> A32M_ADDR_MIN,
+			A32M_ADDR_MAX			=> A32M_ADDR_MAX,
+			A32M_ADDR_EN			=> A32M_ADDR_EN,
+			TOKEN_FIRST				=> TOKEN_FIRST,
+			TOKEN_LAST				=> TOKEN_LAST,
+			TOKEN_STATUS			=> TOKEN_STATUS,
+			TOKEN_TAKE				=> TOKEN_TAKE,
+			USER_INT_ID				=> USER_INT_ID,
+			USER_INT_LEVEL			=> USER_INT_LEVEL,
+			USER_BERR_EN			=> USER_BERR_EN,
+			USER_INT					=> USER_INT,
+			USER_FIFO_DATA_1		=> USER_FIFO_DATA_1,
+			USER_FIFO_EMPTY_1		=> USER_FIFO_EMPTY_1,
+			USER_FIFO_RDREQ_1		=> USER_FIFO_RDREQ_1,
+			USER_FIFO_DATA_2		=> USER_FIFO_DATA_2,
+			USER_FIFO_EMPTY_2		=> USER_FIFO_EMPTY_2,
+			USER_FIFO_RDREQ_2		=> USER_FIFO_RDREQ_2,
 			BUS_CLK					=> BUS_CLK,
 			BUS_RESET				=> BUS_RESET,
 			BUS_RESET_SOFT			=> BUS_RESET_SOFT,
@@ -394,18 +400,17 @@ IRQOE_N		: out std_logic;
 			ADDR_INFO			=> PER_ADDR_INFO_CFG(PER_ID_CLKRST)
 		)
 		port map(
-			CLK_30MHZ			=> CLKPRGC,
+			CLK_33MHZ			=> CLKPRGC,
 			SYSCLK_50_RESET	=> SYSCLK_50_RESET,
 			SYSCLK_50			=> SYSCLK_50,
 			SYSCLK_200_RESET	=> SYSCLK_200_RESET,
 			SYSCLK_200			=> SYSCLK_200,
-			GCLK_125_REF_RST	=> GCLK_125_REF_RST,
-			GCLK_125_REF		=> GCLK_125_REF,
+			GCLK_250_REF_RST	=> GCLK_250_REF_RST,
+			GCLK_250_REF		=> GCLK_250_REF,
 			GCLK_125_RESET		=> GCLK_125_RESET,
 			GCLK_125				=> GCLK_125,
 			GCLK_250				=> GCLK_250,
 			GCLK_500				=> GCLK_500,
-			GCLK_500_180		=> GCLK_500_180,
 			CONFIGROM_D			=> CONFIGROM_D,
 			CONFIGROM_Q			=> CONFIGROM_Q,
 			CONFIGROM_S_N		=> CONFIGROM_S_N,
@@ -423,11 +428,16 @@ IRQOE_N		: out std_logic;
 	-----------------------------------------------------
 	-- TDC Processing
 	-----------------------------------------------------
-	tdc_proc_per_gen: for I in 0 to 3 generate
+	HIT(31 downto 0) <= FPAIN;
+	HIT(63 downto 32) <= FPBIN;
+	HIT(95 downto 64) <= FPCIN;
+	HIT(127 downto 96) <= FPDIN;
+	
+	tdc_proc_per_gen: for I in 0 to 7 generate
 		tdc_proc_per_inst: tdc_proc_per
 			generic map(
 				ADDR_INFO			=> PER_ADDR_INFO_CFG(PER_ID_TDCPROC0+I),
-				CHANNEL_START		=> 32*I
+				CHANNEL_START		=> 16*I
 			)
 			port map(
 				SCALER_LATCH		=> SCALER_LATCH,
@@ -435,10 +445,9 @@ IRQOE_N		: out std_logic;
 				GCLK_125				=> GCLK_125,
 				GCLK_250				=> GCLK_250,
 				GCLK_500				=> GCLK_500,
-				GCLK_500_180		=> GCLK_500_180,
 				SYNC					=> SYNC_ARRAY(I),
-				MAROC_OUT			=> MAROC_OUT_1,
-				MAROC_OUT_OR		=> MAROC_OUT_OR_ARRAY(0),
+				HIT					=> HIT(I*16+15 downto I*16),
+				HIT_TRIG				=> HIT_TRIG(I*16+15 downto I*16),
 				BUS_CLK				=> BUS_CLK,
 				TRIG_FIFO_WR		=> TRIG_FIFO_WR,
 				TRIG_FIFO_START	=> TRIG_FIFO_START,
@@ -465,18 +474,12 @@ IRQOE_N		: out std_logic;
 			ADDR_INFO			=> PER_ADDR_INFO_CFG(PER_ID_SD)
 		)
 		port map(
-			CLK					=> GCLK_125,
+			CLK					=> GCLK_250,
 			TRIG					=> TRIG,
 			SYNC					=> SYNC,
 			BUSY					=> BUSY,
 			SCALER_LATCH		=> SCALER_LATCH,
 			SCALER_RESET		=> SCALER_RESET,
-			INPUT_1				=> INPUT_1,
-			INPUT_2				=> INPUT_2,
-			INPUT_3				=> INPUT_3,
-			OUTPUT_1				=> OUTPUT_1,
-			OUTPUT_2				=> OUTPUT_2,
-			OUTPUT_3				=> OUTPUT_3,
 			BUS_RESET			=> BUS_RESET,
 			BUS_RESET_SOFT		=> BUS_RESET_SOFT,
 			BUS_DIN				=> BUS_DIN,

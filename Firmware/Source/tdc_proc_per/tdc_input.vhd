@@ -17,12 +17,12 @@ entity tdc_input is
 	port(
 		GCLK_125				: in std_logic;
 		GCLK_500				: in std_logic;
-		GCLK_500_180		: in std_logic;
 
 		ENABLE_N				: in std_logic;
+		HIT_TRIG_WIDTH		: in std_logic_vector(7 downto 0);
 		
 		HIT					: in std_logic;
-
+		HIT_TRIG				: out std_logic;
 		HIT_ASYNC			: out std_logic;
 
 		TDC_HIT				: out std_logic;
@@ -36,20 +36,23 @@ entity tdc_input is
 end tdc_input;
 
 architecture synthesis of tdc_input is
-	signal SREG				: std_logic_vector(7 downto 0);
-	signal SREG_Q1			: std_logic_vector(7 downto 0);
-	signal SREG_Q2			: std_logic_vector(7 downto 0);
-	signal RE_HIT			: std_logic;
-	signal RE_OFFSET		: std_logic_vector(2 downto 0);
-	signal RE				: std_logic_vector(7 downto 0);
-	signal FE_HIT			: std_logic;
-	signal FE_OFFSET		: std_logic_vector(2 downto 0);
-	signal FE				: std_logic_vector(7 downto 0);
-	signal GCLK_500_N		: std_logic;
+	signal SREG						: std_logic_vector(7 downto 0);
+	signal SREG_Q1					: std_logic_vector(7 downto 0);
+	signal SREG_Q2					: std_logic_vector(7 downto 0);
+	signal RE_HIT					: std_logic;
+	signal RE_OFFSET				: std_logic_vector(2 downto 0);
+	signal RE						: std_logic_vector(7 downto 0);
+	signal FE_HIT					: std_logic;
+	signal FE_OFFSET				: std_logic_vector(2 downto 0);
+	signal FE						: std_logic_vector(7 downto 0);
+	signal GCLK_500_N				: std_logic;
+	signal TRIG_HIT_CNT_DONE	: std_logic;
+	signal TRIG_HIT_CNT			: std_logic_vector(7 downto 0);
 begin
 
-	GCLK_500_N <= not GCLK_500;
-
+	--------------------------------
+	-- TDC Scaler
+	--------------------------------
 	scaler_inst: scaler
 		generic map(
 			LEN			=> 32,
@@ -64,6 +67,11 @@ begin
 			INPUT			=> RE_HIT,
 			SCALER		=> TDC_SCALER
 		);
+
+	--------------------------------
+	-- TDC Channel 1GHz Sampler
+	--------------------------------
+	GCLK_500_N <= not GCLK_500;
 
 	ISERDESE2_inst: ISERDESE2
 		generic map(
@@ -116,6 +124,9 @@ begin
 			SHIFTIN2			=> '0'
 		);
 
+	--------------------------------
+	-- TDC Leading/Trailing Edge Detector
+	--------------------------------
 	process(GCLK_125)
 	begin
 		if rising_edge(GCLK_125) then
@@ -199,6 +210,24 @@ begin
 	             "101" when FE(5) = '1' else
 	             "110" when FE(6) = '1' else
 	             "111";
+
+	--------------------------------
+	-- Trigger Pulser Width Generator
+	--------------------------------
+	TRIG_HIT_CNT_DONE <= '1' when TRIG_HIT_CNT = conv_std_logic_vector(0, TRIG_HIT_CNT'width) else '0';
+	
+	process(GCLK_125)
+	begin
+		if rising_edge(GCLK_125) then
+			TRIG_HIT <= not TRIG_HIT_CNT_DONE;
+		
+			if RE_HIT = '1' then
+				TRIG_HIT_CNT <= HIT_TRIG_WIDTH;
+			elsif TRIG_HIT_CNT_DONE = '0' then
+				TRIG_HIT_CNT <= TRIG_HIT_CNT - 1;
+			end if;
+		end if;
+	end process;
 
 end synthesis;
 

@@ -26,8 +26,8 @@ package richclkrst_per_pkg is
 			SYSCLK_200_RESET	: out std_logic;
 			SYSCLK_200			: out std_logic;
 
-			GCLK_125_REF_RST	: in std_logic;
-			GCLK_125_REF		: in std_logic;
+			GCLK_250_REF_RST	: in std_logic;
+			GCLK_250_REF		: in std_logic;
 			GCLK_125_RESET		: out std_logic;
 			GCLK_125				: out std_logic;
 			GCLK_250				: out std_logic;

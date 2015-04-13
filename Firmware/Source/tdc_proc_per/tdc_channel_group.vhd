@@ -16,6 +16,7 @@ entity tdc_channel_group is
 		SCALER_RESET			: in std_logic;
 		TDC_SCALER				: out slv32a(15 downto 0);
 		ENABLE_N					: in std_logic_vector(15 downto 0);
+		HIT_TRIG_WIDTH			: in std_logic_vector(7 downto 0);
 
 		------------------------------
 		-- GCLK domain signals
@@ -23,12 +24,11 @@ entity tdc_channel_group is
 		GCLK_125					: in std_logic;
 		GCLK_250					: in std_logic;
 		GCLK_500					: in std_logic;
-		GCLK_500_180			: in std_logic;
 		RESET_SOFT				: in std_logic;
 		SYNC						: in std_logic;
 		
 		HIT						: in std_logic_vector(15 downto 0);
-
+		HIT_TRIG					: out std_logic_vector(15 downto 0);
 		HIT_ASYNC				: out std_logic_vector(15 downto 0);
 
 		------------------------------
@@ -56,12 +56,12 @@ architecture synthesis of tdc_channel_group is
 		port(
 			GCLK_125				: in std_logic;
 			GCLK_500				: in std_logic;
-			GCLK_500_180		: in std_logic;
 
 			ENABLE_N				: in std_logic;
+			HIT_TRIG_WIDTH		: in std_logic_vector(7 downto 0);
 			
 			HIT					: in std_logic;
-
+			HIT_TRIG				: out std_logic;
 			HIT_ASYNC			: out std_logic;
 
 			TDC_HIT				: out std_logic;
@@ -138,12 +138,15 @@ architecture synthesis of tdc_channel_group is
 	signal TDC_HIT				: std_logic_vector(15 downto 0);
 	signal TDC_EDGE			: std_logic_vector(15 downto 0);
 	signal TDC_HIT_OFFSET	: slv3a(15 downto 0);
+	signal SYNC_Q				: std_logic;
 begin
 
 	process(GCLK_125)
 	begin
 		if rising_edge(GCLK_125) then
-			if SYNC = '1' then
+			SYNC_Q <= SYNC;
+			
+			if SYNC_Q = '1' then
 				GTIME <= (others=>'0');
 			else
 				GTIME <= GTIME + 1;
@@ -162,10 +165,11 @@ begin
 			port map(
 				GCLK_125				=> GCLK_125,
 				GCLK_500				=> GCLK_500,
-				GCLK_500_180		=> GCLK_500_180,
 				ENABLE_N				=> ENABLE_N(I),
+				HIT_TRIG_WIDTH		=> HIT_TRIG_WIDTH,
 				HIT					=> HIT(I),
 				HIT_ASYNC			=> HIT_ASYNC(I),
+				HIT_TRIG				=> HIT_TRIG(I),
 				TDC_HIT				=> TDC_HIT(I),
 				TDC_EDGE				=> TDC_EDGE(I),
 				TDC_HIT_OFFSET		=> TDC_HIT_OFFSET(I),
