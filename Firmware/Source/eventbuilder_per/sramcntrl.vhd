@@ -1,9 +1,9 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
 
-entity SramCntrl is
+entity sramcntrl is
 	port(
 		-- SRAM clock source
 		CLK				: in std_logic;
@@ -13,8 +13,8 @@ entity SramCntrl is
 		SRAM_CLK			: out std_logic;
 		SRAM_CLK_O		: out std_logic;
 		SRAM_CLK_I		: in std_logic;
-		SRAM_D			: inout std_logic_vector(35 downto 0);
-		SRAM_A			: out std_logic_vector(18 downto 0);
+		SRAM_D			: inout std_logic_vector(17 downto 0);
+		SRAM_A			: out std_logic_vector(19 downto 0);
 		SRAM_RW			: out std_logic;
 		SRAM_NOE			: out std_logic;
 		SRAM_CS			: out std_logic;
@@ -23,14 +23,14 @@ entity SramCntrl is
 		-- SRAM User Signals
 		USER_CLK			: out std_logic;
 		USER_WRITE		: in std_logic;
-		USER_ADDR		: in std_logic_vector(18 downto 0);
-		USER_RD_DATA	: out std_logic_vector(35 downto 0);
-		USER_WR_DATA	: in std_logic_vector(35 downto 0)
+		USER_ADDR		: in std_logic_vector(19 downto 0);
+		USER_RD_DATA	: out std_logic_vector(17 downto 0);
+		USER_WR_DATA	: in std_logic_vector(17 downto 0)
 	);
-end SramCntrl;
+end sramcntrl;
 
-architecture Synthesis of SramCntrl is
-	component SramClk is
+architecture synthesis of sramcntrl is
+	component sramclk is
 		port(
 			CLK			: in std_logic;
 			RESET			: in std_logic;
@@ -43,21 +43,21 @@ architecture Synthesis of SramCntrl is
 		);
 	end component;
 
-	component SramIo is
+	component sramio is
 		port(
 			CLK			: in std_logic;
 			
-			SRAM_D		: inout std_logic_vector(35 downto 0);
-			SRAM_A		: out std_logic_vector(18 downto 0);
+			SRAM_D		: inout std_logic_vector(17 downto 0);
+			SRAM_A		: out std_logic_vector(19 downto 0);
 			SRAM_RW		: out std_logic;
 			SRAM_NOE		: out std_logic;
 			SRAM_CS		: out std_logic;
 			SRAM_ADV		: out std_logic;
 			
-			D_I			: out std_logic_vector(35 downto 0);
-			D_O			: in std_logic_vector(35 downto 0);
+			D_I			: out std_logic_vector(17 downto 0);
+			D_O			: in std_logic_vector(17 downto 0);
 			D_T			: in std_logic;
-			A				: in std_logic_vector(18 downto 0);
+			A				: in std_logic_vector(19 downto 0);
 			RNW			: in std_logic
 		);
 	end component;
@@ -72,7 +72,7 @@ begin
 	RNW <= not USER_WRITE;
 	D_T <= not USER_WRITE;
 	
-	SramClk_inst: SramClk
+	sramclk_inst: sramclk
 		port map(
 			CLK			=> CLK,
 			RESET			=> RESET,
@@ -82,7 +82,7 @@ begin
 			USER_CLK		=> USER_CLK_i
 		);
 
-	SramIo_inst: SramIo
+	sramio_inst: sramio
 		port map(
 			CLK			=> USER_CLK_i,
 			SRAM_D		=> SRAM_D,
@@ -98,4 +98,4 @@ begin
 			RNW			=> RNW
 		);
 	
-end Synthesis;
+end synthesis;

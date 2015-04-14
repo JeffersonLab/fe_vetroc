@@ -1,32 +1,32 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.STD_LOGIC_ARITH.ALL;
-use IEEE.STD_LOGIC_UNSIGNED.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
 
-entity SramIo is
+entity sramio is
 	port(
 		CLK			: in std_logic;
 		
-		SRAM_D		: inout std_logic_vector(35 downto 0);
-		SRAM_A		: out std_logic_vector(18 downto 0);
+		SRAM_D		: inout std_logic_vector(17 downto 0);
+		SRAM_A		: out std_logic_vector(19 downto 0);
 		SRAM_RW		: out std_logic;
 		SRAM_NOE		: out std_logic;
 		SRAM_CS		: out std_logic;
 		SRAM_ADV		: out std_logic;
 		
-		D_I			: out std_logic_vector(35 downto 0);
-		D_O			: in std_logic_vector(35 downto 0);
+		D_I			: out std_logic_vector(17 downto 0);
+		D_O			: in std_logic_vector(17 downto 0);
 		D_T			: in std_logic;
-		A				: in std_logic_vector(18 downto 0);
+		A				: in std_logic_vector(19 downto 0);
 		RNW			: in std_logic
 	);
-end SramIo;
+end sramio;
 
-architecture Synthesis of SramIo is
-	signal D_O_Q	: std_logic_vector(35 downto 0);
-	signal D_T_Q0	: std_logic_vector(35 downto 0);
-	signal D_T_Q1	: std_logic_vector(35 downto 0);
-	signal D_T_Q2	: std_logic_vector(35 downto 0);
+architecture synthesis of sramio is
+	signal D_O_Q	: std_logic_vector(17 downto 0);
+	signal D_T_Q0	: std_logic_vector(17 downto 0);
+	signal D_T_Q1	: std_logic_vector(17 downto 0);
+	signal D_T_Q2	: std_logic_vector(17 downto 0);
 	
 	attribute iob					: string;
 	attribute iob of SRAM_RW	: signal is "TRUE";
@@ -60,7 +60,7 @@ begin
 	end process;
 
 	
-	DIO_gen: for I in 0 to 35 generate
+	SRAM_D_gen: for I in SRAM_D'range generate
 		SRAM_D(I) <= D_O_Q(I) when D_T_Q2(I) = '0' else 'Z';		
 	end generate;
 

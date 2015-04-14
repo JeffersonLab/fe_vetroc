@@ -154,8 +154,6 @@ architecture Synthesis of EVTBuilderFull is
 	signal FIFO_FULL						: std_logic;
 	signal FIFO_EMPTY						: std_logic;
 	
-	signal SRAMFIFO_DIN					: std_logic_vector(35 downto 0);
-	signal SRAMFIFO_WR					: std_logic;
 	signal SRAMFIFO_FULL					: std_logic;
 	signal SRAMFIFO_RD					: std_logic;
 	signal SRAMFIFO_DOUT					: std_logic_vector(35 downto 0);
@@ -277,8 +275,8 @@ begin
 			rst		=> RESET,
 			wr_clk	=> CLK,
 			rd_clk	=> CLK,
-			din		=> SRAMFIFO_DIN,
-			wr_en		=> SRAMFIFO_WR,
+			din		=> SRAMFIFO_DOUT,
+			wr_en		=> SRAMFIFO_RD,
 			rd_en		=> FIFO_RD,
 			dout		=> FIFO_DOUT,
 			full		=> FIFO_FULL,
