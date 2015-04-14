@@ -36,7 +36,27 @@ entity evtbuilderfull is
 		USER_FIFO_EVENT_CNT	: out std_logic_vector(31 downto 0);
 		USER_FIFO_BLOCK_CNT	: out std_logic_vector(31 downto 0);
 		EVT_WORD_INT_LEVEL	: in std_logic_vector(15 downto 0); 
-		EVT_NUM_INT_LEVEL		: in std_logic_vector(14 downto 0) 
+		EVT_NUM_INT_LEVEL		: in std_logic_vector(14 downto 0);
+		
+		SRAM_REF_CLK			: in std_logic;
+		
+		-- SRAM Debug Interface
+		SRAM_DBG_WR				: in std_logic;
+		SRAM_DBG_RD				: in std_logic;
+		SRAM_DBG_ADDR			: in std_logic_vector(19 downto 0);
+		SRAM_DBG_DIN			: in std_logic_vector(17 downto 0);
+		SRAM_DBG_DOUT			: out std_logic_vector(17 downto 0);
+		
+		-- SRAM Phy Signals
+		SRAM_CLK					: out std_logic;
+		SRAM_CLK_O				: out std_logic;
+		SRAM_CLK_I				: in std_logic;
+		SRAM_D					: inout std_logic_vector(17 downto 0);
+		SRAM_A					: out std_logic_vector(19 downto 0);
+		SRAM_RW					: out std_logic;
+		SRAM_NOE					: out std_logic;
+		SRAM_CS					: out std_logic;
+		SRAM_ADV					: out std_logic
 	);
 end EVTBuilderFull;
 
@@ -55,6 +75,40 @@ architecture Synthesis of EVTBuilderFull is
 		);
 	end component;
 
+	component sramfifo is
+		port(
+			CLK				: in std_logic;
+			
+			RESET				: in std_logic;
+			
+			FIFO_RD_CLK		: in std_logic;
+			FIFO_WR_CLK		: in std_logic;
+			FIFO_RD			: in std_logic;
+			FIFO_WR			: in std_logic;
+			FIFO_DIN			: in std_logic_vector(35 downto 0);
+			FIFO_DOUT		: out std_logic_vector(35 downto 0);
+			FIFO_EMPTY		: out std_logic;
+			FIFO_FULL		: out std_logic;
+			
+			SRAM_DBG_WR		: in std_logic;
+			SRAM_DBG_RD		: in std_logic;
+			SRAM_DBG_ADDR	: in std_logic_vector(19 downto 0);
+			SRAM_DBG_DIN	: in std_logic_vector(17 downto 0);
+			SRAM_DBG_DOUT	: out std_logic_vector(17 downto 0);
+			
+			-- SRAM Phy Signals
+			SRAM_CLK			: out std_logic;
+			SRAM_CLK_O		: out std_logic;
+			SRAM_CLK_I		: in std_logic;
+			SRAM_D			: inout std_logic_vector(17 downto 0);
+			SRAM_A			: out std_logic_vector(19 downto 0);
+			SRAM_RW			: out std_logic;
+			SRAM_NOE			: out std_logic;
+			SRAM_CS			: out std_logic;
+			SRAM_ADV			: out std_logic
+		);
+	end component;
+	
 	component evtbuilderfull_sm is
 		port(
 			CLK						: in std_logic;
@@ -99,6 +153,13 @@ architecture Synthesis of EVTBuilderFull is
 	signal FIFO_RD							: std_logic;
 	signal FIFO_FULL						: std_logic;
 	signal FIFO_EMPTY						: std_logic;
+	
+	signal SRAMFIFO_DIN					: std_logic_vector(35 downto 0);
+	signal SRAMFIFO_WR					: std_logic;
+	signal SRAMFIFO_FULL					: std_logic;
+	signal SRAMFIFO_RD					: std_logic;
+	signal SRAMFIFO_DOUT					: std_logic_vector(35 downto 0);
+	signal SRAMFIFO_EMPTY				: std_logic;
 	
 	signal BLOCK_CNT						: std_logic_vector(9 downto 0);
 	signal EVENT_CNT						: std_logic_vector(21 downto 0);
@@ -216,14 +277,43 @@ begin
 			rst		=> RESET,
 			wr_clk	=> CLK,
 			rd_clk	=> CLK,
-			din		=> FIFO_DIN,
-			wr_en		=> FIFO_WR,
+			din		=> SRAMFIFO_DIN,
+			wr_en		=> SRAMFIFO_WR,
 			rd_en		=> FIFO_RD,
 			dout		=> FIFO_DOUT,
 			full		=> FIFO_FULL,
 			empty		=> FIFO_EMPTY
 		);
 
+	SRAMFIFO_RD <= '1' when (SRAMFIFO_EMPTY = '0') and (FIFO_FULL = '0') else '0';
+	sramfifo_inst: sramfifo
+		port map(
+			CLK				=> SRAM_REF_CLK,
+			RESET				=> RESET,
+			FIFO_RD_CLK		=> CLK,
+			FIFO_WR_CLK		=> CLK,
+			FIFO_RD			=> SRAMFIFO_RD,
+			FIFO_WR			=> FIFO_WR,
+			FIFO_DIN			=> FIFO_DIN,
+			FIFO_DOUT		=> SRAMFIFO_DOUT,
+			FIFO_EMPTY		=> SRAMFIFO_EMPTY,
+			FIFO_FULL		=> SRAMFIFO_FULL,
+			SRAM_DBG_WR		=> SRAM_DBG_WR,
+			SRAM_DBG_RD		=> SRAM_DBG_RD,
+			SRAM_DBG_ADDR	=> SRAM_DBG_ADDR,
+			SRAM_DBG_DIN	=> SRAM_DBG_DIN,
+			SRAM_DBG_DOUT	=> SRAM_DBG_DOUT,
+			SRAM_CLK			=> SRAM_CLK,
+			SRAM_CLK_O		=> SRAM_CLK_O,
+			SRAM_CLK_I		=> SRAM_CLK_I,
+			SRAM_D			=> SRAM_D,
+			SRAM_A			=> SRAM_A,
+			SRAM_RW			=> SRAM_RW,
+			SRAM_NOE			=> SRAM_NOE,
+			SRAM_CS			=> SRAM_CS,
+			SRAM_ADV			=> SRAM_ADV
+		);
+		
 	TRIG_FIFO_RD <= TRIG_EN;
 	TRIG_EN <= DO_IDLE and not TRIG_FIFO_EMPTY;
 	TRIG_TIME <= TRIG_FIFO_DATA(47 downto 0);
@@ -311,7 +401,7 @@ begin
 			BLOCK_TRAILER_NEEDED	=> BLOCK_TRAILER_NEEDED,
 			FILLER_NEEDED			=> FILLER_NEEDED,
 			EVENT_DATA_DONE		=> ALL_DATA_EVTEND,
-			FIFO_FULL				=> FIFO_FULL,
+			FIFO_FULL				=> SRAMFIFO_FULL,
 			DO_BLOCK_HEADER		=> DO_BLOCK_HEADER,
 			DO_EVENT_HEADER		=> DO_EVENT_HEADER,
 			DO_TRIGGER_TIME0		=> DO_TRIGGER_TIME0,

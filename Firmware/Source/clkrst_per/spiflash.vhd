@@ -30,8 +30,7 @@ begin
 
 	STARTUPE2_inst: STARTUPE2
 		generic map(
-			PROG_USR			=> "FALSE",
-			SIM_CCLK_FREQ	=> 40.0
+			PROG_USR			=> "FALSE"
 		)
 		port map(
 			CFGCLK		=> open,

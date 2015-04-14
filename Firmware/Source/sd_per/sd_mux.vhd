@@ -42,7 +42,7 @@ entity sd_mux is
 		SYNC					: out std_logic;
 		TRIG					: out std_logic;
 		
-		FPGAOUT_SRC			: in slv4a(8 downto 1);
+		FPGAOUT_SRC			: in slv5a(8 downto 1);
 		TOKENFO_SRC			: in std_logic_vector(4 downto 0);
 		TRIGFO_SRC			: in std_logic_vector(4 downto 0);
 		SDLINKF_SRC			: in std_logic_vector(4 downto 0);
@@ -90,8 +90,6 @@ begin
 	SDLINKF_MUX <= MUX_SRC(conv_integer(SDLINKF_SRC));
 	STATA_OUT_MUX <= MUX_SRC(conv_integer(STATA_OUT_SRC));
 	BUSY_OUT_MUX <= MUX_SRC(conv_integer(BUSY_OUT_SRC));
-	SYNC <= MUX_SRC(conv_integer(TRIG_SRC));
-	TRIG <= MUX_SRC(conv_integer(SYNC_SRC));
 
 	-- Sync Signal multiplexing
 	process(CLK)

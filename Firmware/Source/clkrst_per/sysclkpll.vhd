@@ -9,7 +9,8 @@ entity sysclkpll is
 		CLK_33MHZ			: in std_logic;
 		
 		SYSCLK_50_RESET	: out std_logic;
-		SYSCLK_50			: out std_logic
+		SYSCLK_50			: out std_logic;
+		SYSCLK_125			: out std_logic
 	);
 end sysclkpll;
 
@@ -22,6 +23,7 @@ architecture synthesis of sysclkpll is
 	signal SYSCLK_50_i				: std_logic;
 	signal CLKFBOUT					: std_logic;
 	signal CLKOUT0						: std_logic;
+	signal CLKOUT1						: std_logic;
 begin
 
 	SYSCLK_50 <= SYSCLK_50_i;
@@ -59,13 +61,17 @@ begin
 			COMPENSATION         => "ZHOLD",
 			STARTUP_WAIT         => FALSE,
 			DIVCLK_DIVIDE        => 1,
-			CLKFBOUT_MULT_F      => 18.000,
+			CLKFBOUT_MULT_F      => 30.000,
 			CLKFBOUT_PHASE       => 0.000,
 			CLKFBOUT_USE_FINE_PS => FALSE,
-			CLKOUT0_DIVIDE_F     => 12.000,
+			CLKOUT0_DIVIDE_F     => 20.000,
 			CLKOUT0_PHASE        => 0.000,
 			CLKOUT0_DUTY_CYCLE   => 0.5,
 			CLKOUT0_USE_FINE_PS  => FALSE,
+			CLKOUT1_DIVIDE			=> 8,
+			CLKOUT1_PHASE			=> 0.000,
+			CLKOUT1_DUTY_CYCLE   => 0.5,
+			CLKOUT1_USE_FINE_PS  => FALSE,
 			CLKIN1_PERIOD        => 30.000,
 			REF_JITTER1          => 0.010
 		)
@@ -74,7 +80,7 @@ begin
 			CLKFBOUTB            => open,
 			CLKOUT0              => CLKOUT0,
 			CLKOUT0B             => open,
-			CLKOUT1              => open,
+			CLKOUT1              => CLKOUT1,
 			CLKOUT1B             => open,
 			CLKOUT2              => open,
 			CLKOUT2B             => open,
@@ -109,6 +115,12 @@ begin
 		port map(
 			I     => CLKOUT0,
 			O     => SYSCLK_50_i
+		);
+		
+	bufg_clk125mhz: BUFG
+		port map(
+			I     => CLKOUT1,
+			O     => SYSCLK_125
 		);
 
 	process(SYSCLK_50_i, SYSCLK_PLLLOCKED)

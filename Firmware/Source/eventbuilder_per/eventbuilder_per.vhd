@@ -59,6 +59,19 @@ entity eventbuilder_per is
 		USER_FIFO_EMPTY_2		: out std_logic;
 		USER_FIFO_RDREQ_2		: in std_logic;
 
+		SRAM_REF_CLK			: in std_logic;
+		
+		-- SRAM Phy Signals
+		SRAM_CLK					: out std_logic;
+		SRAM_CLK_O				: out std_logic;
+		SRAM_CLK_I				: in std_logic;
+		SRAM_D					: inout std_logic_vector(17 downto 0);
+		SRAM_A					: out std_logic_vector(19 downto 0);
+		SRAM_RW					: out std_logic;
+		SRAM_NOE					: out std_logic;
+		SRAM_CS					: out std_logic;
+		SRAM_ADV					: out std_logic;
+			
 		-- Bus interface ports -----------------------------
 		BUS_CLK					: in std_logic;
 		BUS_RESET				: in std_logic;
@@ -131,7 +144,27 @@ architecture Synthesis of eventbuilder_per is
 			USER_FIFO_EVENT_CNT	: out std_logic_vector(31 downto 0);
 			USER_FIFO_BLOCK_CNT	: out std_logic_vector(31 downto 0);
 			EVT_WORD_INT_LEVEL	: in std_logic_vector(15 downto 0); 
-			EVT_NUM_INT_LEVEL		: in std_logic_vector(14 downto 0) 
+			EVT_NUM_INT_LEVEL		: in std_logic_vector(14 downto 0);
+			
+			SRAM_REF_CLK			: in std_logic;
+			
+			-- SRAM Debug Interface
+			SRAM_DBG_WR				: in std_logic;
+			SRAM_DBG_RD				: in std_logic;
+			SRAM_DBG_ADDR			: in std_logic_vector(19 downto 0);
+			SRAM_DBG_DIN			: in std_logic_vector(17 downto 0);
+			SRAM_DBG_DOUT			: out std_logic_vector(17 downto 0);
+			
+			-- SRAM Phy Signals
+			SRAM_CLK					: out std_logic;
+			SRAM_CLK_O				: out std_logic;
+			SRAM_CLK_I				: in std_logic;
+			SRAM_D					: inout std_logic_vector(17 downto 0);
+			SRAM_A					: out std_logic_vector(19 downto 0);
+			SRAM_RW					: out std_logic;
+			SRAM_NOE					: out std_logic;
+			SRAM_CS					: out std_logic;
+			SRAM_ADV					: out std_logic
 		);
 	end component;
 
@@ -171,7 +204,10 @@ architecture Synthesis of eventbuilder_per is
 	signal FIFO_BLOCK_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIFO_WORD_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIFO_EVENT_CNT_REG		: std_logic_vector(31 downto 0) := x"00000000";
-
+	signal SRAM_DIN_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	signal SRAM_DOUT_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	signal SRAM_CTRL_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	
 	-- Register bits
 	signal TRIG_FIFO_BUSY_THR		: std_logic_vector(7 downto 0);
 	signal LOOKBACK					: std_logic_vector(9 downto 0);
@@ -184,6 +220,11 @@ architecture Synthesis of eventbuilder_per is
 	signal USER_FIFO_BLOCK_CNT		: std_logic_vector(31 downto 0);
 	signal EVT_WORD_INT_LEVEL		: std_logic_vector(15 downto 0);
 	signal EVT_NUM_INT_LEVEL		: std_logic_vector(14 downto 0);
+	signal SRAM_DBG_WR				: std_logic;
+	signal SRAM_DBG_RD				: std_logic;
+	signal SRAM_DBG_ADDR				: std_logic_vector(19 downto 0);
+	signal SRAM_DBG_DIN				: std_logic_vector(17 downto 0);
+	signal SRAM_DBG_DOUT				: std_logic_vector(17 downto 0);
 
 	-- to channel event builders
 	signal BLD_DATA					: std_logic_vector(32 downto 0);
@@ -240,7 +281,22 @@ begin
 			USER_FIFO_EVENT_CNT	=> USER_FIFO_EVENT_CNT,
 			USER_FIFO_BLOCK_CNT	=> USER_FIFO_BLOCK_CNT,
 			EVT_WORD_INT_LEVEL	=> EVT_WORD_INT_LEVEL,
-			EVT_NUM_INT_LEVEL		=> EVT_NUM_INT_LEVEL
+			EVT_NUM_INT_LEVEL		=> EVT_NUM_INT_LEVEL,
+			SRAM_REF_CLK			=> SRAM_REF_CLK,
+			SRAM_DBG_WR				=> SRAM_DBG_WR,
+			SRAM_DBG_RD				=> SRAM_DBG_RD,
+			SRAM_DBG_ADDR			=> SRAM_DBG_ADDR,
+			SRAM_DBG_DIN			=> SRAM_DBG_DIN,
+			SRAM_DBG_DOUT			=> SRAM_DBG_DOUT,
+			SRAM_CLK					=> SRAM_CLK,
+			SRAM_CLK_O				=> SRAM_CLK_O,
+			SRAM_CLK_I				=> SRAM_CLK_I,
+			SRAM_D					=> SRAM_D,
+			SRAM_A					=> SRAM_A,
+			SRAM_RW					=> SRAM_RW,
+			SRAM_NOE					=> SRAM_NOE,
+			SRAM_CS					=> SRAM_CS,
+			SRAM_ADV					=> SRAM_ADV
 		);
 
 	evtbuilderstage_inst: evtbuilderstage
@@ -337,6 +393,17 @@ begin
 	--READOUT_STATUS_REG
 	READOUT_STATUS_REG(0) <= TOKEN_STATUS;
 
+	--SRAM_DIN_REG
+	SRAM_DBG_DIN <= SRAM_DIN_REG(17 downto 0);
+	
+	--SRAM_DOUT_REG
+	SRAM_DIN_REG(17 downto 0) <= SRAM_DBG_DOUT;
+	
+	--SRAM_CTRL_REG
+	SRAM_DBG_ADDR <= SRAM_CTRL_REG(19 downto 0);
+	SRAM_DBG_WR <= SRAM_CTRL_REG(31);
+	SRAM_DBG_RD <= SRAM_CTRL_REG(30);
+
 	process(BUS_CLK)
 	begin
 		if rising_edge(BUS_CLK) then
@@ -353,7 +420,10 @@ begin
 			ro_reg(		REG => FIFO_BLOCK_CNT_REG	,PI=>PI,PO=>PO, A => x"0020", RO => x"FFFFFFFF");
 			ro_reg(		REG => FIFO_WORD_CNT_REG	,PI=>PI,PO=>PO, A => x"0024", RO => x"FFFFFFFF");
 			ro_reg(		REG => FIFO_EVENT_CNT_REG	,PI=>PI,PO=>PO, A => x"0028", RO => x"FFFFFFFF");
-			rw_reg(		REG => TRIG_FIFO_REG			,PI=>PI,PO=>PO, A => x"002C", RW => x"000000FF", I => x"00000002");
+			rw_reg(		REG => TRIG_FIFO_REG			,PI=>PI,PO=>PO, A => x"002C", RW => x"000000FF", I => x"00000002");			
+			ro_reg(		REG => SRAM_DIN_REG			,PI=>PI,PO=>PO, A => x"0030", RO => x"0003FFFF");
+			wo_reg(		REG => SRAM_DOUT_REG			,PI=>PI,PO=>PO, A => x"0034", WO => x"0003FFFF");
+			rw_reg(		REG => SRAM_CTRL_REG			,PI=>PI,PO=>PO, A => x"0038", RW => x"C00FFFFF", R => x"C0000000");
 		end if;
 	end process;
 

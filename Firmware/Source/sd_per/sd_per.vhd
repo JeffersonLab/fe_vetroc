@@ -141,7 +141,7 @@ architecture synthesis of sd_per is
 			SYNC					: out std_logic;
 			TRIG					: out std_logic;
 			
-			FPGAOUT_SRC			: in slv4a(8 downto 1);
+			FPGAOUT_SRC			: in slv5a(8 downto 1);
 			TOKENFO_SRC			: in std_logic_vector(4 downto 0);
 			TRIGFO_SRC			: in std_logic_vector(4 downto 0);
 			SDLINKF_SRC			: in std_logic_vector(4 downto 0);
@@ -207,7 +207,7 @@ architecture synthesis of sd_per is
 
 	signal SCALER_LATCH_REG			: std_logic_vector(31 downto 0) := x"00000000";
 
-	signal FPGAOUT_SRC_REG			: slv4a(8 downto 1) := (others=>x"00000000");
+	signal FPGAOUT_SRC_REG			: slv32a(8 downto 1) := (others=>x"00000000");
 	signal TOKENFO_SRC_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal TRIGFO_SRC_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal SDLINKF_SRC_REG			: std_logic_vector(31 downto 0) := x"00000000";
@@ -264,7 +264,7 @@ architecture synthesis of sd_per is
 	signal SCALER_STATA_OUT			: std_logic_vector(31 downto 0);
 	signal SCALER_BUSY_OUT			: std_logic_vector(31 downto 0);
 
-	signal FPGAOUT_SRC				: slv4a(8 downto 1);
+	signal FPGAOUT_SRC				: slv5a(8 downto 1);
 	signal TOKENFO_SRC				: std_logic_vector(4 downto 0);
 	signal TRIGFO_SRC					: std_logic_vector(4 downto 0);
 	signal SDLINKF_SRC				: std_logic_vector(4 downto 0);
@@ -455,8 +455,10 @@ begin
 
 	-----------------------------------
 	-- Register *_SRC Mapping
-	-----------------------------------	
-	FPGAOUT_SRC <= FPGAOUT_SRC_REG(4 downto 0);
+	-----------------------------------
+	FPGAOUT_SRC_gen: for I in FPGAOUT_SRC'range generate
+		FPGAOUT_SRC(I) <= FPGAOUT_SRC_REG(I)(4 downto 0);
+	end generate;
 	TOKENFO_SRC <= TOKENFO_SRC_REG(4 downto 0);
 	TRIGFO_SRC <= TRIGFO_SRC_REG(4 downto 0);
 	SDLINKF_SRC <= SDLINKF_SRC_REG(4 downto 0);

@@ -31,6 +31,7 @@ entity clkrst_per is
 		-- Generated Clocks
 		SYSCLK_50_RESET		: out std_logic;
 		SYSCLK_50				: out std_logic;
+		SYSCLK_125				: out std_logic;
 
 		GCLK_125_RESET			: out std_logic;
 		GCLK_125					: out std_logic;
@@ -67,7 +68,8 @@ architecture synthesis of clkrst_per is
 			CLK_33MHZ			: in std_logic;
 			
 			SYSCLK_50_RESET	: out std_logic;
-			SYSCLK_50			: out std_logic
+			SYSCLK_50			: out std_logic;
+			SYSCLK_125			: out std_logic
 		);
 	end component;
 
@@ -149,7 +151,8 @@ begin
 		port map(
 			CLK_33MHZ			=> CLKPRGC,
 			SYSCLK_50_RESET	=> SYSCLK_50_RESET,
-			SYSCLK_50			=> SYSCLK_50
+			SYSCLK_50			=> SYSCLK_50,
+			SYSCLK_125			=> SYSCLK_125
 		);
 
 	gclkpll_inst: gclkpll

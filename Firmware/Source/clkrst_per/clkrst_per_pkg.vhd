@@ -30,6 +30,7 @@ package clkrst_per_pkg is
 			-- Generated Clocks
 			SYSCLK_50_RESET		: out std_logic;
 			SYSCLK_50				: out std_logic;
+			SYSCLK_125				: out std_logic;
 
 			GCLK_125_RESET			: out std_logic;
 			GCLK_125					: out std_logic;

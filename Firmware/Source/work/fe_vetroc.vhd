@@ -181,6 +181,7 @@ architecture synthesis of fe_vetroc is
 
 	signal SYSCLK_50_RESET		: std_logic;
 	signal SYSCLK_50				: std_logic;
+	signal SYSCLK_125				: std_logic;
 	signal GCLK_125_RESET		: std_logic;
 	signal GCLK_125				: std_logic;
 	signal GCLK_250				: std_logic;
@@ -405,6 +406,16 @@ begin
 			USER_FIFO_DATA_2		=> USER_FIFO_DATA_2,
 			USER_FIFO_EMPTY_2		=> USER_FIFO_EMPTY_2,
 			USER_FIFO_RDREQ_2		=> USER_FIFO_RDREQ_2,
+			SRAM_REF_CLK			=> SYSCLK_125,
+			SRAM_CLK					=> MEMCLK,
+			SRAM_CLK_O				=> CLKLOOP_O,
+			SRAM_CLK_I				=> CLKLOOP_I,
+			SRAM_D					=> MEMD,
+			SRAM_A					=> MEMA,
+			SRAM_RW					=> MEMRWB,
+			SRAM_NOE					=> open,
+			SRAM_CS					=> MEMCE2,
+			SRAM_ADV					=> MEMLDB,
 			BUS_CLK					=> BUS_CLK,
 			BUS_RESET				=> BUS_RESET,
 			BUS_RESET_SOFT			=> BUS_RESET_SOFT,
@@ -435,6 +446,7 @@ begin
 			PCSWCFG					=> PCSWCFG,
 			SYSCLK_50_RESET		=> SYSCLK_50_RESET,
 			SYSCLK_50				=> SYSCLK_50,
+			SYSCLK_125				=> SYSCLK_125,
 			GCLK_125_RESET			=> GCLK_125_RESET,
 			GCLK_125					=> GCLK_125,
 			GCLK_250					=> GCLK_250,

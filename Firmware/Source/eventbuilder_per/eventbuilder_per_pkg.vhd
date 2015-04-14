@@ -75,6 +75,19 @@ package eventbuilder_per_pkg is
 			USER_FIFO_EMPTY_2		: out std_logic;
 			USER_FIFO_RDREQ_2		: in std_logic;
 
+			SRAM_REF_CLK			: in std_logic;
+			
+			-- SRAM Phy Signals
+			SRAM_CLK					: out std_logic;
+			SRAM_CLK_O				: out std_logic;
+			SRAM_CLK_I				: in std_logic;
+			SRAM_D					: inout std_logic_vector(17 downto 0);
+			SRAM_A					: out std_logic_vector(19 downto 0);
+			SRAM_RW					: out std_logic;
+			SRAM_NOE					: out std_logic;
+			SRAM_CS					: out std_logic;
+			SRAM_ADV					: out std_logic;
+
 			-- Bus interface ports -----------------------------
 			BUS_CLK					: in std_logic;
 			BUS_RESET				: in std_logic;
