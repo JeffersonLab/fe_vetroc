@@ -28,6 +28,11 @@ entity clkrst_per is
 		PCLKSIN2					: out std_logic;
 		PCSWCFG					: out std_logic;
 
+		CLKREFA_P				: in std_logic;
+		CLKREFA_N				: in std_logic;
+
+		CLKREFA					: out std_logic;
+
 		-- Generated Clocks
 		SYSCLK_50_RESET		: out std_logic;
 		SYSCLK_50				: out std_logic;
@@ -146,6 +151,20 @@ architecture synthesis of clkrst_per is
 	signal GCLK_125_REF_RST			: std_logic;
 	signal GCLK_PLLLOCKED			: std_logic;
 begin
+
+	IBUFDS_GTE2_inst: IBUFDS_GTE2
+		generic map(
+			CLKCM_CFG		=> TRUE,
+			CLKRCV_TRST		=> TRUE,
+			CLKSWING_CFG	=> "11"
+		)
+		port map(
+			O		=> CLKREFA,
+			ODIV2	=> open,
+			CEB	=> '0',
+			I		=> CLKREFA_P,
+			IB		=> CLKREFA_N
+		);
 
 	sysclkpll_inst: sysclkpll
 		port map(

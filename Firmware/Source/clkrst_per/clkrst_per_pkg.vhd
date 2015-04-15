@@ -27,6 +27,11 @@ package clkrst_per_pkg is
 			PCLKSIN2					: out std_logic;
 			PCSWCFG					: out std_logic;
 
+			CLKREFA_P				: in std_logic;
+			CLKREFA_N				: in std_logic;
+
+			CLKREFA					: out std_logic;
+
 			-- Generated Clocks
 			SYSCLK_50_RESET		: out std_logic;
 			SYSCLK_50				: out std_logic;

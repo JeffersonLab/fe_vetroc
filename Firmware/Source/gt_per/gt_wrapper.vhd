@@ -44,10 +44,6 @@ entity gt_wrapper is
 		PRBS_SEL			: in std_logic_vector(2 downto 0);
 		ERR_RST			: in std_logic;
 		ERR_CNT			: in slv16a(0 to 1);
-		RXEQMIX			: in slv2a(0 to 1);
-		TXPREEMPHASIS	: in slv3a(0 to 1);
-		TXBUFDIFFCTRL	: in slv3a(0 to 1);
-		TXDIFFCTRL		: in slv3a(0 to 1);
 
 		HARD_ERR			: out std_logic;
 		LANE_UP			: out std_logic_vector(0 to 1);
@@ -239,6 +235,13 @@ architecture synthesis of gt_wrapper is
 	signal DRPRDY_OUT						: std_logic_vector(0 to 1);
 	signal SOFT_ERR			: std_logic;
 begin
+			RESET								: in  std_logic;
+			POWER_DOWN						: in  std_logic;
+			GT_RESET							: in  std_logic;
+			PLL_NOT_LOCKED					: in  std_logic;
+			TX_RESETDONE_OUT				: out std_logic;
+			RX_RESETDONE_OUT				: out std_logic;
+			LINK_RESET_OUT					: out std_logic; 
 
 	gtp2e_aurora_8b10b_core_inst: gtp2e_aurora_8b10b_core
 		generic map(
@@ -272,7 +275,7 @@ begin
 			PLL_NOT_LOCKED					: in  std_logic;
 			TX_RESETDONE_OUT				: out std_logic;
 			RX_RESETDONE_OUT				: out std_logic;
-			LINK_RESET_OUT					: out std_logic; 
+			LINK_RESET_OUT					=> open,
 			drpclk_in						=> DRP_CLK,
 			DRPADDR_IN						=> DRP_ADDR,
 			DRPDI_IN							=> DRP_DI,
@@ -286,121 +289,91 @@ begin
 			DRPEN_IN_LANE1					=> DRP_DEN(1),
 			DRPRDY_OUT_LANE1				=> DRPRDY_OUT(1),
 			DRPWE_IN_LANE1					=> DRP_DWE,
-
-
-
-
-			TX_OUT_CLK						: out std_logic;
+			TX_OUT_CLK						=> open,
 			gt_common_reset_out			: out std_logic;
-			--____________________________COMMON PORTS_______________________________{
 			gt0_pll0refclklost_in		: in  std_logic;
 			quad1_common_lock_in			: in  std_logic;
-			------------------------- Channel - Ref Clock Ports ------------------------
 			GT0_PLL0OUTCLK_IN				: in   std_logic;
 			GT0_PLL1OUTCLK_IN				: in   std_logic;
 			GT0_PLL0OUTREFCLK_IN			: in   std_logic;
 			GT0_PLL1OUTREFCLK_IN			: in   std_logic;
-			--____________________________COMMON PORTS_______________________________}
-
 			gt0_rxlpmhfhold_in			: in   std_logic;
 			gt0_rxlpmlfhold_in			: in   std_logic;
 			gt0_rxlpmhfovrden_in			: in   std_logic;
 			gt0_rxlpmreset_in				: in   std_logic;
 			gt0_rxcdrhold_in				: in   std_logic;
 			gt0_eyescanreset_in			: in   std_logic;
-			-------------------------- RX Margin Analysis Ports ------------------------
 			gt0_eyescandataerror_out	: out  std_logic;
 			gt0_eyescantrigger_in		: in   std_logic;
 			gt0_rxbyteisaligned_out		: out  std_logic;
 			gt0_rxcommadet_out			: out  std_logic;
-			------------------- Receive Ports - Pattern Checker Ports ------------------
 			gt0_rxprbserr_out				: out  std_logic;
-			gt0_rxprbssel_in				: in   std_logic_vector(2 downto 0);
-			------------------- Receive Ports - Pattern Checker ports ------------------
+			gt0_rxprbssel_in				=> PRBS_SEL,
 			gt0_rxprbscntreset_in		: in   std_logic;
-			------------------- Receive Ports - RX Data Path interface -----------------
 			gt0_rxpcsreset_in				: in   std_logic;
 			gt0_rxpmareset_in				: in   std_logic;
 			gt0_rxpmaresetdone_out		: out    std_logic;
-			gt0_dmonitorout_out			: out  std_logic_vector(14 downto 0);
-			-------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
+			gt0_dmonitorout_out			=> open,
 			gt0_rxbufreset_in				: in   std_logic;
 			gt0_rxresetdone_out			: out  std_logic;
 			gt0_txresetdone_out			: out  std_logic;
-			gt0_txbufstatus_out			: out  std_logic_vector(1 downto 0);
-			gt0_rxbufstatus_out			: out  std_logic_vector(2 downto 0);
-			------------------ Transmit Ports - Pattern Generator Ports ----------------
-			gt0_txprbsforceerr_in		: in   std_logic;
-			gt0_txprbssel_in				: in   std_logic_vector(2 downto 0); 
-			------------------- Transmit Ports - TX Data Path interface -----------------
+			gt0_txbufstatus_out			=> open,
+			gt0_rxbufstatus_out			=> open,
+			gt0_txprbsforceerr_in		=> '0',
+			gt0_txprbssel_in				=> PRBS_SEL,
 			gt0_txpcsreset_in				: in   std_logic;
 			gt0_txpmareset_in				: in   std_logic;
-			------------------------ TX Configurable Driver Ports ----------------------
 			gt0_txpostcursor_in			: in   std_logic_vector(4 downto 0);
 			gt0_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
 			gt0_txchardispmode_in		: in   std_logic_vector(1 downto 0);
 			gt0_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt0_txdiffctrl_in				: in   std_logic_vector(3 downto 0);
+			gt0_txdiffctrl_in				=> "1000",
 			gt0_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			----------------- Transmit Ports - TX Polarity Control Ports ---------------
 			gt0_txpolarity_in				=> TX_POLARITY(0),
 			gt0_rx_disp_err_out			=> open,
 			gt0_rx_not_in_table_out		=> open,
 			gt0_rx_realign_out			=> open,
 			gt0_rx_buf_err_out			=> open,
 			gt0_tx_buf_err_out			=> open,
-
 			gt1_rxlpmhfhold_in			: in   std_logic;
 			gt1_rxlpmlfhold_in			: in   std_logic;
 			gt1_rxlpmhfovrden_in			: in   std_logic;
 			gt1_rxlpmreset_in				: in   std_logic;
 			gt1_rxcdrhold_in				: in   std_logic;
 			gt1_eyescanreset_in			: in   std_logic;
-			-------------------------- RX Margin Analysis Ports ------------------------
 			gt1_eyescandataerror_out	: out  std_logic;
 			gt1_eyescantrigger_in		: in   std_logic;
 			gt1_rxbyteisaligned_out		: out  std_logic;
 			gt1_rxcommadet_out			: out  std_logic;
-			------------------- Receive Ports - Pattern Checker Ports ------------------
 			gt1_rxprbserr_out				: out  std_logic;
-			gt1_rxprbssel_in				: in   std_logic_vector(2 downto 0);
-			------------------- Receive Ports - Pattern Checker ports ------------------
+			gt1_rxprbssel_in				=> PRBS_SEL,
 			gt1_rxprbscntreset_in		: in   std_logic;
-			------------------- Receive Ports - RX Data Path interface -----------------
 			gt1_rxpcsreset_in				: in   std_logic;
 			gt1_rxpmareset_in				: in   std_logic;
 			gt1_rxpmaresetdone_out		: out    std_logic;
-			gt1_dmonitorout_out			: out  std_logic_vector(14 downto 0);
-			-------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
+			gt1_dmonitorout_out			=> open,
 			gt1_rxbufreset_in				: in   std_logic;
 			gt1_rxresetdone_out			: out  std_logic;
 			gt1_txresetdone_out			: out  std_logic;
-			gt1_txbufstatus_out			: out  std_logic_vector(1 downto 0);
-			gt1_rxbufstatus_out			: out  std_logic_vector(2 downto 0);
-			------------------ Transmit Ports - Pattern Generator Ports ----------------
-			gt1_txprbsforceerr_in		: in   std_logic;
-			gt1_txprbssel_in				: in   std_logic_vector(2 downto 0); 
-			------------------- Transmit Ports - TX Data Path interface -----------------
+			gt1_txbufstatus_out			=> open,
+			gt1_rxbufstatus_out			=> open,
+			gt1_txprbsforceerr_in		=> '0',
+			gt1_txprbssel_in				=> PRBS_SEL,
 			gt1_txpcsreset_in				: in   std_logic;
 			gt1_txpmareset_in				: in   std_logic;
-			------------------------ TX Configurable Driver Ports ----------------------
 			gt1_txpostcursor_in			: in   std_logic_vector(4 downto 0);
 			gt1_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
 			gt1_txchardispmode_in		: in   std_logic_vector(1 downto 0);
 			gt1_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt1_txdiffctrl_in				: in   std_logic_vector(3 downto 0);
+			gt1_txdiffctrl_in				=> "1000",
 			gt1_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			----------------- Transmit Ports - TX Polarity Control Ports ---------------
 			gt1_txpolarity_in				=> TX_POLARITY(1),
 			gt1_rx_disp_err_out			=> open,
 			gt1_rx_not_in_table_out		=> open,
 			gt1_rx_realign_out			=> open,
 			gt1_rx_buf_err_out			=> open,
 			gt1_tx_buf_err_out			=> open,
-
-			sys_reset_out					: out std_logic;
+			sys_reset_out					=> open,
 			TX_LOCK							=> TX_LOCK
 		);
 
