@@ -669,6 +669,19 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
+    <FileSet Name="gtp2e_aurora_8b10b" Type="BlockSrcs" RelSrcDir="$PSRCDIR/gtp2e_aurora_8b10b">
+      <File Path="$PSRCDIR/sources_1/ip/gtp2e_aurora_8b10b/gtp2e_aurora_8b10b.xci">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="gtp2e_aurora_8b10b"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
   </FileSets>
   <Simulators>
     <Simulator Name="XSim">
@@ -740,6 +753,15 @@
     <Run Id="sramfifo_rd_if_synth_1" Type="Ft3:Synth" SrcSet="sramfifo_rd_if" Part="xc7a200tffg1156-2" ConstrsSet="sramfifo_rd_if" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/sramfifo_rd_if_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+    </Run>
+    <Run Id="gtp2e_aurora_8b10b_synth_1" Type="Ft3:Synth" SrcSet="gtp2e_aurora_8b10b" Part="xc7a200tffg1156-2" ConstrsSet="gtp2e_aurora_8b10b" Description="Vivado Synthesis Defaults" Dir="$PRUNDIR/gtp2e_aurora_8b10b_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2014">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -846,6 +868,22 @@
     <Run Id="sramfifo_rd_if_impl_1" Type="Ft2:EntireDesign" Part="xc7a200tffg1156-2" ConstrsSet="sramfifo_rd_if" Description="Vivado Implementation Defaults" SynthRun="sramfifo_rd_if_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+    </Run>
+    <Run Id="gtp2e_aurora_8b10b_impl_1" Type="Ft2:EntireDesign" Part="xc7a200tffg1156-2" ConstrsSet="gtp2e_aurora_8b10b" Description="Vivado Implementation Defaults" SynthRun="gtp2e_aurora_8b10b_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2014">
+          <Desc>Vivado Implementation Defaults</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
