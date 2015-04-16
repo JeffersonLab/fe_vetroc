@@ -10,7 +10,7 @@ use utils.utils_pkg.all;
 library la;
 use la.la_pkg.all;
 
-entity gxbvxs_mon is
+entity gt_mon is
 	port(
 		CLK				: in std_logic;
 
@@ -28,9 +28,9 @@ entity gxbvxs_mon is
 		LA_DO				: out slv32a(1 downto 0);
 		LA_RDEN			: in std_logic_vector(1 downto 0)
 	);
-end gxbvxs_mon;
+end gt_mon;
 
-architecture synthesis of gxbvxs_mon is
+architecture synthesis of gt_mon is
 	constant LA_RAM_NUM		: integer := 2;
 
 	signal LA_RDADDR_LD		: std_logic_vector(LA_RAM_NUM-1 downto 0);

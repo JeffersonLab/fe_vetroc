@@ -5,24 +5,24 @@ use ieee.std_logic_unsigned.all;
 
 use work.perbus_pkg.all;
 
-package gtxvxs_per_pkg is
+package gt_per_pkg is
 
-	component gtxvxs_per is
+	component gt_per is
 		generic(
-			SIM_GTXRESET_SPEEDUP	: integer := 0;
+			SIM_GTRESET_SPEEDUP	: string := "FALSE";
 			ADDR_INFO				: PER_ADDR_INFO
 		);
 		port(
 			-- User ports --------------------------------------
-			GTXD10       	: in std_logic;
+			GT_REFCLK     	: in std_logic;
 			RXP				: in std_logic_vector(0 to 1);
 			RXN				: in std_logic_vector(0 to 1);
 			TXP				: out std_logic_vector(0 to 1);
 			TXN				: out std_logic_vector(0 to 1);
 
 			CLK				: in std_logic;
-			TX_D				: in  std_logic_vector(31 downto 0);
-			TX_SRC_RDY_N	: in  std_logic;
+			TX_D				: in std_logic_vector(31 downto 0);
+			TX_SRC_RDY_N	: in std_logic;
 
 			-- Bus interface ports -----------------------------
 			BUS_CLK			: in std_logic;
@@ -37,4 +37,4 @@ package gtxvxs_per_pkg is
 		);
 	end component;
 
-end gtxvxs_per_pkg;
+end gt_per_pkg;

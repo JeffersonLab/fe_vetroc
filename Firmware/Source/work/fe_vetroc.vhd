@@ -12,8 +12,13 @@ use work.perbus_pkg.all;
 use work.tdc_proc_per_pkg.all;
 use work.sd_per_pkg.all;
 use work.eventbuilder_per_pkg.all;
+use work.gt_per_pkg.all;
+use work.trigger_per_pkg.all;
 
 entity fe_vetroc is
+	generic(
+		SIM_GTRESET_SPEEDUP	: string := "FALSE"
+	);
 	port(
 		-- VME BUS Interface
 		A_CLKAB		: out std_logic;
@@ -124,10 +129,10 @@ entity fe_vetroc is
 		CLKREFA_P	: in std_logic;
 		CLKREFA_N	: in std_logic;
 		
-		CTPRX_P		: in std_logic_vector(1 to 4);
-		CTPRX_N		: in std_logic_vector(1 to 4);
-		CTPTX_P		: out std_logic_vector(1 to 4);
-		CTPTX_N		: out std_logic_vector(1 to 4);
+		CTPRX_P		: in std_logic_vector(3 to 4);
+		CTPRX_N		: in std_logic_vector(3 to 4);
+		CTPTX_P		: out std_logic_vector(3 to 4);
+		CTPTX_N		: out std_logic_vector(3 to 4);
 
 		-- Clocks & Config
 		CLK125F_P	: in std_logic;	-- Note: labeled CLK250F_P on schematic
@@ -186,13 +191,14 @@ architecture synthesis of fe_vetroc is
 	signal GCLK_125				: std_logic;
 	signal GCLK_250				: std_logic;
 	signal GCLK_500				: std_logic;
+	signal CLKREFA					: std_logic;
 
 	signal TRIG						: std_logic;
 	signal SYNC						: std_logic;
 	signal BUSY						: std_logic;
 	signal SCALER_LATCH			: std_logic;
 	signal SCALER_RESET			: std_logic;
-	signal SYNC_ARRAY				: std_logic_vector(7 downto 0);
+	signal SYNC_ARRAY				: std_logic_vector(8 downto 0);
 
 	-- Peripheral bus interconnect signals
 	signal BUS_CLK					: std_logic;
@@ -246,6 +252,9 @@ architecture synthesis of fe_vetroc is
 	
 	signal HIT							: std_logic_vector(127 downto 0);
 	signal HIT_TRIG					: std_logic_vector(127 downto 0);
+
+	signal GT_TX_D						: std_logic_vector(31 downto 0);
+	signal GT_TX_SRC_RDY_N			: std_logic;
 begin
 
 	BUS_CLK <= SYSCLK_50;
@@ -444,6 +453,9 @@ begin
 			PCLKSIN1					=> PCLKSIN1,
 			PCLKSIN2					=> PCLKSIN2,
 			PCSWCFG					=> PCSWCFG,
+			CLKREFA_P				=> CLKREFA_P,
+			CLKREFA_N				=> CLKREFA_N,
+			CLKREFA					=> CLKREFA,
 			SYSCLK_50_RESET		=> SYSCLK_50_RESET,
 			SYSCLK_50				=> SYSCLK_50,
 			SYSCLK_125				=> SYSCLK_125,
@@ -547,6 +559,58 @@ begin
 			BUS_WR				=> BUS_WR,
 			BUS_RD				=> BUS_RD,
 			BUS_ACK				=> BUS_ACK_ARRAY(PER_ID_SD)
+		);
+
+	-----------------------------------------------------
+	-- Gigabit Transceiver peripheral -> CTP Lanes 2,3
+	-----------------------------------------------------
+	gt_per_swa23_inst: gt_per
+		generic map(
+			SIM_GTRESET_SPEEDUP	=> SIM_GTRESET_SPEEDUP,
+			ADDR_INFO				=> PER_ADDR_INFO_CFG(PER_ID_GT_SWA23)
+		)
+		port map(
+			GT_REFCLK   	  		=> CLKREFA,
+			RXP						=> CTPRX_P(3 to 4),
+			RXN						=> CTPRX_N(3 to 4),
+			TXP						=> CTPTX_P(3 to 4),
+			TXN						=> CTPTX_N(3 to 4),
+			CLK						=> GCLK_125,
+			TX_D						=> GT_TX_D,
+			TX_SRC_RDY_N			=> GT_TX_SRC_RDY_N,
+			BUS_CLK					=> BUS_CLK,
+			BUS_RESET				=> BUS_RESET,
+			BUS_RESET_SOFT			=> BUS_RESET_SOFT,
+			BUS_DIN					=> BUS_DIN,
+			BUS_DOUT					=> BUS_DOUT_ARRAY(PER_ID_GT_SWA23),
+			BUS_ADDR					=> BUS_ADDR,
+			BUS_WR					=> BUS_WR,
+			BUS_RD					=> BUS_RD,
+			BUS_ACK					=> BUS_ACK_ARRAY(PER_ID_GT_SWA23)
+		);
+
+	-----------------------------------------------------
+	-- Trigger Data Path
+	-----------------------------------------------------
+	trigger_per_inst: trigger_per
+--		generic(
+--			ADDR_INFO				: PER_ADDR_INFO
+--		)
+		port map(
+			CLK					=> GCLK_125,
+			SYNC					=> SYNC_ARRAY(8),
+			HIT_TRIG				=> HIT_TRIG,
+			GT_TX_D				=> GT_TX_D,
+			GT_TX_SRC_RDY_N	=> GT_TX_SRC_RDY_N
+-- 			BUS_CLK				: in std_logic;
+-- 			BUS_RESET			: in std_logic;
+-- 			BUS_RESET_SOFT		: in std_logic;
+-- 			BUS_DIN				: in std_logic_vector(D_WIDTH-1 downto 0);
+-- 			BUS_DOUT				: out std_logic_vector(D_WIDTH-1 downto 0);
+-- 			BUS_ADDR				: in std_logic_vector(A_WIDTH-1 downto 0);
+-- 			BUS_WR				: in std_logic;
+-- 			BUS_RD				: in std_logic;
+-- 			BUS_ACK				: out std_logic
 		);
 
 end synthesis;

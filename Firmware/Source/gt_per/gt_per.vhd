@@ -8,14 +8,14 @@ use utils.utils_pkg.all;
 
 use work.perbus_pkg.all;
 
-entity gtxvxs_per is
+entity gt_per is
 	generic(
-		SIM_GTXRESET_SPEEDUP	: integer := 0;
+		SIM_GTRESET_SPEEDUP	: string := "FALSE";
 		ADDR_INFO				: PER_ADDR_INFO
 	);
 	port(
 		-- User ports --------------------------------------
-		GTXD10       	: in std_logic;
+		GT_REFCLK     	: in std_logic;
 		RXP				: in std_logic_vector(0 to 1);
 		RXN				: in std_logic_vector(0 to 1);
 		TXP				: out std_logic_vector(0 to 1);
@@ -36,43 +36,55 @@ entity gtxvxs_per is
 		BUS_RD			: in std_logic;
 		BUS_ACK			: out std_logic
 	);
-end gtxvxs_per;
+end gt_per;
 
-architecture Synthesis of gtxvxs_per is
-	component aurora_2lane_fd_str_wrapper is
+architecture Synthesis of gt_per is
+	component gt_wrapper is
 		generic(
-			SIM_GTXRESET_SPEEDUP	: integer := 0
+			SIM_GTRESET_SPEEDUP	: string := "FALSE"
 		);
 		port(
 			-- External Signals
-			GTXD10       	: in std_logic;
+			GT_REFCLK		: in std_logic;
 			RXP				: in std_logic_vector(0 to 1);
 			RXN				: in std_logic_vector(0 to 1);
 			TXP				: out std_logic_vector(0 to 1);
 			TXN				: out std_logic_vector(0 to 1);
-	
+
+			-- Parallel Interface
 			CLK				: in std_logic;
 			RX_D				: out std_logic_vector(31 downto 0);
 			RX_SRC_RDY_N	: out std_logic;
 			TX_D				: in std_logic_vector(31 downto 0);
 			TX_SRC_RDY_N	: in std_logic;
 			TX_DST_RDY_N	: out std_logic;
+		
+			-- DRP Interface
+			DRP_CLK			: in std_logic;
+			DRP_ADDR			: in std_logic_vector(8 downto 0);
+			DRP_DI			: in std_logic_vector(15 downto 0);
+			DRP_DO			: out std_logic_vector(15 downto 0);
+			DRP_DEN			: in std_logic_vector(0 to 1);
+			DRP_DWE			: in std_logic;
+			DRP_RDY			: out std_logic;
 			
-			-- Register Clock
-			BUS_CLK			: in std_logic;
-			
-			-- Write Registers
-			GTX_CTRL			: in std_logic_vector(31 downto 0);
-			GTX_CTRL_TILE0	: in std_logic_vector(31 downto 0);
-			GTX_DRP_CTRL	: in std_logic_vector(31 downto 0);
-			
-			-- Read Registers
-			GTX_STATUS		: out std_logic_vector(31 downto 0);
-			GTX_ERR_TILE0	: out std_logic_vector(31 downto 0)
+			-- GTP configuration/status bits
+			POWER_DOWN		: in std_logic;
+			GT_RESET			: in std_logic;
+			RESET				: in std_logic;
+			LOOPBACK			: in std_logic_vector(2 downto 0);
+			PRBS_SEL			: in std_logic_vector(2 downto 0);
+			ERR_RST			: in std_logic;
+			ERR_CNT			: out std_logic_vector(15 downto 0);
+
+			HARD_ERR			: out std_logic;
+			LANE_UP			: out std_logic_vector(0 to 1);
+			CHANNEL_UP		: out std_logic;
+			TX_LOCK			: out std_logic
 		);
 	end component;
 
-	component gxbvxs_mon is
+	component gt_mon is
 		port(
 			CLK				: in std_logic;
 
@@ -101,12 +113,10 @@ architecture Synthesis of gtxvxs_per is
 	signal BUS_ACK_BUSCLK		: std_logic;
 	signal BUS_ACK_CLK			: std_logic;
 
-	signal GTX_CTRL_REG			: std_logic_vector(31 downto 0);
-	signal GTX_CTRL_TILE0_REG	: std_logic_vector(31 downto 0);
-	signal GTX_DRP_CTRL_REG		: std_logic_vector(31 downto 0);
-	signal GTX_STATUS_REG		: std_logic_vector(31 downto 0);
-	signal GTX_DRP_STATUS_REG	: std_logic_vector(31 downto 0);
-	signal GTX_ERR_TILE0_REG	: std_logic_vector(31 downto 0);
+	signal GT_CTRL_REG			: std_logic_vector(31 downto 0) := x"00000000";
+	signal GT_DRP_CTRL_REG		: std_logic_vector(31 downto 0) := x"00000000";
+	signal GT_STATUS_REG			: std_logic_vector(31 downto 0) := x"00000000";
+	signal GT_DRP_STATUS_REG	: std_logic_vector(31 downto 0) := x"00000000";
 	signal LA_CMP_MODE0_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal LA_CMP_THR0_REG		: std_logic_vector(31 downto 0) := x"00000000";
 	signal LA_MASK_EN0_REG		: std_logic_vector(31 downto 0) := x"00000000";
@@ -117,6 +127,25 @@ architecture Synthesis of gtxvxs_per is
 	signal LA_STATUS_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal LA_DO0_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal LA_DO1_REG				: std_logic_vector(31 downto 0) := x"00000000";
+
+	-- Register Bits
+	signal DRP_ADDR				: std_logic_vector(8 downto 0);
+	signal DRP_DI					: std_logic_vector(15 downto 0);
+	signal DRP_DO					: std_logic_vector(15 downto 0);
+	signal DRP_DEN					: std_logic_vector(0 to 1);
+	signal DRP_DWE					: std_logic;
+	signal DRP_RDY					: std_logic;
+	signal POWER_DOWN				: std_logic;
+	signal GT_RESET				: std_logic;
+	signal RESET					: std_logic;
+	signal LOOPBACK				: std_logic_vector(2 downto 0);
+	signal PRBS_SEL				: std_logic_vector(2 downto 0);
+	signal ERR_RST					: std_logic;
+	signal ERR_CNT					: std_logic_vector(15 downto 0);
+	signal HARD_ERR				: std_logic;
+	signal LANE_UP					: std_logic_vector(0 to 1);
+	signal CHANNEL_UP				: std_logic;
+	signal TX_LOCK					: std_logic;
 
 	signal LA_CMP_MODE0			: std_logic_vector(2 downto 0);
 	signal LA_CMP_THR0			: std_logic_vector(31 downto 0);
@@ -136,12 +165,12 @@ begin
 
 	TX_D_I <= TX_D;
 
-	aurora_2lane_fd_str_wrapper_inst: aurora_2lane_fd_str_wrapper
+	gt_wrapper_inst: gt_wrapper
 		generic map(
-			SIM_GTXRESET_SPEEDUP	=> SIM_GTXRESET_SPEEDUP
+			SIM_GTRESET_SPEEDUP	=> SIM_GTRESET_SPEEDUP
 		)
 		port map(
-			GTXD10       	=> GTXD10,
+			GT_REFCLK		=> GT_REFCLK,
 			RXP				=> RXP,
 			RXN				=> RXN,
 			TXP				=> TXP,
@@ -152,12 +181,24 @@ begin
 			TX_D				=> TX_D_O,
 			TX_SRC_RDY_N	=> TX_SRC_RDY_N_O(0),
 			TX_DST_RDY_N	=> open,
-			BUS_CLK			=> BUS_CLK,
-			GTX_CTRL			=> GTX_CTRL_REG,
-			GTX_CTRL_TILE0	=> GTX_CTRL_TILE0_REG,
-			GTX_DRP_CTRL	=> GTX_DRP_CTRL_REG,
-			GTX_STATUS		=> GTX_STATUS_REG,
-			GTX_ERR_TILE0	=> GTX_ERR_TILE0_REG
+			DRP_CLK			=> BUS_CLK,
+			DRP_ADDR			=> DRP_ADDR,
+			DRP_DI			=> DRP_DI,
+			DRP_DO			=> DRP_DO,
+			DRP_DEN			=> DRP_DEN,
+			DRP_DWE			=> DRP_DWE,
+			DRP_RDY			=> DRP_RDY,
+			POWER_DOWN		=> POWER_DOWN,
+			GT_RESET			=> GT_RESET,
+			RESET				=> RESET,
+			LOOPBACK			=> LOOPBACK,
+			PRBS_SEL			=> PRBS_SEL,
+			ERR_RST			=> ERR_RST,
+			ERR_CNT			=> ERR_CNT,
+			HARD_ERR			=> HARD_ERR,
+			LANE_UP			=> LANE_UP,
+			CHANNEL_UP		=> CHANNEL_UP,
+			TX_LOCK			=> TX_LOCK
 		);
 
 	serdeslanecrc_tx_gen: for I in 0 to 1 generate
@@ -171,7 +212,7 @@ begin
 			);
 	end generate;
 
-	gxbvxs_mon_inst: gxbvxs_mon
+	gt_mon_inst: gt_mon
 		port map(
 			CLK				=> CLK,
 			TX_SRC_RDY_N	=> TX_SRC_RDY_N,
@@ -258,15 +299,29 @@ begin
 	--LA_DO1_REG
 	LA_DO1_REG <= LA_DO(1);
 
+	--GT_CTRL_REG
+	POWER_DOWN <= GT_CTRL_REG(0);
+	GT_RESET <= GT_CTRL_REG(1);
+	LOOPBACK <= GT_CTRL_REG(4 downto 2);
+	PRBS_SEL <= GT_CTRL_REG(7 downto 5);
+	RESET <= GT_CTRL_REG(9);
+	ERR_RST <= GT_CTRL_REG(10);
+
+	--GT_STATUS_REG
+	GT_STATUS_REG(0) <= HARD_ERR;
+	GT_STATUS_REG(1) <= TX_LOCK;
+	GT_STATUS_REG(2) <= LANE_UP(0);
+	GT_STATUS_REG(3) <= LANE_UP(1);
+	GT_STATUS_REG(4) <= CHANNEL_UP;
+	GT_STATUS_REG(31 downto 16) <= ERR_CNT;
+
 	process(CLK)
 	begin
 		if rising_edge(CLK) then
 			PO_CLK.ACK <= '0';
 			
-			rw_reg(		REG => GTX_CTRL_REG			,PI=>PI_CLK,PO=>PO_CLK, A => x"0000", RW => x"00000FFF", I => x"00000203");
-			rw_reg(		REG => GTX_CTRL_TILE0_REG	,PI=>PI_CLK,PO=>PO_CLK, A => x"0004", RW => x"0FFF0FFF", I => x"05420542");
-			ro_reg(		REG => GTX_STATUS_REG		,PI=>PI_CLK,PO=>PO_CLK, A => x"0010", RO => x"00003333");
-			ro_reg(		REG => GTX_ERR_TILE0_REG	,PI=>PI_CLK,PO=>PO_CLK, A => x"0018", RO => x"FFFFFFFF");
+			rw_reg(		REG => GT_CTRL_REG			,PI=>PI_CLK,PO=>PO_CLK, A => x"0000", RW => x"000006FF", I => x"00000303");
+			ro_reg(		REG => GT_STATUS_REG			,PI=>PI_CLK,PO=>PO_CLK, A => x"0010", RO => x"FFFF001F");
 
 			wo_reg(		REG => LA_CTRL_REG			,PI=>PI_CLK,PO=>PO_CLK, A => x"0030", WO => x"00000001");
 			ro_reg(		REG => LA_STATUS_REG			,PI=>PI_CLK,PO=>PO_CLK, A => x"0034", RO => x"00000001");
@@ -310,13 +365,24 @@ begin
 			PER_ACK			=> PO_BUSCLK.ACK
 		);
 
+	--GT_DRP_CTRL_REG
+	DRP_DI <= GT_DRP_CTRL_REG(15 downto 0);
+	DRP_ADDR <= GT_DRP_CTRL_REG(24 downto 16);
+	DRP_DWE <= GT_DRP_CTRL_REG(25);
+	DRP_DEN(0) <= GT_DRP_CTRL_REG(26);
+	DRP_DEN(1) <= GT_DRP_CTRL_REG(27);
+
+	--GT_DRP_STATUS_REG
+	GT_DRP_STATUS_REG(15 downto 0) <= DRP_DO;
+	GT_DRP_STATUS_REG(16) <= DRP_RDY;
+
 	process(BUS_CLK)
 	begin
 		if rising_edge(BUS_CLK) then
 			PO_BUSCLK.ACK <= '0';
 			
-			rw_reg(		REG => GTX_DRP_CTRL_REG		,PI=>PI_BUSCLK,PO=>PO_BUSCLK, A => x"000C", RW => x"037FFFFF", R => x"03000000");
-			ro_reg(		REG => GTX_DRP_STATUS_REG	,PI=>PI_BUSCLK,PO=>PO_BUSCLK, A => x"0014", RO => x"0001FFFF");
+			rw_reg(		REG => GT_DRP_CTRL_REG		,PI=>PI_BUSCLK,PO=>PO_BUSCLK, A => x"000C", RW => x"0FFFFFFF", R => x"0C000000");
+			ro_reg(		REG => GT_DRP_STATUS_REG	,PI=>PI_BUSCLK,PO=>PO_BUSCLK, A => x"0014", RO => x"0001FFFF");
 		end if;
 	end process;
 	

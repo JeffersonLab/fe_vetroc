@@ -4,14 +4,15 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 use ieee.std_logic_misc.all;
 
+library unisim;
+use unisim.vcomponents.all;
+
 library utils;
 use utils.utils_pkg.all;
 
 entity gt_wrapper is
 	generic(
-		SIM_GTRESET_SPEEDUP	: integer := 0;
-		TX_POLARITY				: std_logic_vector(0 to 1) := "00";
-		RX_POLARITY				: std_logic_vector(0 to 1) := "00"
+		SIM_GTRESET_SPEEDUP			: string := "FALSE"
 	);
 	port(
 		-- External Signals
@@ -40,10 +41,12 @@ entity gt_wrapper is
 		
 		-- GTP configuration/status bits
 		POWER_DOWN		: in std_logic;
+		GT_RESET			: in std_logic;
+		RESET				: in std_logic;
 		LOOPBACK			: in std_logic_vector(2 downto 0);
 		PRBS_SEL			: in std_logic_vector(2 downto 0);
 		ERR_RST			: in std_logic;
-		ERR_CNT			: in slv16a(0 to 1);
+		ERR_CNT			: out std_logic_vector(15 downto 0);
 
 		HARD_ERR			: out std_logic;
 		LANE_UP			: out std_logic_vector(0 to 1);
@@ -51,7 +54,6 @@ entity gt_wrapper is
 		TX_LOCK			: out std_logic
 	);
 end gt_wrapper;
-
 
 architecture synthesis of gt_wrapper is
 	component gtp2e_aurora_8b10b_core is
@@ -91,8 +93,8 @@ architecture synthesis of gt_wrapper is
 			LANE_UP							: out std_logic_vector(0 to 1);
 
 			-- System Interface
-			user_clk							: in  std_logic;
-			sync_clk							: in  std_logic;
+			USER_CLK							: in  std_logic;
+			SYNC_CLK							: in  std_logic;
 			RESET								: in  std_logic;
 			POWER_DOWN						: in  std_logic;
 			LOOPBACK							: in  std_logic_vector(2 downto 0);
@@ -117,136 +119,114 @@ architecture synthesis of gt_wrapper is
 			DRPWE_IN_LANE1					: in   std_logic;
 
 			TX_OUT_CLK						: out std_logic;
-			gt_common_reset_out			: out std_logic;
+			GT_COMMON_RESET_OUT			: out std_logic;
 			--____________________________COMMON PORTS_______________________________{
-			gt0_pll0refclklost_in		: in  std_logic;
-			quad1_common_lock_in			: in  std_logic;
+			GT0_PLL0REFCLKLOST_IN		: in  std_logic;
+			QUAD1_COMMON_LOCK_IN			: in  std_logic;
 			------------------------- Channel - Ref Clock Ports ------------------------
 			GT0_PLL0OUTCLK_IN				: in   std_logic;
 			GT0_PLL1OUTCLK_IN				: in   std_logic;
 			GT0_PLL0OUTREFCLK_IN			: in   std_logic;
 			GT0_PLL1OUTREFCLK_IN			: in   std_logic;
-			--____________________________COMMON PORTS_______________________________}
-
-			gt0_rxlpmhfhold_in			: in   std_logic;
-			gt0_rxlpmlfhold_in			: in   std_logic;
-			gt0_rxlpmhfovrden_in			: in   std_logic;
-			gt0_rxlpmreset_in				: in   std_logic;
-			gt0_rxcdrhold_in				: in   std_logic;
-			gt0_eyescanreset_in			: in   std_logic;
-			-------------------------- RX Margin Analysis Ports ------------------------
-			gt0_eyescandataerror_out	: out  std_logic;
-			gt0_eyescantrigger_in		: in   std_logic;
-			gt0_rxbyteisaligned_out		: out  std_logic;
-			gt0_rxcommadet_out			: out  std_logic;
-			------------------- Receive Ports - Pattern Checker Ports ------------------
-			gt0_rxprbserr_out				: out  std_logic;
-			gt0_rxprbssel_in				: in   std_logic_vector(2 downto 0);
-			------------------- Receive Ports - Pattern Checker ports ------------------
-			gt0_rxprbscntreset_in		: in   std_logic;
-			------------------- Receive Ports - RX Data Path interface -----------------
-			gt0_rxpcsreset_in				: in   std_logic;
-			gt0_rxpmareset_in				: in   std_logic;
-			gt0_rxpmaresetdone_out		: out    std_logic;
-			gt0_dmonitorout_out			: out  std_logic_vector(14 downto 0);
-			-------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-			gt0_rxbufreset_in				: in   std_logic;
-			gt0_rxresetdone_out			: out  std_logic;
-			gt0_txresetdone_out			: out  std_logic;
-			gt0_txbufstatus_out			: out  std_logic_vector(1 downto 0);
-			gt0_rxbufstatus_out			: out  std_logic_vector(2 downto 0);
-			------------------ Transmit Ports - Pattern Generator Ports ----------------
-			gt0_txprbsforceerr_in		: in   std_logic;
-			gt0_txprbssel_in				: in   std_logic_vector(2 downto 0); 
-			------------------- Transmit Ports - TX Data Path interface -----------------
-			gt0_txpcsreset_in				: in   std_logic;
-			gt0_txpmareset_in				: in   std_logic;
-			------------------------ TX Configurable Driver Ports ----------------------
-			gt0_txpostcursor_in			: in   std_logic_vector(4 downto 0);
-			gt0_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-			gt0_txchardispmode_in		: in   std_logic_vector(1 downto 0);
-			gt0_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt0_txdiffctrl_in				: in   std_logic_vector(3 downto 0);
-			gt0_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			----------------- Transmit Ports - TX Polarity Control Ports ---------------
-			gt0_txpolarity_in				: in   std_logic;
-			gt0_rx_disp_err_out			: out  std_logic_vector(1 downto 0);
-			gt0_rx_not_in_table_out		: out  std_logic_vector(1 downto 0);
-			gt0_rx_realign_out			: out  std_logic;
-			gt0_rx_buf_err_out			: out  std_logic;
-			gt0_tx_buf_err_out			: out  std_logic;
-
-			gt1_rxlpmhfhold_in			: in   std_logic;
-			gt1_rxlpmlfhold_in			: in   std_logic;
-			gt1_rxlpmhfovrden_in			: in   std_logic;
-			gt1_rxlpmreset_in				: in   std_logic;
-			gt1_rxcdrhold_in				: in   std_logic;
-			gt1_eyescanreset_in			: in   std_logic;
-			-------------------------- RX Margin Analysis Ports ------------------------
-			gt1_eyescandataerror_out	: out  std_logic;
-			gt1_eyescantrigger_in		: in   std_logic;
-			gt1_rxbyteisaligned_out		: out  std_logic;
-			gt1_rxcommadet_out			: out  std_logic;
-			------------------- Receive Ports - Pattern Checker Ports ------------------
-			gt1_rxprbserr_out				: out  std_logic;
-			gt1_rxprbssel_in				: in   std_logic_vector(2 downto 0);
-			------------------- Receive Ports - Pattern Checker ports ------------------
-			gt1_rxprbscntreset_in		: in   std_logic;
-			------------------- Receive Ports - RX Data Path interface -----------------
-			gt1_rxpcsreset_in				: in   std_logic;
-			gt1_rxpmareset_in				: in   std_logic;
-			gt1_rxpmaresetdone_out		: out    std_logic;
-			gt1_dmonitorout_out			: out  std_logic_vector(14 downto 0);
-			-------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-			gt1_rxbufreset_in				: in   std_logic;
-			gt1_rxresetdone_out			: out  std_logic;
-			gt1_txresetdone_out			: out  std_logic;
-			gt1_txbufstatus_out			: out  std_logic_vector(1 downto 0);
-			gt1_rxbufstatus_out			: out  std_logic_vector(2 downto 0);
-			------------------ Transmit Ports - Pattern Generator Ports ----------------
-			gt1_txprbsforceerr_in		: in   std_logic;
-			gt1_txprbssel_in				: in   std_logic_vector(2 downto 0); 
-			------------------- Transmit Ports - TX Data Path interface -----------------
-			gt1_txpcsreset_in				: in   std_logic;
-			gt1_txpmareset_in				: in   std_logic;
-			------------------------ TX Configurable Driver Ports ----------------------
-			gt1_txpostcursor_in			: in   std_logic_vector(4 downto 0);
-			gt1_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-			gt1_txchardispmode_in		: in   std_logic_vector(1 downto 0);
-			gt1_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt1_txdiffctrl_in				: in   std_logic_vector(3 downto 0);
-			gt1_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			----------------- Transmit Ports - TX Polarity Control Ports ---------------
-			gt1_txpolarity_in				: in   std_logic;
-			gt1_rx_disp_err_out			: out  std_logic_vector(1 downto 0);
-			gt1_rx_not_in_table_out		: out  std_logic_vector(1 downto 0);
-			gt1_rx_realign_out			: out  std_logic;
-			gt1_rx_buf_err_out			: out  std_logic;
-			gt1_tx_buf_err_out			: out  std_logic;
-
-			sys_reset_out					: out std_logic;
+			SYS_RESET_OUT					: out std_logic;
 			TX_LOCK							: out std_logic
 		);
 	end component;
 
+	signal GT_COMMON_RESET_OUT			: std_logic;
+	signal GT0_PLL0REFCLKLOST_IN		: std_logic;
+	signal QUAD1_COMMON_LOCK_IN		: std_logic;
+	signal GT0_PLL0OUTCLK_IN			: std_logic;
+	signal GT0_PLL1OUTCLK_IN			: std_logic;
+	signal GT0_PLL0OUTREFCLK_IN		: std_logic;
+	signal GT0_PLL1OUTREFCLK_IN		: std_logic;
+
 	signal DRPDO_OUT						: slv16a(0 to 1);
 	signal DRPRDY_OUT						: std_logic_vector(0 to 1);
-	signal SOFT_ERR			: std_logic;
+	signal SOFT_ERR						: std_logic;
 begin
-			RESET								: in  std_logic;
-			POWER_DOWN						: in  std_logic;
-			GT_RESET							: in  std_logic;
-			PLL_NOT_LOCKED					: in  std_logic;
-			TX_RESETDONE_OUT				: out std_logic;
-			RX_RESETDONE_OUT				: out std_logic;
-			LINK_RESET_OUT					: out std_logic; 
+
+	gtpe2_common_inst: gtpe2_common
+		generic map(
+			SIM_RESET_SPEEDUP		=> SIM_GTRESET_SPEEDUP,
+			SIM_PLL0REFCLK_SEL	=> ("001"),
+			SIM_PLL1REFCLK_SEL	=> ("001"),
+			SIM_VERSION				=> ("2.0"),
+			PLL0_FBDIV				=> 4,
+			PLL0_FBDIV_45			=> 5,
+			PLL0_REFCLK_DIV		=> 1,
+			PLL1_FBDIV				=> 4,
+			PLL1_FBDIV_45			=> 5,
+			PLL1_REFCLK_DIV		=> 1,
+			BIAS_CFG					=> (x"0000000000050001"),
+			COMMON_CFG				=> (x"00000000"),
+			PLL0_CFG					=> (x"01F03DC"),
+			PLL0_DMON_CFG			=> ('0'),
+			PLL0_INIT_CFG			=> (x"00001E"),
+			PLL0_LOCK_CFG			=> (x"1E8"),
+			PLL1_CFG					=> (x"01F03DC"),
+			PLL1_DMON_CFG			=> ('0'),
+			PLL1_INIT_CFG			=> (x"00001E"),
+			PLL1_LOCK_CFG			=> (x"1E8"),
+			PLL_CLKOUT_CFG			=> (x"00"),
+			RSVD_ATTR0				=> (x"0000"),
+			RSVD_ATTR1				=> (x"0000")
+		)
+		port map(
+			DMONITOROUT				=> open,	
+			DRPADDR					=> (others=>'0'),
+			DRPCLK					=> '0',
+			DRPDI						=> (others=>'0'),
+			DRPDO						=> open,
+			DRPEN						=> '0',
+			DRPRDY					=> open,
+			DRPWE						=> '0',
+			BGRCALOVRDENB			=> '1',
+			GTEASTREFCLK0			=> '0',
+			GTEASTREFCLK1			=> '0',
+			GTGREFCLK0				=> '0',
+			GTGREFCLK1				=> '0',
+			GTREFCLK0				=> GT_REFCLK,
+			GTREFCLK1				=> '0',
+			GTWESTREFCLK0			=> '0',
+			GTWESTREFCLK1			=> '0',
+			PLL0FBCLKLOST			=> open,
+			PLL0LOCK					=> QUAD1_COMMON_LOCK_IN,
+			PLL0LOCKDETCLK			=> DRP_CLK,
+			PLL0LOCKEN				=> '1',
+			PLL0OUTCLK				=> GT0_PLL0OUTCLK_IN,
+			PLL0OUTREFCLK			=> GT0_PLL0OUTREFCLK_IN,
+			PLL0PD					=> '0',
+			PLL0REFCLKLOST			=> GT0_PLL0REFCLKLOST_IN,
+			PLL0REFCLKSEL			=> "001",
+			PLL0RESET				=> GT_COMMON_RESET_OUT,
+			PLL1FBCLKLOST			=> open,
+			PLL1LOCK					=> open,
+			PLL1LOCKDETCLK			=> '0',
+			PLL1LOCKEN				=> '1',
+			PLL1OUTCLK				=> GT0_PLL1OUTCLK_IN,
+			PLL1OUTREFCLK			=> GT0_PLL1OUTREFCLK_IN,
+			PLL1PD					=> '1',
+			PLL1REFCLKLOST			=> open,
+			PLL1REFCLKSEL			=> "001",
+			PLL1RESET				=> '0',
+			PLLRSVD1					=> "0000000000000000",
+			PLLRSVD2					=> "00000",
+			PMARSVDOUT				=> open,
+			REFCLKOUTMONITOR0		=> open,
+			REFCLKOUTMONITOR1		=> open,
+			BGBYPASSB				=> '1',
+			BGMONITORENB			=> '1',
+			BGPDB						=> '1',
+			BGRCALOVRD				=> "11111",
+			PMARSVD					=> "00000000",
+			RCALENB					=> '1'
+		);
 
 	gtp2e_aurora_8b10b_core_inst: gtp2e_aurora_8b10b_core
 		generic map(
-			SIM_GTRESET_SPEEDUP			=> SIM_GTRESET_SPEEDUP
-			EXAMPLE_SIMULATION			=> 0      
+			SIM_GTRESET_SPEEDUP			=> SIM_GTRESET_SPEEDUP,
+			EXAMPLE_SIMULATION			=> 0 
 		)
 		port map(
 			S_AXI_TX_TDATA					=> TX_D,
@@ -267,14 +247,14 @@ begin
 			LANE_UP							=> LANE_UP,
 			user_clk							=> CLK,
 			sync_clk							=> CLK,
-			RESET								: in  std_logic;
-			POWER_DOWN						: in  std_logic;
+			RESET								=> RESET,
+			POWER_DOWN						=> POWER_DOWN,
 			LOOPBACK							=> LOOPBACK,
-			GT_RESET							: in  std_logic;
+			GT_RESET							=> GT_RESET,
 			init_clk_in						=> DRP_CLK,
-			PLL_NOT_LOCKED					: in  std_logic;
-			TX_RESETDONE_OUT				: out std_logic;
-			RX_RESETDONE_OUT				: out std_logic;
+			PLL_NOT_LOCKED					=> '0',
+			TX_RESETDONE_OUT				=> open,
+			RX_RESETDONE_OUT				=> open,
 			LINK_RESET_OUT					=> open,
 			drpclk_in						=> DRP_CLK,
 			DRPADDR_IN						=> DRP_ADDR,
@@ -290,90 +270,14 @@ begin
 			DRPRDY_OUT_LANE1				=> DRPRDY_OUT(1),
 			DRPWE_IN_LANE1					=> DRP_DWE,
 			TX_OUT_CLK						=> open,
-			gt_common_reset_out			: out std_logic;
-			gt0_pll0refclklost_in		: in  std_logic;
-			quad1_common_lock_in			: in  std_logic;
-			GT0_PLL0OUTCLK_IN				: in   std_logic;
-			GT0_PLL1OUTCLK_IN				: in   std_logic;
-			GT0_PLL0OUTREFCLK_IN			: in   std_logic;
-			GT0_PLL1OUTREFCLK_IN			: in   std_logic;
-			gt0_rxlpmhfhold_in			: in   std_logic;
-			gt0_rxlpmlfhold_in			: in   std_logic;
-			gt0_rxlpmhfovrden_in			: in   std_logic;
-			gt0_rxlpmreset_in				: in   std_logic;
-			gt0_rxcdrhold_in				: in   std_logic;
-			gt0_eyescanreset_in			: in   std_logic;
-			gt0_eyescandataerror_out	: out  std_logic;
-			gt0_eyescantrigger_in		: in   std_logic;
-			gt0_rxbyteisaligned_out		: out  std_logic;
-			gt0_rxcommadet_out			: out  std_logic;
-			gt0_rxprbserr_out				: out  std_logic;
-			gt0_rxprbssel_in				=> PRBS_SEL,
-			gt0_rxprbscntreset_in		: in   std_logic;
-			gt0_rxpcsreset_in				: in   std_logic;
-			gt0_rxpmareset_in				: in   std_logic;
-			gt0_rxpmaresetdone_out		: out    std_logic;
-			gt0_dmonitorout_out			=> open,
-			gt0_rxbufreset_in				: in   std_logic;
-			gt0_rxresetdone_out			: out  std_logic;
-			gt0_txresetdone_out			: out  std_logic;
-			gt0_txbufstatus_out			=> open,
-			gt0_rxbufstatus_out			=> open,
-			gt0_txprbsforceerr_in		=> '0',
-			gt0_txprbssel_in				=> PRBS_SEL,
-			gt0_txpcsreset_in				: in   std_logic;
-			gt0_txpmareset_in				: in   std_logic;
-			gt0_txpostcursor_in			: in   std_logic_vector(4 downto 0);
-			gt0_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			gt0_txchardispmode_in		: in   std_logic_vector(1 downto 0);
-			gt0_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt0_txdiffctrl_in				=> "1000",
-			gt0_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			gt0_txpolarity_in				=> TX_POLARITY(0),
-			gt0_rx_disp_err_out			=> open,
-			gt0_rx_not_in_table_out		=> open,
-			gt0_rx_realign_out			=> open,
-			gt0_rx_buf_err_out			=> open,
-			gt0_tx_buf_err_out			=> open,
-			gt1_rxlpmhfhold_in			: in   std_logic;
-			gt1_rxlpmlfhold_in			: in   std_logic;
-			gt1_rxlpmhfovrden_in			: in   std_logic;
-			gt1_rxlpmreset_in				: in   std_logic;
-			gt1_rxcdrhold_in				: in   std_logic;
-			gt1_eyescanreset_in			: in   std_logic;
-			gt1_eyescandataerror_out	: out  std_logic;
-			gt1_eyescantrigger_in		: in   std_logic;
-			gt1_rxbyteisaligned_out		: out  std_logic;
-			gt1_rxcommadet_out			: out  std_logic;
-			gt1_rxprbserr_out				: out  std_logic;
-			gt1_rxprbssel_in				=> PRBS_SEL,
-			gt1_rxprbscntreset_in		: in   std_logic;
-			gt1_rxpcsreset_in				: in   std_logic;
-			gt1_rxpmareset_in				: in   std_logic;
-			gt1_rxpmaresetdone_out		: out    std_logic;
-			gt1_dmonitorout_out			=> open,
-			gt1_rxbufreset_in				: in   std_logic;
-			gt1_rxresetdone_out			: out  std_logic;
-			gt1_txresetdone_out			: out  std_logic;
-			gt1_txbufstatus_out			=> open,
-			gt1_rxbufstatus_out			=> open,
-			gt1_txprbsforceerr_in		=> '0',
-			gt1_txprbssel_in				=> PRBS_SEL,
-			gt1_txpcsreset_in				: in   std_logic;
-			gt1_txpmareset_in				: in   std_logic;
-			gt1_txpostcursor_in			: in   std_logic_vector(4 downto 0);
-			gt1_txprecursor_in			: in   std_logic_vector(4 downto 0);
-			gt1_txchardispmode_in		: in   std_logic_vector(1 downto 0);
-			gt1_txchardispval_in			: in   std_logic_vector(1 downto 0);
-			gt1_txdiffctrl_in				=> "1000",
-			gt1_txmaincursor_in			: in   std_logic_vector(6 downto 0);
-			gt1_txpolarity_in				=> TX_POLARITY(1),
-			gt1_rx_disp_err_out			=> open,
-			gt1_rx_not_in_table_out		=> open,
-			gt1_rx_realign_out			=> open,
-			gt1_rx_buf_err_out			=> open,
-			gt1_tx_buf_err_out			=> open,
-			sys_reset_out					=> open,
+			GT_COMMON_RESET_OUT			=> GT_COMMON_RESET_OUT,
+			GT0_PLL0REFCLKLOST_IN		=> GT0_PLL0REFCLKLOST_IN,
+			QUAD1_COMMON_LOCK_IN			=> QUAD1_COMMON_LOCK_IN,
+			GT0_PLL0OUTCLK_IN				=> GT0_PLL0OUTCLK_IN,
+			GT0_PLL1OUTCLK_IN				=> GT0_PLL1OUTCLK_IN,
+			GT0_PLL0OUTREFCLK_IN			=> GT0_PLL0OUTREFCLK_IN,
+			GT0_PLL1OUTREFCLK_IN			=> GT0_PLL1OUTREFCLK_IN,
+			SYS_RESET_OUT					=> open,
 			TX_LOCK							=> TX_LOCK
 		);
 
@@ -381,217 +285,28 @@ begin
 	begin
 		if rising_edge(DRP_CLK) then
 			if DRP_DEN /= "00" then
+				DRP_DO <= x"FFFF";
 				DRP_RDY <= '0';
 			elsif DRPRDY_OUT(0) = '1' then
-				DRPDO <= DRPDO_OUT(0);
+				DRP_DO <= DRPDO_OUT(0);
 				DRP_RDY <= '1';
 			elsif DRPRDY_OUT(1) = '1' then
-				DRPDO <= DRPDO_OUT(1);
+				DRP_DO <= DRPDO_OUT(1);
 				DRP_RDY <= '1';
 			end if;
 		end if;
 	end process;
 
-end process;
-
-
-
-
-
-
-
-	signal RXENPRBSTST			: std_logic_vector(1 downto 0);
-	signal RXENPRBSTST_Q			: std_logic_vector(1 downto 0);
-	signal RXPRBSERR				: std_logic;
-	signal RXPRBSERR_LANE1		: std_logic;
-	signal TXBUFDIFFCTRL			: std_logic_vector(2 downto 0);
-	signal TXBUFDIFFCTRL_LANE1	: std_logic_vector(2 downto 0);
-	signal TXDIFFCTRL				: std_logic_vector(2 downto 0);
-	signal TXDIFFCTRL_LANE1		: std_logic_vector(2 downto 0);
-	signal TXPREEMPHASIS			: std_logic_vector(3 downto 0);
-	signal TXPREEMPHASIS_LANE1	: std_logic_vector(3 downto 0);
-	signal TXENPRBSTST			: std_logic_vector(1 downto 0);
-	signal TXENPRBSTST_Q			: std_logic_vector(1 downto 0);
-	signal TXPOLARITY				: std_logic;
-	signal TXPOLARITY_LANE1		: std_logic;
-	signal RXPOLARITY				: std_logic;
-	signal RXPOLARITY_LANE1		: std_logic;
-	signal RXEQMIX					: std_logic_vector(1 downto 0);
-	signal RXEQMIX_LANE1			: std_logic_vector(1 downto 0);
-	signal HARD_ERR				: std_logic_vector(0 to 1);
-	signal SOFT_ERR				: std_logic_vector(0 to 1);
-	signal CHANNEL_UP				: std_logic;
-	signal LANE_UP					: std_logic_vector(0 to 1);
-	signal RESET					: std_logic;
-	signal RESET_Q					: std_logic;
-	signal POWER_DOWN				: std_logic;
-	signal LOOPBACK				: std_logic_vector(2 downto 0);
-	signal GT_RESET				: std_logic;
-	signal TX_LOCK					: std_logic;
-	signal DADDR					: std_logic_vector(6 downto 0);
-	signal DEN_TILE0				: std_logic;
-	signal DI						: std_logic_vector(15 downto 0);
-	signal DO_TILE0				: std_logic_vector(15 downto 0);
-	signal DRDY_TILE0				: std_logic;
-	signal DWE						: std_logic;
-	signal GTX_ERR					: std_logic_vector(1 downto 0);
-	signal GTXERR_RST				: std_logic;
-	signal GTXERR_EN				: std_logic;
-begin
-
-	-----------------------------------
-	-- Register GTX_DRP_CTRL Mapping
-	-----------------------------------	
-	DI <= GTX_DRP_CTRL(15 downto 0);
-	DADDR <= GTX_DRP_CTRL(22 downto 16);
-	DWE <= GTX_DRP_CTRL(24);
-	DEN_TILE0 <= GTX_DRP_CTRL(25);
-	
-	-----------------------------------
-	-- Register GTX_CTRL Mapping
-	-----------------------------------
-	POWER_DOWN <= GTX_CTRL(0);
-	GT_RESET <= GTX_CTRL(1);
-	LOOPBACK <= GTX_CTRL(4 downto 2);
-	GTXERR_RST <= GTX_CTRL(10);
-	GTXERR_EN <= GTX_CTRL(11);
-	
-	RXENPRBSTST <= GTX_CTRL(6 downto 5);
-	TXENPRBSTST <= GTX_CTRL(8 downto 7);			
-	RESET <= GTX_CTRL(9);
-	
-	-----------------------------------
-	-- Register GTX_STATUS Mapping
-	-----------------------------------
-	GTX_STATUS(0) <= HARD_ERR(0);
-	GTX_STATUS(1) <= HARD_ERR(1);
-	GTX_STATUS(2) <= '0';
-	GTX_STATUS(3) <= '0';
-	GTX_STATUS(4) <= LANE_UP(0);
-	GTX_STATUS(5) <= LANE_UP(1);
-	GTX_STATUS(6) <= '0';
-	GTX_STATUS(7) <= '0';
-	GTX_STATUS(8) <= RXPOLARITY;
-	GTX_STATUS(9) <= RXPOLARITY_LANE1;
-	GTX_STATUS(10) <= '0';
-	GTX_STATUS(11) <= '0';
-	GTX_STATUS(12) <= CHANNEL_UP;
-	GTX_STATUS(13) <= TX_LOCK;
-	GTX_STATUS(14) <= '0';
-
-	process(BUS_CLK)
-	begin
-		if rising_edge(BUS_CLK) then
-			if DEN_TILE0 = '1' then
-				GTX_STATUS(15) <= '0';
-				GTX_STATUS(31 downto 16) <= x"0000";
-			elsif DRDY_TILE0 = '1' then
-				GTX_STATUS(31 downto 16) <= DO_TILE0;
-				GTX_STATUS(15) <= '1';
-			end if;
-		end if;
-	end process;
-	
-	-----------------------------------
-	-- Register GTX_CTRL_TILE0 Mapping
-	-----------------------------------
-	RXEQMIX					<= GTX_CTRL_TILE0(1 downto 0);
-	TXPREEMPHASIS			<= GTX_CTRL_TILE0(5 downto 2);
-	TXBUFDIFFCTRL			<= GTX_CTRL_TILE0(8 downto 6);
-	TXDIFFCTRL				<= GTX_CTRL_TILE0(11 downto 9);
-
-	RXEQMIX_LANE1			<= GTX_CTRL_TILE0(17 downto 16);
-	TXPREEMPHASIS_LANE1	<= GTX_CTRL_TILE0(21 downto 18);
-	TXBUFDIFFCTRL_LANE1	<= GTX_CTRL_TILE0(24 downto 22);
-	TXDIFFCTRL_LANE1		<= GTX_CTRL_TILE0(27 downto 25);
-	
-	-----------------------------------
-	-- Counters
-	-----------------------------------	
-	GTX_ERR(0) <= SOFT_ERR(0) or RXPRBSERR;
-	GTX_ERR(1) <= SOFT_ERR(1) or RXPRBSERR_LANE1;
-	
-	Counter_ErrLane0: Counter
+	counter_soft_err_inst: counter
 		generic map(
 			LEN	=> 16
 		)
 		port map(
 			CLK	=> CLK,
-			RST	=> GTXERR_RST,
-			EN		=> GTXERR_EN,
-			INC	=> GTX_ERR(0),
-			CNT	=> GTX_ERR_TILE0(15 downto 0)
+			RST	=> ERR_RST,
+			EN		=> '1',
+			INC	=> SOFT_ERR,
+			CNT	=> ERR_CNT
 		);
 	
-	Counter_ErrLane1: Counter
-		generic map(
-			LEN	=> 16
-		)
-		port map(
-			CLK	=> CLK,
-			RST	=> GTXERR_RST,
-			EN		=> GTXERR_EN,
-			INC	=> GTX_ERR(1),
-			CNT	=> GTX_ERR_TILE0(31 downto 16)
-		);
-
-	TXPOLARITY <= '0';
-	TXPOLARITY_LANE1 <= '1';
-
-	-----------------------------------
-	-- Aurora Transceivers
-	-----------------------------------
-	aurora_2lane_fd_str_inst: aurora_2lane_fd_str
-		generic map(
-			SIM_GTXRESET_SPEEDUP	=> SIM_GTXRESET_SPEEDUP
-		)
-		port map(
-			DADDR						=> DADDR,
-			DCLK						=> BUS_CLK,
-			DEN_TILE0				=> DEN_TILE0,
-			DI							=> DI,
-			DO_TILE0					=> DO_TILE0,
-			DRDY_TILE0				=> DRDY_TILE0,
-			DWE						=> DWE,
-			RXENPRBSTST				=> RXENPRBSTST,
-			RXPRBSERR				=> RXPRBSERR,
-			RXPRBSERR_LANE1		=> RXPRBSERR_LANE1,
-			TXBUFDIFFCTRL			=> TXBUFDIFFCTRL,
-			TXBUFDIFFCTRL_LANE1	=> TXBUFDIFFCTRL_LANE1,
-			TXDIFFCTRL				=> TXDIFFCTRL,
-			TXDIFFCTRL_LANE1		=> TXDIFFCTRL_LANE1,
-			TXPREEMPHASIS			=> TXPREEMPHASIS,
-			TXPREEMPHASIS_LANE1	=> TXPREEMPHASIS_LANE1,
-			TXENPRBSTST				=> TXENPRBSTST,
-			TXPOLARITY				=> TXPOLARITY,
-			TXPOLARITY_LANE1		=> TXPOLARITY_LANE1,
-			RXPOLARITY				=> RXPOLARITY,
-			RXPOLARITY_LANE1		=> RXPOLARITY_LANE1,
-			RXEQMIX					=> RXEQMIX,
-			RXEQMIX_LANE1			=> RXEQMIX_LANE1,
-			TX_D						=> TX_D,
-			TX_SRC_RDY_N			=> TX_SRC_RDY_N,
-			TX_DST_RDY_N			=> TX_DST_RDY_N,
-			RX_D						=> RX_D,
-			RX_SRC_RDY_N			=> RX_SRC_RDY_N,
-			DO_CC						=> '0',
-			WARN_CC					=> '0',
-			RXP						=> RXP,
-			RXN						=> RXN,
-			TXP						=> TXP,
-			TXN						=> TXN,
-			GTXD10					=> GTXD10,
-			HARD_ERR					=> HARD_ERR,
-			SOFT_ERR					=> SOFT_ERR,
-			CHANNEL_UP				=> CHANNEL_UP,
-			LANE_UP					=> LANE_UP,
-			USER_CLK					=> CLK,
-			SYNC_CLK					=> CLK,
-			RESET						=> RESET,
-			POWER_DOWN				=> POWER_DOWN,
-			LOOPBACK					=> LOOPBACK,
-			GT_RESET					=> GT_RESET,
-			TX_LOCK           	=> TX_LOCK
-		);
-
-end Synthesis;
+end synthesis;

@@ -1,4 +1,2 @@
-set_false_path -from [get_clocks -of_objects [get_pins clkrst_per_inst/gclkpll_inst/mmcm_adv_inst/CLKOUT0]] -to [get_clocks -of_objects [get_pins clkrst_per_inst/sysclkpll_inst/mmcm_adv_inst/CLKOUT0]]
-set_false_path -from [get_clocks -of_objects [get_pins clkrst_per_inst/sysclkpll_inst/mmcm_adv_inst/CLKOUT0]] -to [get_clocks -of_objects [get_pins clkrst_per_inst/gclkpll_inst/mmcm_adv_inst/CLKOUT0]]
-set_false_path -from [get_clocks -of_objects [get_pins eventbuilder_per_inst/evtbuilderfull_inst/sramfifo_inst/sramcntrl_inst/sramclk_inst/mmcme2_base_inst/CLKOUT0]] -to [get_clocks -of_objects [get_pins clkrst_per_inst/sysclkpll_inst/mmcm_adv_inst/CLKOUT0]]
-set_false_path -from [get_clocks -of_objects [get_pins clkrst_per_inst/sysclkpll_inst/mmcm_adv_inst/CLKOUT0]] -to [get_clocks -of_objects [get_pins eventbuilder_per_inst/evtbuilderfull_inst/sramfifo_inst/sramcntrl_inst/sramclk_inst/mmcme2_base_inst/CLKOUT0]]
+
+

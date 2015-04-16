@@ -23,11 +23,13 @@ package fe_vetroc_pkg is
 	constant PER_ID_TDCPROC6			: integer := 8;
 	constant PER_ID_TDCPROC7			: integer := 9;
 	constant PER_ID_EVTBUILDER			: integer := 10;
+	constant PER_ID_GT_SWA23			: integer := 11;
 
 	-- BASE_ADDR, BASE_MASK, USER_MASK
 	constant PER_ADDR_INFO_CFG	: PER_ADDR_INFO_ARRAY := (
 		(x"0000", x"FF00", x"00FF"),	-- PER_ID_CLKRST
 		(x"0200", x"FE00", x"01FF"),	-- PER_ID_SD
+		(x"0300", x"FF00", x"00FF"),	-- PER_ID_GT_SWA23
 		(x"1000", x"FF00", x"00FF"),	-- PER_ID_TDCPROC0
 		(x"1100", x"FF00", x"00FF"),	-- PER_ID_TDCPROC1
 		(x"1200", x"FF00", x"00FF"),	-- PER_ID_TDCPROC2

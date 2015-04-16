@@ -181,86 +181,6 @@ DRPWE_IN_LANE1                                : in   std_logic;
     GT0_PLL1OUTREFCLK_IN                    : in   std_logic;
 --____________________________COMMON PORTS_______________________________}
 
-    gt0_rxlpmhfhold_in                          : in   std_logic;
-    gt0_rxlpmlfhold_in                          : in   std_logic;
-    gt0_rxlpmhfovrden_in                        : in   std_logic;
-    gt0_rxlpmreset_in                           : in   std_logic;
-    gt0_rxcdrhold_in                            : in   std_logic;
-
-    gt0_eyescanreset_in                         : in   std_logic;
-    -------------------------- RX Margin Analysis Ports ------------------------
-    gt0_eyescandataerror_out                    : out  std_logic;
-    gt0_eyescantrigger_in                       : in   std_logic;
-    gt0_rxbyteisaligned_out                     : out  std_logic;
-    gt0_rxcommadet_out                          : out  std_logic;
-        ------------------- Receive Ports - Pattern Checker Ports ------------------
-    gt0_rxprbserr_out                           : out  std_logic;
-    gt0_rxprbssel_in                            : in   std_logic_vector(2 downto 0);
-        ------------------- Receive Ports - Pattern Checker ports ------------------
-    gt0_rxprbscntreset_in                       : in   std_logic;
-        ------------------- Receive Ports - RX Data Path interface -----------------
-    gt0_rxpcsreset_in                           : in   std_logic;
-    gt0_rxpmareset_in                           : in   std_logic;
-    gt0_dmonitorout_out                         : out  std_logic_vector(14 downto 0);
-        -------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-    gt0_rxbufreset_in                           : in   std_logic;
-        ------------------ Transmit Ports - Pattern Generator Ports ----------------
-    gt0_txprbsforceerr_in                       : in   std_logic;
-    gt0_txprbssel_in                            : in   std_logic_vector(2 downto 0); 
-        ------------------- Transmit Ports - TX Data Path interface -----------------
-    gt0_txpcsreset_in                           : in   std_logic;
-    gt0_txpmareset_in                           : in   std_logic;
-    ------------------------ TX Configurable Driver Ports ----------------------
-    gt0_txpostcursor_in                         : in   std_logic_vector(4 downto 0);
-    gt0_txprecursor_in                          : in   std_logic_vector(4 downto 0);
-    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt0_txchardispmode_in                       : in   std_logic_vector(1 downto 0);
-    gt0_txchardispval_in                        : in   std_logic_vector(1 downto 0);
-    gt0_txdiffctrl_in                           : in   std_logic_vector(3 downto 0);
-    gt0_txmaincursor_in                         : in   std_logic_vector(6 downto 0);
-    ----------------- Transmit Ports - TX Polarity Control Ports ---------------
-    gt0_txpolarity_in                           : in   std_logic;
-
-    gt1_rxlpmhfhold_in                          : in   std_logic;
-    gt1_rxlpmlfhold_in                          : in   std_logic;
-    gt1_rxlpmhfovrden_in                        : in   std_logic;
-    gt1_rxlpmreset_in                           : in   std_logic;
-    gt1_rxcdrhold_in                            : in   std_logic;
-
-    gt1_eyescanreset_in                         : in   std_logic;
-    -------------------------- RX Margin Analysis Ports ------------------------
-    gt1_eyescandataerror_out                    : out  std_logic;
-    gt1_eyescantrigger_in                       : in   std_logic;
-    gt1_rxbyteisaligned_out                     : out  std_logic;
-    gt1_rxcommadet_out                          : out  std_logic;
-        ------------------- Receive Ports - Pattern Checker Ports ------------------
-    gt1_rxprbserr_out                           : out  std_logic;
-    gt1_rxprbssel_in                            : in   std_logic_vector(2 downto 0);
-        ------------------- Receive Ports - Pattern Checker ports ------------------
-    gt1_rxprbscntreset_in                       : in   std_logic;
-        ------------------- Receive Ports - RX Data Path interface -----------------
-    gt1_rxpcsreset_in                           : in   std_logic;
-    gt1_rxpmareset_in                           : in   std_logic;
-    gt1_dmonitorout_out                         : out  std_logic_vector(14 downto 0);
-        -------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-    gt1_rxbufreset_in                           : in   std_logic;
-        ------------------ Transmit Ports - Pattern Generator Ports ----------------
-    gt1_txprbsforceerr_in                       : in   std_logic;
-    gt1_txprbssel_in                            : in   std_logic_vector(2 downto 0); 
-        ------------------- Transmit Ports - TX Data Path interface -----------------
-    gt1_txpcsreset_in                           : in   std_logic;
-    gt1_txpmareset_in                           : in   std_logic;
-    ------------------------ TX Configurable Driver Ports ----------------------
-    gt1_txpostcursor_in                         : in   std_logic_vector(4 downto 0);
-    gt1_txprecursor_in                          : in   std_logic_vector(4 downto 0);
-    ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-    gt1_txchardispmode_in                       : in   std_logic_vector(1 downto 0);
-    gt1_txchardispval_in                        : in   std_logic_vector(1 downto 0);
-    gt1_txdiffctrl_in                           : in   std_logic_vector(3 downto 0);
-    gt1_txmaincursor_in                         : in   std_logic_vector(6 downto 0);
-    ----------------- Transmit Ports - TX Polarity Control Ports ---------------
-    gt1_txpolarity_in                           : in   std_logic;
-
 GTRXRESET_IN                            : in    std_logic;
 LINK_RESET_IN                           : in    std_logic;
 RXFSM_DATA_VALID                        : in    std_logic; 
@@ -1079,45 +999,46 @@ GT0_GTPTXP_OUT          =>  TX1P_OUT,
     GT0_TXRESETDONE_OUT          =>  gt0_txresetdone_i,
     --------------------- Transmit Ports - PCI Express Ports -------------------
     gt0_txelecidle_in            =>  POWERDOWN_IN,
-         gt0_rxlpmhfhold_in                 => gt0_rxlpmhfhold_in,
-         gt0_rxlpmlfhold_in                 => gt0_rxlpmlfhold_in,
-         gt0_eyescanreset_in                => gt0_eyescanreset_in,
+
+         gt0_rxlpmhfhold_in                 => tied_to_ground_i,
+         gt0_rxlpmlfhold_in                 => tied_to_ground_i,
+         gt0_eyescanreset_in                => tied_to_ground_i,
         -------------------------- RX Margin Analysis Ports ------------------------
-         gt0_eyescandataerror_out           => gt0_eyescandataerror_out,
-         gt0_eyescantrigger_in              => gt0_eyescantrigger_in,
-         gt0_rxbyteisaligned_out            => gt0_rxbyteisaligned_out,
-         gt0_rxcommadet_out                 => gt0_rxcommadet_out,
+         gt0_eyescandataerror_out           => open,
+         gt0_eyescantrigger_in              => tied_to_ground_i,
+         gt0_rxbyteisaligned_out            => open,
+         gt0_rxcommadet_out                 => open,
         ------------------------ TX Configurable Driver Ports ----------------------
-         gt0_txpostcursor_in                => gt0_txpostcursor_in,
-         gt0_txprecursor_in                 => gt0_txprecursor_in,
+         gt0_txpostcursor_in                => "00000",
+         gt0_txprecursor_in                 => "00000",
         ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-         gt0_txchardispmode_in              => gt0_txchardispmode_in,
-         gt0_txchardispval_in               => gt0_txchardispval_in,
-         gt0_txdiffctrl_in                  => gt0_txdiffctrl_in,
-         gt0_txmaincursor_in                => gt0_txmaincursor_in,
+         gt0_txchardispmode_in              => "00",
+         gt0_txchardispval_in               => "00",
+         gt0_txdiffctrl_in                  => "1000",
+         gt0_txmaincursor_in                => "0000000",
         ----------------- Transmit Ports - TX Polarity Control Ports ---------------
-         gt0_txpolarity_in                  => gt0_txpolarity_in,
+         gt0_txpolarity_in                  => tied_to_ground_i,
         ------------------- Receive Ports - Pattern Checker Ports ------------------
-        gt0_rxprbserr_out               => gt0_rxprbserr_out,
-        gt0_rxprbssel_in                => gt0_rxprbssel_in,
+        gt0_rxprbserr_out               => open,
+        gt0_rxprbssel_in                => "000",
         ------------------- Receive Ports - Pattern Checker ports ------------------
-        gt0_rxprbscntreset_in           => gt0_rxprbscntreset_in,
+        gt0_rxprbscntreset_in           => tied_to_ground_i,
         ------------------- Receive Ports - RX Data Path interface -----------------
-        gt0_rxpcsreset_in               => gt0_rxpcsreset_in,
-        gt0_rxpmareset_in               => gt0_rxpmareset_in,
-        gt0_rxlpmreset_in               => gt0_rxlpmreset_in,
+        gt0_rxpcsreset_in               => tied_to_ground_i,
+        gt0_rxpmareset_in               => tied_to_ground_i,
+        gt0_rxlpmreset_in               => tied_to_ground_i,
         ------- Receive Ports - RX Driver,OOB signalling,Coupling and Eq.,CDR ------
-        gt0_rxlpmhfovrden_in            => gt0_rxlpmhfovrden_in,
-        gt0_rxcdrhold_in                => gt0_rxcdrhold_in,
-        gt0_dmonitorout_out             => gt0_dmonitorout_out,
+        gt0_rxlpmhfovrden_in            => tied_to_ground_i,
+        gt0_rxcdrhold_in                => tied_to_ground_i,
+        gt0_dmonitorout_out             => open,
         -------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-        gt0_rxbufreset_in               => gt0_rxbufreset_in,
+        gt0_rxbufreset_in               => tied_to_ground_i,
         ------------------ Transmit Ports - Pattern Generator Ports ----------------
-        gt0_txprbsforceerr_in           => gt0_txprbsforceerr_in,
-        gt0_txprbssel_in                => gt0_txprbssel_in,
+        gt0_txprbsforceerr_in           => tied_to_ground_i,
+        gt0_txprbssel_in                => "000",
         ------------------- Transmit Ports - TX Data Path interface -----------------
-        gt0_txpcsreset_in               => gt0_txpcsreset_in,
-        gt0_txpmareset_in               => gt0_txpmareset_in,
+        gt0_txpcsreset_in               => tied_to_ground_i,
+        gt0_txpmareset_in               => tied_to_ground_i,
     --_________________________________________________________________________
     --_________________________________________________________________________
     --GT1
@@ -1198,45 +1119,46 @@ GT1_GTPTXP_OUT          =>  TX1P_OUT_LANE1,
     GT1_TXRESETDONE_OUT          =>  gt1_txresetdone_i,
     --------------------- Transmit Ports - PCI Express Ports -------------------
     gt1_txelecidle_in            =>  POWERDOWN_IN,
-         gt1_rxlpmhfhold_in                 => gt1_rxlpmhfhold_in,
-         gt1_rxlpmlfhold_in                 => gt1_rxlpmlfhold_in,
-         gt1_eyescanreset_in                => gt1_eyescanreset_in,
+
+         gt1_rxlpmhfhold_in                 => tied_to_ground_i,
+         gt1_rxlpmlfhold_in                 => tied_to_ground_i,
+         gt1_eyescanreset_in                => tied_to_ground_i,
         -------------------------- RX Margin Analysis Ports ------------------------
-         gt1_eyescandataerror_out           => gt1_eyescandataerror_out,
-         gt1_eyescantrigger_in              => gt1_eyescantrigger_in,
-         gt1_rxbyteisaligned_out            => gt1_rxbyteisaligned_out,
-         gt1_rxcommadet_out                 => gt1_rxcommadet_out,
+         gt1_eyescandataerror_out           => open,
+         gt1_eyescantrigger_in              => tied_to_ground_i,
+         gt1_rxbyteisaligned_out            => open,
+         gt1_rxcommadet_out                 => open,
         ------------------------ TX Configurable Driver Ports ----------------------
-         gt1_txpostcursor_in                => gt1_txpostcursor_in,
-         gt1_txprecursor_in                 => gt1_txprecursor_in,
+         gt1_txpostcursor_in                => "00000",
+         gt1_txprecursor_in                 => "00000",
         ------------------ Transmit Ports - TX 8B/10B Encoder Ports ----------------
-         gt1_txchardispmode_in              => gt1_txchardispmode_in,
-         gt1_txchardispval_in               => gt1_txchardispval_in,
-         gt1_txdiffctrl_in                  => gt1_txdiffctrl_in,
-         gt1_txmaincursor_in                => gt1_txmaincursor_in,
+         gt1_txchardispmode_in              => "00",
+         gt1_txchardispval_in               => "00",
+         gt1_txdiffctrl_in                  => "1000",
+         gt1_txmaincursor_in                => "0000000",
         ----------------- Transmit Ports - TX Polarity Control Ports ---------------
-         gt1_txpolarity_in                  => gt1_txpolarity_in,
+         gt1_txpolarity_in                  => tied_to_ground_i,
         ------------------- Receive Ports - Pattern Checker Ports ------------------
-        gt1_rxprbserr_out               => gt1_rxprbserr_out,
-        gt1_rxprbssel_in                => gt1_rxprbssel_in,
+        gt1_rxprbserr_out               => open,
+        gt1_rxprbssel_in                => "000",
         ------------------- Receive Ports - Pattern Checker ports ------------------
-        gt1_rxprbscntreset_in           => gt1_rxprbscntreset_in,
+        gt1_rxprbscntreset_in           => tied_to_ground_i,
         ------------------- Receive Ports - RX Data Path interface -----------------
-        gt1_rxpcsreset_in               => gt1_rxpcsreset_in,
-        gt1_rxpmareset_in               => gt1_rxpmareset_in,
-        gt1_rxlpmreset_in               => gt1_rxlpmreset_in,
+        gt1_rxpcsreset_in               => tied_to_ground_i,
+        gt1_rxpmareset_in               => tied_to_ground_i,
+        gt1_rxlpmreset_in               => tied_to_ground_i,
         ------- Receive Ports - RX Driver,OOB signalling,Coupling and Eq.,CDR ------
-        gt1_rxlpmhfovrden_in            => gt1_rxlpmhfovrden_in,
-        gt1_rxcdrhold_in                => gt1_rxcdrhold_in,
-        gt1_dmonitorout_out             => gt1_dmonitorout_out,
+        gt1_rxlpmhfovrden_in            => tied_to_ground_i,
+        gt1_rxcdrhold_in                => tied_to_ground_i,
+        gt1_dmonitorout_out             => open,
         -------- Receive Ports - RX Elastic Buffer and Phase Alignment Ports -------
-        gt1_rxbufreset_in               => gt1_rxbufreset_in,
+        gt1_rxbufreset_in               => tied_to_ground_i,
         ------------------ Transmit Ports - Pattern Generator Ports ----------------
-        gt1_txprbsforceerr_in           => gt1_txprbsforceerr_in,
-        gt1_txprbssel_in                => gt1_txprbssel_in,
+        gt1_txprbsforceerr_in           => tied_to_ground_i,
+        gt1_txprbssel_in                => "000",
         ------------------- Transmit Ports - TX Data Path interface -----------------
-        gt1_txpcsreset_in               => gt1_txpcsreset_in,
-        gt1_txpmareset_in               => gt1_txpmareset_in,
+        gt1_txpcsreset_in               => tied_to_ground_i,
+        gt1_txpmareset_in               => tied_to_ground_i,
     --____________________________COMMON PORTS________________________________
     GT0_PLL0OUTCLK_IN        =>  GT0_PLL0OUTCLK_IN, 
     GT0_PLL1OUTCLK_IN        =>  GT0_PLL1OUTCLK_IN, 

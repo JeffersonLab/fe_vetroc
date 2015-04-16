@@ -16,7 +16,6 @@ end sysclkpll;
 
 architecture synthesis of sysclkpll is
 	signal CLK_33MHZ_IBUFG			: std_logic;
-	signal CLK_33MHZ_BUFG			: std_logic;
 	signal SYSCLK_PLLLOCKED			: std_logic;
 	signal SYSCLK_PLLRST				: std_logic;
 	signal SYSCLK_50_RESET_Q		: std_logic_vector(7 downto 0);
@@ -33,25 +32,6 @@ begin
 		port map(
 			O	=> CLK_33MHZ_IBUFG,
 			I	=> CLK_33MHZ
-		);
-
-	BUFG_inst: BUFG
-		port map(
-			O	=> CLK_33MHZ_BUFG,
-			I	=> CLK_33MHZ_IBUFG
-		);
-
-	SRLC32E_pllrst: SRLC32E
-		generic map(
-			INIT	=> X"FFFFFFFF"
-		)
-		port map(
-			Q		=> open,
-			Q31	=> SYSCLK_PLLRST,
-			A		=> "11111",
-			CE		=> '1',
-			CLK	=> CLK_33MHZ_BUFG,
-			D		=> '0'
 		);
 
 	mmcm_adv_inst: MMCME2_ADV
@@ -90,7 +70,7 @@ begin
 			CLKOUT5              => open,
 			CLKOUT6              => open,
 			CLKFBIN              => CLKFBOUT,
-			CLKIN1               => CLK_33MHZ_BUFG,
+			CLKIN1               => CLK_33MHZ_IBUFG,
 			CLKIN2               => '0',
 			CLKINSEL             => '1',
 			DADDR                => (others=>'0'),
