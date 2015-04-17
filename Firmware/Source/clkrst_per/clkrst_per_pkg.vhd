@@ -32,6 +32,8 @@ package clkrst_per_pkg is
 
 			CLKREFA					: out std_logic;
 
+			SLOTID					: in std_logic_vector(4 downto 0);
+
 			-- Generated Clocks
 			SYSCLK_50_RESET		: out std_logic;
 			SYSCLK_50				: out std_logic;

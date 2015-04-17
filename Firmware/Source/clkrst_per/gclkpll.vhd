@@ -24,6 +24,7 @@ architecture synthesis of gclkpll is
 	signal GCLK_125_RESET_Q	: std_logic_vector(7 downto 0);
 	signal GCLK_125_i			: std_logic;
 	signal CLKFBOUT			: std_logic;
+	signal CLKFBIN				: std_logic;
 	signal CLKOUT0				: std_logic;
 	signal CLKOUT1				: std_logic;
 	signal CLKOUT2				: std_logic;
@@ -84,7 +85,7 @@ begin
 			CLKOUT4              => open,
 			CLKOUT5              => open,
 			CLKOUT6              => open,
-			CLKFBIN              => CLKFBOUT,
+			CLKFBIN              => CLKFBIN,
 			CLKIN1               => CLK125F,
 			CLKIN2               => '0',
 			CLKINSEL             => '1',
@@ -105,6 +106,12 @@ begin
 			PWRDWN               => '0',
 			RST                  => GCLK_125_REF_RST
 		);  
+
+	bufg_clkfb: BUFG
+		port map(
+			I     => CLKFBOUT,
+			O     => CLKFBIN
+		);
 
 	bufg_clkout0: BUFG
 		port map(

@@ -6,7 +6,7 @@ use unisim.vcomponents.all;
 
 entity sysclkpll is
 	port(
-		CLK_33MHZ			: in std_logic;
+		CLK_50MHZ			: in std_logic;
 		
 		SYSCLK_50_RESET	: out std_logic;
 		SYSCLK_50			: out std_logic;
@@ -15,7 +15,7 @@ entity sysclkpll is
 end sysclkpll;
 
 architecture synthesis of sysclkpll is
-	signal CLK_33MHZ_IBUFG			: std_logic;
+	signal CLK_50MHZ_IBUFG			: std_logic;
 	signal SYSCLK_PLLLOCKED			: std_logic;
 	signal SYSCLK_PLLRST				: std_logic;
 	signal SYSCLK_50_RESET_Q		: std_logic_vector(7 downto 0);
@@ -30,8 +30,8 @@ begin
 
 	IBUFG_inst: IBUFG
 		port map(
-			O	=> CLK_33MHZ_IBUFG,
-			I	=> CLK_33MHZ
+			O	=> CLK_50MHZ_IBUFG,
+			I	=> CLK_50MHZ
 		);
 
 	mmcm_adv_inst: MMCME2_ADV
@@ -41,7 +41,7 @@ begin
 			COMPENSATION         => "ZHOLD",
 			STARTUP_WAIT         => FALSE,
 			DIVCLK_DIVIDE        => 1,
-			CLKFBOUT_MULT_F      => 30.000,
+			CLKFBOUT_MULT_F      => 20.000,
 			CLKFBOUT_PHASE       => 0.000,
 			CLKFBOUT_USE_FINE_PS => FALSE,
 			CLKOUT0_DIVIDE_F     => 20.000,
@@ -52,7 +52,7 @@ begin
 			CLKOUT1_PHASE			=> 0.000,
 			CLKOUT1_DUTY_CYCLE   => 0.5,
 			CLKOUT1_USE_FINE_PS  => FALSE,
-			CLKIN1_PERIOD        => 30.000,
+			CLKIN1_PERIOD        => 20.000,
 			REF_JITTER1          => 0.010
 		)
 		port map(
@@ -70,7 +70,7 @@ begin
 			CLKOUT5              => open,
 			CLKOUT6              => open,
 			CLKFBIN              => CLKFBOUT,
-			CLKIN1               => CLK_33MHZ_IBUFG,
+			CLKIN1               => CLK_50MHZ_IBUFG,
 			CLKIN2               => '0',
 			CLKINSEL             => '1',
 			DADDR                => (others=>'0'),

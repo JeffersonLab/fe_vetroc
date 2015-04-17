@@ -33,6 +33,8 @@ entity clkrst_per is
 
 		CLKREFA					: out std_logic;
 
+		SLOTID					: in std_logic_vector(4 downto 0);
+
 		-- Generated Clocks
 		SYSCLK_50_RESET		: out std_logic;
 		SYSCLK_50				: out std_logic;
@@ -70,7 +72,7 @@ end clkrst_per;
 architecture synthesis of clkrst_per is
 	component sysclkpll is
 		port(
-			CLK_33MHZ			: in std_logic;
+			CLK_50MHZ			: in std_logic;
 			
 			SYSCLK_50_RESET	: out std_logic;
 			SYSCLK_50			: out std_logic;
@@ -127,6 +129,11 @@ architecture synthesis of clkrst_per is
 		);
 	end component;
 
+	constant BOARD_ID					: std_logic_vector(31 downto 0) := x"56695452";
+	constant FIRMWARE_REV			: std_logic_vector(15 downto 0) := x"0100";
+
+	signal BOARD_ID_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	signal FIRMWARE_REV_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal CLK_CTRL_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal CLK_STATUS_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal SPI_FLASH_CTRL_REG		: std_logic_vector(31 downto 0) := x"00000000";
@@ -168,7 +175,7 @@ begin
 
 	sysclkpll_inst: sysclkpll
 		port map(
-			CLK_33MHZ			=> CLKPRGC,
+			CLK_50MHZ			=> CLKPRGC,
 			SYSCLK_50_RESET	=> SYSCLK_50_RESET,
 			SYSCLK_50			=> SYSCLK_50,
 			SYSCLK_125			=> SYSCLK_125
@@ -182,7 +189,8 @@ begin
 			GCLK_125_RESET		=> GCLK_125_RESET,
 			GCLK_125				=> GCLK_125,
 			GCLK_250				=> GCLK_250,
-			GCLK_500				=> GCLK_500
+			GCLK_500				=> GCLK_500,
+			GCLK_PLLLOCKED		=> GCLK_PLLLOCKED
 		);
 
 	clksel_inst: clksel
@@ -274,16 +282,24 @@ begin
 	--SOFT_RESET_REG
 	BUS_RESET_SOFT_OUT <= SOFT_RESET_REG(0);
 
+	--BOARD_ID_REG
+	BOARD_ID_REG <= BOARD_ID;
+
+	--FIRMWARE_REV_REG
+	FIRMWARE_REV_REG <= "000" & SLOTID & "00000000" & FIRMWARE_REV;
+
 	process(BUS_CLK)
 	begin
 		if rising_edge(BUS_CLK) then
 			PO.ACK <= '0';
 
-			rw_reg_ack(	REG => CLK_CTRL_REG				,PI=>PI,PO=>PO, A => x"0000", RW => x"BFC00000", I => x"80000000", ACK => CLKSRC_RELOAD);
-			ro_reg(		REG => CLK_STATUS_REG			,PI=>PI,PO=>PO, A => x"0004", RO => x"00020000");
-			rw_reg(		REG => SPI_FLASH_CTRL_REG		,PI=>PI,PO=>PO, A => x"0008", RW => x"000007FF", I => x"00000100", R => x"00000700");
-			ro_reg(		REG => SPI_FLASH_STATUS_REG	,PI=>PI,PO=>PO, A => x"000C", RO => x"000008FF");
-			rw_reg(		REG => SOFT_RESET_REG			,PI=>PI,PO=>PO, A => x"0010", RW => x"00000001", I => x"00000001");
+			ro_reg(		REG => BOARD_ID_REG				,PI=>PI,PO=>PO, A => x"0000", RO => x"FFFFFFFF");
+			ro_reg(		REG => FIRMWARE_REV_REG			,PI=>PI,PO=>PO, A => x"0004", RO => x"FFFFFFFF");
+			rw_reg_ack(	REG => CLK_CTRL_REG				,PI=>PI,PO=>PO, A => x"0008", RW => x"BFC00000", I => x"80000000", ACK => CLKSRC_RELOAD);
+			ro_reg(		REG => CLK_STATUS_REG			,PI=>PI,PO=>PO, A => x"000C", RO => x"00020000");
+			rw_reg(		REG => SPI_FLASH_CTRL_REG		,PI=>PI,PO=>PO, A => x"0010", RW => x"000007FF", I => x"00000100", R => x"00000700");
+			ro_reg(		REG => SPI_FLASH_STATUS_REG	,PI=>PI,PO=>PO, A => x"0014", RO => x"000008FF");
+			rw_reg(		REG => SOFT_RESET_REG			,PI=>PI,PO=>PO, A => x"0018", RW => x"00000001", I => x"00000001");
 		end if;
 	end process;
 

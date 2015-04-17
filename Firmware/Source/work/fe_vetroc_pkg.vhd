@@ -14,22 +14,22 @@ use work.perbus_pkg.all;
 package fe_vetroc_pkg is
  	constant PER_ID_CLKRST				: integer := 0;
 	constant PER_ID_SD					: integer := 1;
-	constant PER_ID_TDCPROC0			: integer := 2;
-	constant PER_ID_TDCPROC1			: integer := 3;
-	constant PER_ID_TDCPROC2			: integer := 4;
-	constant PER_ID_TDCPROC3			: integer := 5;
-	constant PER_ID_TDCPROC4			: integer := 6;
-	constant PER_ID_TDCPROC5			: integer := 7;
-	constant PER_ID_TDCPROC6			: integer := 8;
-	constant PER_ID_TDCPROC7			: integer := 9;
-	constant PER_ID_EVTBUILDER			: integer := 10;
-	constant PER_ID_GT_SWA23			: integer := 11;
+	constant PER_ID_GT_SWA23			: integer := 2;
+	constant PER_ID_TDCPROC0			: integer := 3;
+	constant PER_ID_TDCPROC1			: integer := 4;
+	constant PER_ID_TDCPROC2			: integer := 5;
+	constant PER_ID_TDCPROC3			: integer := 6;
+	constant PER_ID_TDCPROC4			: integer := 7;
+	constant PER_ID_TDCPROC5			: integer := 8;
+	constant PER_ID_TDCPROC6			: integer := 9;
+	constant PER_ID_TDCPROC7			: integer := 10;
+	constant PER_ID_EVTBUILDER			: integer := 11;
 
 	-- BASE_ADDR, BASE_MASK, USER_MASK
 	constant PER_ADDR_INFO_CFG	: PER_ADDR_INFO_ARRAY := (
 		(x"0000", x"FF00", x"00FF"),	-- PER_ID_CLKRST
 		(x"0200", x"FE00", x"01FF"),	-- PER_ID_SD
-		(x"0300", x"FF00", x"00FF"),	-- PER_ID_GT_SWA23
+		(x"0400", x"FF00", x"00FF"),	-- PER_ID_GT_SWA23
 		(x"1000", x"FF00", x"00FF"),	-- PER_ID_TDCPROC0
 		(x"1100", x"FF00", x"00FF"),	-- PER_ID_TDCPROC1
 		(x"1200", x"FF00", x"00FF"),	-- PER_ID_TDCPROC2
