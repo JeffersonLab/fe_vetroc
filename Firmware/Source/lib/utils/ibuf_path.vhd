@@ -3,7 +3,8 @@ use ieee.std_logic_1164.all;
 
 entity ibuf_path is
 	generic(
-		SYNC_STAGES	: integer := 2
+		SYNC_STAGES	: integer := 2;
+		INVERT		: boolean := false
 	);
 	port(
 		CLK			: in std_logic;
@@ -24,7 +25,14 @@ begin
 		end if;
 	end process;
 
-	OUT_ASYNC <= I;
-	OUT_SYNC <= I_Q(I_Q'length-1);
-	
-end Synthesis;
+	invert_true_gen: if INVERT = true generate
+		OUT_ASYNC <= not I;
+		OUT_SYNC <= not I_Q(I_Q'length-1);
+	end generate;
+
+	invert_false_gen: if INVERT = false generate
+		OUT_ASYNC <= I;
+		OUT_SYNC <= I_Q(I_Q'length-1);
+	end generate;
+
+end synthesis;

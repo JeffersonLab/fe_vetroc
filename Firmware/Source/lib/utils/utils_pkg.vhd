@@ -176,7 +176,8 @@ package utils_pkg is
 
 	component ibuf_path is
 		generic(
-			SYNC_STAGES	: integer := 2
+			SYNC_STAGES	: integer := 2;
+			INVERT		: boolean := false
 		);
 		port(
 			CLK			: in std_logic;

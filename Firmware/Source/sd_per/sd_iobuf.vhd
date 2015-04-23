@@ -69,27 +69,27 @@ begin
 	end generate;
 
 	TOKENFI_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => true)
 		port map(CLK => CLK, I => TOKENFI, OUT_ASYNC => TOKENFI_ASYNC, OUT_SYNC => TOKENFI_SYNC);
 
 	SYNCFI_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => true)
 		port map(CLK => CLK, I => SYNCFI, OUT_ASYNC => SYNCFI_ASYNC, OUT_SYNC => SYNCFI_SYNC);
 
 	TRIG1F_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => true)
 		port map(CLK => CLK, I => TRIG1F, OUT_ASYNC => TRIG1F_ASYNC, OUT_SYNC => TRIG1F_SYNC);
 
 	TRIG2F_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => true)
 		port map(CLK => CLK, I => TRIG2F, OUT_ASYNC => TRIG2F_ASYNC, OUT_SYNC => TRIG2F_SYNC);
 
 	STATA_IN_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => false)
 		port map(CLK => CLK, I => STATA_IN, OUT_ASYNC => STATA_IN_ASYNC, OUT_SYNC => STATA_IN_SYNC);
 
 	STATB_IN_ibuf_path: ibuf_path
-		generic map(SYNC_STAGES	=> 2)
+		generic map(SYNC_STAGES	=> 2, INVERT => false)
 		port map(CLK => CLK, I => STATB_IN, OUT_ASYNC => STATB_IN_ASYNC, OUT_SYNC => STATB_IN_SYNC);
 
 	-- Single-ended Output Buffers
