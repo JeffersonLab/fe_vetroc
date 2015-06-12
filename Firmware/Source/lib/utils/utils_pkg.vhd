@@ -34,6 +34,7 @@ package utils_pkg is
 	type slv64a is array(integer range <>) of std_logic_vector(63 downto 0);
 	type slv68a is array(integer range <>) of std_logic_vector(67 downto 0);
 	type slv96a is array(integer range <>) of std_logic_vector(95 downto 0);
+	type slv128a is array(integer range <>) of std_logic_vector(127 downto 0);
 
 	type slvr2a is array(natural range <>) of std_logic_vector(0 to 1);
 	type slvr4a is array(natural range <>) of std_logic_vector(0 to 3);
@@ -445,7 +446,9 @@ package utils_pkg is
 	component scfifo_std is
 		generic(
 			D_WIDTH	: integer := 32;
-			A_WIDTH	: integer := 10
+			A_WIDTH		: integer := 10;
+			RD_PROTECT	: boolean := true;
+			WR_PROTECT	: boolean := true
 		);
 		port(
 			CLK		: in std_logic;
@@ -466,7 +469,9 @@ package utils_pkg is
 			D_WIDTH	: integer := 32;
 			A_WIDTH	: integer := 10;
 			DOUT_REG	: boolean := false;
-			FWFT		: boolean := false
+			FWFT			: boolean := false;
+			RD_PROTECT	: boolean := true;
+			WR_PROTECT	: boolean := true
 		);
 		port(
 			CLK		: in std_logic;

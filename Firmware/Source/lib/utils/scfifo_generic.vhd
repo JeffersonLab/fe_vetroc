@@ -11,7 +11,9 @@ entity scfifo_generic is
 		D_WIDTH	: integer := 32;
 		A_WIDTH	: integer := 10;
 		DOUT_REG	: boolean := false;
-		FWFT		: boolean := false
+		FWFT			: boolean := false;
+		RD_PROTECT	: boolean := true;
+		WR_PROTECT	: boolean := true
 	);
 	port(
 		CLK		: in std_logic;
@@ -37,7 +39,9 @@ begin
 	scfifo_std_inst: scfifo_std
 		generic map(
 			D_WIDTH	=> D_WIDTH,
-			A_WIDTH	=> A_WIDTH
+			A_WIDTH		=> A_WIDTH,
+			RD_PROTECT	=> RD_PROTECT,
+			WR_PROTECT	=> WR_PROTECT
 		)
 		port map(
 			CLK		=> CLK,
@@ -117,21 +121,21 @@ begin
 
 		-- FWFT non-fabric registered output
 		DOUT_REG_gen_false: if DOUT_REG = false generate
-			signal DOUT_VALID		: std_logic := '0';
+			signal DOUT_EMPTY		: std_logic := '1';
 		begin
 			DOUT <= STD_DOUT;
-			STD_RD <= not STD_EMPTY and (RD or not DOUT_VALID);
-			EMPTY <= not DOUT_VALID;
+			STD_RD <= not STD_EMPTY and (RD or DOUT_EMPTY);
+			EMPTY <= DOUT_EMPTY;
 
 			process(CLK)
 			begin
 				if rising_edge(CLK) then
 					if RST = '1' then
-						DOUT_VALID <= '0';
+						DOUT_EMPTY <= '1';
 					elsif STD_RD = '1' then
-						DOUT_VALID <= '1';
+						DOUT_EMPTY <= '0';
 					elsif RD = '1' then
-						DOUT_VALID <= '0';
+						DOUT_EMPTY <= '1';
 					end if;
 				end if;
 			end process;
@@ -142,14 +146,14 @@ begin
 			signal MIDDLE_DOUT			: std_logic_vector(D_WIDTH-1 downto 0) := (others=>'0');
 			signal FIFO_VALID				: std_logic := '0';
 			signal MIDDLE_VALID			: std_logic := '0';
-			signal DOUT_VALID				: std_logic := '0';
+			signal DOUT_EMPTY				: std_logic := '1';
 			signal WILL_UPDATE_MIDDLE	: std_logic;
 			signal WILL_UPDATE_DOUT		: std_logic;
 		begin
 			WILL_UPDATE_MIDDLE <= '1' when (FIFO_VALID = '1') and (MIDDLE_VALID = WILL_UPDATE_DOUT) else '0';
-			WILL_UPDATE_DOUT <= (MIDDLE_VALID or FIFO_VALID) and (RD or not DOUT_VALID);
-			STD_RD <= not STD_EMPTY and not (MIDDLE_VALID and DOUT_VALID and FIFO_VALID);
-			EMPTY <= not DOUT_VALID;
+			WILL_UPDATE_DOUT <= (MIDDLE_VALID or FIFO_VALID) and (RD or DOUT_EMPTY);
+			STD_RD <= not STD_EMPTY and not (MIDDLE_VALID and not DOUT_EMPTY and FIFO_VALID);
+			EMPTY <= DOUT_EMPTY;
 
 			process(CLK)
 			begin
@@ -157,7 +161,7 @@ begin
 					if RST = '1' then
 						FIFO_VALID <= '0';
 						MIDDLE_VALID <= '0';
-						DOUT_VALID <= '0';
+						DOUT_EMPTY <= '1';
 						DOUT <= (others=>'0');
 						MIDDLE_DOUT <= (others=>'0');
 					else
@@ -186,15 +190,15 @@ begin
 						end if;
 						
 						if WILL_UPDATE_DOUT = '1' then
-							DOUT_VALID <= '1';
+							DOUT_EMPTY <= '0';
 						elsif RD = '1' then
-							DOUT_VALID <= '0';
+							DOUT_EMPTY <= '1';
 						end if;
 					end if;
 				end if;
 			end process;
-
 		end generate;
+
 	end generate;
 
 end synthesis;

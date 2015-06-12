@@ -1,0 +1,627 @@
+set_global_assignment -entity "sopc_system" -library "sopc_system" -name IP_TOOL_NAME "Qsys"
+set_global_assignment -entity "sopc_system" -library "sopc_system" -name IP_TOOL_VERSION "13.0sp1"
+set_global_assignment -entity "sopc_system" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -library "sopc_system" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../sopc_system.sopcinfo"]
+set_instance_assignment -entity "sopc_system" -library "sopc_system" -name SLD_INFO "QSYS_NAME sopc_system HAS_SOPCINFO 1 GENERATION_ID 1434138602"
+set_global_assignment -library "sopc_system" -name MISC_FILE [file join $::quartus(qip_path) "../../sopc_system.cmp"]
+set_global_assignment -name SYNTHESIS_ONLY_QIP ON
+set_global_assignment -library "sopc_system" -name MISC_FILE [file join $::quartus(qip_path) "../../sopc_system.qsys"]
+
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_limiter.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_limiter_002.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_limiter_003.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_width_adapter.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_width_adapter_001.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_width_adapter_004.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_width_adapter_005.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_rst_controller.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_rst_controller_002.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_rst_controller_003.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_rst_controller_004.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_peripherals_ccb.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_flash_ccb.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem_s0_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_descriptor_memory_s1_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cfi_flash_ts_controller_fpga_uas_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cfi_flash_ts_controller_fpga_uas_translator_avalon_universal_slave_0_agent_rdata_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb_s0_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sdram_0_avl_translator_avalon_universal_slave_0_agent_rsp_fifo.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_jtag_debug_module_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem_s0_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_descriptor_memory_s1_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cfi_flash_ts_controller_fpga_uas_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb_s0_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sdram_0_avl_translator_avalon_universal_slave_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_data_master_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_instruction_master_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_tx_descriptor_write_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_rx_descriptor_read_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem_m0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_peripherals_ccb_m0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_flash_ccb_m0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_rx_m_write_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb_m0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_tightly_coupled_data_master_0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_tightly_coupled_instruction_master_0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_sdram_pb.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_jtag_debug_module_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_flash_ccb_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_peripherals_ccb_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_sdram_pb_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_descriptor_memory_s1_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_jtag_uart_avalon_jtag_slave_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_mac_control_port_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sysid_control_slave_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_timer_1ms_s1_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_gtp_regif_0_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_tx_csr_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cfi_flash_ts_controller_fpga_uas_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb_s0_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sdram_0_avl_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tlb_miss_ram_1k_s1_translator.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_linux_cpu_data_master_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_tx_descriptor_write_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_dma_to_descriptor_mem_m0_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_cpu_to_flash_ccb_m0_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_sgdma_tx_m_read_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "sopc_system_tse_dma_to_sdram_ccb_m0_translator_avalon_universal_master_0_agent.vhd"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_avalon_st_adapter.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_avalon_st_adapter_timing_adapter_0.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_avalon_st_adapter_timing_adapter_0_fifo.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_irq_clock_crosser.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_irq_mapper.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_width_adapter.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_address_alignment.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_burst_uncompressor.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_016.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_arbitrator.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_mux_016.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_011.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_015.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_mux_015.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_009.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_mux_008.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_013.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_008.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_mux_007.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_005.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_mux_005.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_007.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_006.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_004.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_mux_004.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_002.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_mux_001.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_mux.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux_002.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_rsp_xbar_demux.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_mux.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux_001.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cmd_xbar_demux.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_reset_controller.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_reset_synchronizer.v"]
+set_global_assignment -library "sopc_system" -name SDC_FILE [file join $::quartus(qip_path) "submodules/altera_reset_controller.sdc"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_burst_adapter.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_traffic_limiter.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_st_pipeline_base.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_016.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_011.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_015.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_009.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_013.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_008.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_006.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_005.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_007.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_006.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_004.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_002.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router_002.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_id_router.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router_001.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_addr_router.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_sc_fifo.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_slave_agent.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_agent.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_slave_translator.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_merlin_master_translator.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_tlb_miss_ram_1k.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_tlb_miss_ram_1k.hex"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_mm_clock_crossing_bridge.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_dc_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_dcfifo_synchronizer_bundle.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cfi_flash_ts_bridge_fpga.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_tse_mac.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_eth_tse_mac.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_clk_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_crc328checker.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_crc328generator.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_crc32ctl8.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_crc32galois8.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_gmii_io.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_lb_read_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_lb_wrt_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_hashing.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_host_control.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_host_control_small.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mac_control.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_register_map.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_register_map_small.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_counter_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_shared_mac_control.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_shared_register_map.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_counter_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_lfsr_10.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_loopback_ff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_altshifttaps.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_fifoless_mac_rx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mac_rx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_fifoless_mac_tx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mac_tx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_magic_detection.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mdio.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mdio_clk_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mdio_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_mdio.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mii_rx_if.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mii_tx_if.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_pipeline_base.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_pipeline_stage.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_dpram_16x32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_dpram_8x32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_quad_16x32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_quad_8x32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_fifoless_retransmit_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_retransmit_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rgmii_in1.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rgmii_in4.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rgmii_module.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rgmii_out1.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rgmii_out4.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_ff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_min_ff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_ff_cntrl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_ff_cntrl_32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_ff_cntrl_32_shift16.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_ff_length.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_rx_stat_extract.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_timing_adapter32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_timing_adapter8.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_timing_adapter_fifo32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_timing_adapter_fifo8.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_1geth.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_fifoless_1geth.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_w_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_w_fifo_10_100_1000.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_wo_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_wo_fifo_10_100_1000.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mac_woff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_gen_host.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_min_ff.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff_cntrl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff_cntrl_32.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff_cntrl_32_shift16.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff_length.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_ff_read_cntl.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_tx_stat_extract.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_false_path_marker.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_reset_synchronizer.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_clock_crosser.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_13.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_24.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_34.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_opt_1246.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_opt_14_44.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_a_fifo_opt_36_10.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_gray_cnt.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_sdpm_altsyncram.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_altsyncram_dpm_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_bin_cnt.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_ph_calculator.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_sdpm_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tse_dc_fifo.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/altera_tse_mac_woff.ocp"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/altera_tse_top_w_fifo_10_100_1000.ocp"]
+set_global_assignment -library "sopc_system" -name SDC_FILE [file join $::quartus(qip_path) "submodules/altera_eth_tse_mac.sdc"]
+set_global_assignment -library "sopc_system" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/gtp_regif.vhd"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_avalon_mm_bridge.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cfi_flash_ts_bridge.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_cfi_flash_ts_controller.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tristate_controller_aggregator.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_tristate_controller_translator.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_dll_stratixiv.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_oct_stratixiv.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_c0.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_mm_st_converter.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_addr_cmd.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_addr_cmd_wrap.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ddr2_odt_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ddr3_odt_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_lpddr2_addr_cmd.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_odt_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_rdwr_data_tmg.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_arbiter.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_burst_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_cmd_gen.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_csr.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_buffer.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_buffer_manager.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_burst_tracking.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_dataid_manager.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_list.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_rdata_path.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_wdata_path.v"]
+set_global_assignment -library "sopc_system" -name MISC_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_define.iv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_decoder.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_decoder_32_syn.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_decoder_64_syn.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_encoder.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_encoder_32_syn.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_encoder_64_syn.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_ecc_encoder_decoder_wrapper.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_axi_st_converter.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_input_if.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_rank_timer.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_sideband.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_tbp.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_timing_param.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_controller.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_ddrx_controller_st_top.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/alt_mem_if_nextgen_ddr2_controller_core.sv"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_software/sequencer.c"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_software/sequencer.h"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_software/sequencer_defines.h"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_make_qsys_seq.tcl"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_id_router.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_ram_csr.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_datamux.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_rsp_xbar_mux.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_cmd_xbar_demux.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_cmd_xbar_mux_003.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_addr_router.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_acv_wrapper.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_addr_router_001.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_sequencer_rst.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_id_router_003.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_pattern_fifo.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_write_decoder.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_siii_wrapper.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_reg_file.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_bitcheck.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_cmd_xbar_demux_001.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_mgr.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_reg_file.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_sv_wrapper.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_data_broadcast.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_core.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_lfsr12.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_sequencer_mem_no_ifdef_params.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_inst_ROM_reg.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_acv_phase_decode.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_data_mgr.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_ac_ROM_reg.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_dm_decoder.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_lfsr36.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_generic.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_irq_mapper.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_di_buffer.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_jumplogic.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_di_buffer_wrap.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_test_bench.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_lfsr72.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_inst_ROM_no_ifdef_params.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_rsp_xbar_demux_003.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_phy_mgr.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_ddr2.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_ac_ROM_no_ifdef_params.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_ram.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_data_decoder.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_siii_phase_decode.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sequencer_scc_sv_phase_decode.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/rw_manager_read_datapath.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_sequencer_mem.hex"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_AC_ROM.hex"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_s0_inst_ROM.hex"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/afi_mux_ddrx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_clock_pair_generator.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_read_valid_selector.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_addr_cmd_datapath.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_reset.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_acv_ldc.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_memphy.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_reset_sync.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_new_io_pads.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_fr_cycle_shifter.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_fr_cycle_extender.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_read_datapath.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_write_datapath.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_simple_ddio_out.sv"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_phy_csr.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_iss_probe.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_addr_cmd_pads.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_flop_mem.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_altdqdqs.v"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/altdq_dqs2_ddio_3reg_stratixiv.sv"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0.ppf"]
+set_global_assignment -library "sopc_system" -name SDC_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0.sdc"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_timing.tcl"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_report_timing.tcl"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_report_timing_core.tcl"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_pin_map.tcl"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_pin_assignments.tcl"]
+set_global_assignment -library "sopc_system" -name TCL_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_p0_parameters.tcl"]
+set_global_assignment -library "sopc_system" -name SYSTEMVERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sdram_0_pll0.sv"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sysid.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_bht_ram.mif"]
+set_global_assignment -library "sopc_system" -name SDC_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu.sdc"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_jtag_debug_module_tck.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_oci_test_bench.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_ic_tag_ram.mif"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_ociram_default_contents.mif"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_mult_cell.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_jtag_debug_module_wrapper.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_rf_ram_a.mif"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu.ocp"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_dc_tag_ram.mif"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_test_bench.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_jtag_debug_module_sysclk.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu_rf_ram_b.mif"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_cpu.v"]
+set_global_assignment -library "sopc_system" -name SOURCE_FILE [file join $::quartus(qip_path) "submodules/sopc_system_descriptor_memory.hex"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_descriptor_memory.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sgdma_tx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_sgdma_rx.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_jtag_uart.v"]
+set_global_assignment -library "sopc_system" -name VERILOG_FILE [file join $::quartus(qip_path) "submodules/sopc_system_linux_timer_1ms.v"]
+
+set_global_assignment -entity "sopc_system_avalon_st_adapter" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_st_adapter"
+set_global_assignment -entity "sopc_system_avalon_st_adapter" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_avalon_st_adapter" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_avalon_st_adapter_timing_adapter_0" -library "sopc_system" -name IP_TOOL_NAME "timing_adapter"
+set_global_assignment -entity "sopc_system_avalon_st_adapter_timing_adapter_0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_avalon_st_adapter_timing_adapter_0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_irq_clock_crosser" -library "sopc_system" -name IP_TOOL_NAME "altera_irq_clock_crosser"
+set_global_assignment -entity "altera_irq_clock_crosser" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_irq_clock_crosser" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_irq_mapper" -library "sopc_system" -name IP_TOOL_NAME "altera_irq_mapper"
+set_global_assignment -entity "sopc_system_irq_mapper" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_irq_mapper" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_width_adapter" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_width_adapter"
+set_global_assignment -entity "altera_merlin_width_adapter" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_width_adapter" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_016" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_016" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_016" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_016" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_016" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_016" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_011" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_011" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_011" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_015" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_015" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_015" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_015" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_015" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_015" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_009" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_009" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_009" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_008" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_008" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_008" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_013" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_013" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_013" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_008" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_008" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_008" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_007" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_007" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_007" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_005" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_005" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_005" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_005" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_005" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_005" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_007" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_007" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_007" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_006" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_006" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_006" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_004" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_004" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_004" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_004" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_004" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux_004" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_002" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_002" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_002" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_001" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_001" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux_001" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_mux" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_002" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_002" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux_002" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_rsp_xbar_demux" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_multiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_mux" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_001" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_001" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux_001" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_demultiplexer"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cmd_xbar_demux" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_reset_controller" -library "sopc_system" -name IP_TOOL_NAME "altera_reset_controller"
+set_global_assignment -entity "altera_reset_controller" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_reset_controller" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_burst_adapter" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_burst_adapter"
+set_global_assignment -entity "altera_merlin_burst_adapter" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_burst_adapter" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_traffic_limiter" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_traffic_limiter"
+set_global_assignment -entity "altera_merlin_traffic_limiter" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_traffic_limiter" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_016" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_016" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_016" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_011" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_011" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_011" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_015" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_015" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_015" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_009" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_009" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_009" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_013" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_013" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_013" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_008" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_008" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_008" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_006" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_006" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_006" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_005" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_005" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_005" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_007" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_007" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_007" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_006" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_006" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_006" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_004" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_004" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_004" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_002" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_002" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_002" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router_002" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router_002" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router_002" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_id_router" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_id_router" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_id_router" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router_001" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router_001" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router_001" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_addr_router" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_router"
+set_global_assignment -entity "sopc_system_addr_router" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_addr_router" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_avalon_sc_fifo" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_sc_fifo"
+set_global_assignment -entity "altera_avalon_sc_fifo" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_avalon_sc_fifo" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_slave_agent" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_slave_agent"
+set_global_assignment -entity "altera_merlin_slave_agent" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_slave_agent" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_master_agent" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_master_agent"
+set_global_assignment -entity "altera_merlin_master_agent" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_master_agent" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_slave_translator" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_slave_translator"
+set_global_assignment -entity "altera_merlin_slave_translator" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_slave_translator" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_merlin_master_translator" -library "sopc_system" -name IP_TOOL_NAME "altera_merlin_master_translator"
+set_global_assignment -entity "altera_merlin_master_translator" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_merlin_master_translator" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_tlb_miss_ram_1k" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_onchip_memory2"
+set_global_assignment -entity "sopc_system_tlb_miss_ram_1k" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_tlb_miss_ram_1k" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_avalon_mm_clock_crossing_bridge" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_mm_clock_crossing_bridge"
+set_global_assignment -entity "altera_avalon_mm_clock_crossing_bridge" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_avalon_mm_clock_crossing_bridge" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge_fpga" -library "sopc_system" -name IP_TOOL_NAME "altera_tristate_conduit_bridge"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge_fpga" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge_fpga" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_tse_mac" -library "sopc_system" -name IP_TOOL_NAME "altera_eth_tse"
+set_global_assignment -entity "sopc_system_tse_mac" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_tse_mac" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_eth_tse_mac" -library "sopc_system" -name IP_TOOL_NAME "altera_eth_tse_mac"
+set_global_assignment -entity "altera_eth_tse_mac" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_eth_tse_mac" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_avalon_mm_bridge" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_mm_bridge"
+set_global_assignment -entity "altera_avalon_mm_bridge" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_avalon_mm_bridge" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge" -library "sopc_system" -name IP_TOOL_NAME "altera_tristate_conduit_bridge"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_bridge" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_controller" -library "sopc_system" -name IP_TOOL_NAME "altera_generic_tristate_controller"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_controller" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_cfi_flash_ts_controller" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_tristate_controller_aggregator" -library "sopc_system" -name IP_TOOL_NAME "altera_tristate_controller_aggregator"
+set_global_assignment -entity "altera_tristate_controller_aggregator" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_tristate_controller_aggregator" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_tristate_controller_translator" -library "sopc_system" -name IP_TOOL_NAME "altera_tristate_controller_translator"
+set_global_assignment -entity "altera_tristate_controller_translator" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_tristate_controller_translator" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sdram_0" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_ddr2_emif"
+set_global_assignment -entity "sopc_system_sdram_0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sdram_0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_mem_if_dll_stratixiv" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_dll"
+set_global_assignment -entity "altera_mem_if_dll_stratixiv" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_mem_if_dll_stratixiv" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "altera_mem_if_oct_stratixiv" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_oct"
+set_global_assignment -entity "altera_mem_if_oct_stratixiv" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "altera_mem_if_oct_stratixiv" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sdram_0_c0" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_nextgen_ddr2_controller"
+set_global_assignment -entity "sopc_system_sdram_0_c0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sdram_0_c0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "alt_mem_ddrx_mm_st_converter" -library "sopc_system" -name IP_TOOL_NAME "alt_mem_ddrx_mm_st_converter"
+set_global_assignment -entity "alt_mem_ddrx_mm_st_converter" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "alt_mem_ddrx_mm_st_converter" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "alt_mem_if_nextgen_ddr2_controller_core" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_nextgen_ddr2_controller_core"
+set_global_assignment -entity "alt_mem_if_nextgen_ddr2_controller_core" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "alt_mem_if_nextgen_ddr2_controller_core" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sdram_0_s0" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_ddr2_qseq"
+set_global_assignment -entity "sopc_system_sdram_0_s0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sdram_0_s0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "afi_mux_ddrx" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_ddr2_afi_mux"
+set_global_assignment -entity "afi_mux_ddrx" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "afi_mux_ddrx" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sdram_0_p0" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_ddr2_phy_core"
+set_global_assignment -entity "sopc_system_sdram_0_p0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sdram_0_p0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sdram_0_pll0" -library "sopc_system" -name IP_TOOL_NAME "altera_mem_if_ddr2_pll"
+set_global_assignment -entity "sopc_system_sdram_0_pll0" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sdram_0_pll0" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sysid" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_sysid_qsys"
+set_global_assignment -entity "sopc_system_sysid" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_sysid" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_linux_cpu" -library "sopc_system" -name IP_TOOL_NAME "altera_nios2_qsys"
+set_global_assignment -entity "sopc_system_linux_cpu" -library "sopc_system" -name IP_TOOL_VERSION "13.0"
+set_global_assignment -entity "sopc_system_linux_cpu" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_descriptor_memory" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_onchip_memory2"
+set_global_assignment -entity "sopc_system_descriptor_memory" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_descriptor_memory" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sgdma_tx" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_sgdma"
+set_global_assignment -entity "sopc_system_sgdma_tx" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_sgdma_tx" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_sgdma_rx" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_sgdma"
+set_global_assignment -entity "sopc_system_sgdma_rx" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_sgdma_rx" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_jtag_uart" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_jtag_uart"
+set_global_assignment -entity "sopc_system_jtag_uart" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_jtag_uart" -library "sopc_system" -name IP_TOOL_ENV "Qsys"
+set_global_assignment -entity "sopc_system_linux_timer_1ms" -library "sopc_system" -name IP_TOOL_NAME "altera_avalon_timer"
+set_global_assignment -entity "sopc_system_linux_timer_1ms" -library "sopc_system" -name IP_TOOL_VERSION "13.0.1.99.2"
+set_global_assignment -entity "sopc_system_linux_timer_1ms" -library "sopc_system" -name IP_TOOL_ENV "Qsys"

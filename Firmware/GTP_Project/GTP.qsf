@@ -1,0 +1,1138 @@
+set_global_assignment -name FAMILY "Stratix IV"
+set_global_assignment -name DEVICE EP4SGX180KF40C3
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name RESERVE_DATA0_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS_WEAK_PULLUP "AS INPUT TRI-STATED WITH WEAK PULL-UP"
+set_global_assignment -name ALLOW_POWER_UP_DONT_CARE OFF
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
+set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name TOP_LEVEL_ENTITY gtp
+#**************************************************************
+# Clocks
+#**************************************************************
+set_location_assignment PIN_W34 -to CLK25_R
+set_location_assignment PIN_AW19 -to CLK25_B
+set_location_assignment PIN_A21 -to CLK250_T
+set_location_assignment PIN_AF34 -to CLK250_R
+set_location_assignment PIN_AW20 -to CLK250_B
+set_location_assignment PIN_W6 -to CLK250_L
+set_instance_assignment -name IO_STANDARD LVDS -to CLK250_T
+set_instance_assignment -name IO_STANDARD LVDS -to CLK250_L
+set_instance_assignment -name IO_STANDARD LVDS -to CLK250_B
+set_instance_assignment -name IO_STANDARD LVDS -to CLK250_R
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to CLK250_T -entity GTP -disable -comment "Not Supported-external is used"
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to CLK250_B -entity GTP -disable -comment "Not Supported-external is used"
+set_location_assignment PIN_AG35 -to CPLD_CLK
+
+#**************************************************************
+# Configuration
+#**************************************************************
+set_location_assignment PIN_W30 -to DATA[0] -disable
+set_location_assignment PIN_W29 -to DATA[1] -disable
+set_location_assignment PIN_N35 -to DATA[2] -disable
+set_location_assignment PIN_P34 -to DATA[3] -disable
+set_location_assignment PIN_V27 -to DATA[4] -disable
+set_location_assignment PIN_W26 -to DATA[5] -disable
+set_location_assignment PIN_R35 -to DATA[6] -disable
+set_location_assignment PIN_R34 -to DATA[7] -disable
+set_location_assignment PIN_V30 -to INIT_DONE -disable
+set_location_assignment PIN_V29 -to CRC_ERROR -disable
+set_location_assignment PIN_AN34 -to CPLD_FPGA_GPIO[0]
+set_location_assignment PIN_AN35 -to CPLD_FPGA_GPIO[1]
+set_location_assignment PIN_AM34 -to CPLD_FPGA_GPIO[2]
+set_location_assignment PIN_AM35 -to CPLD_FPGA_GPIO[3]
+set_location_assignment PIN_AK31 -to CPLD_FPGA_GPIO[4]
+set_location_assignment PIN_AK32 -to CPLD_FPGA_GPIO[5]
+set_location_assignment PIN_AG31 -to CPLD_FPGA_GPIO[6]
+set_location_assignment PIN_AG32 -to CPLD_FPGA_GPIO[7]
+set_location_assignment PIN_AG30 -to CPLD_FPGA_GPIO[8]
+set_location_assignment PIN_AF29 -to CPLD_FPGA_GPIO[9]
+set_location_assignment PIN_AE31 -to CPLD_FPGA_GPIO[10]
+set_location_assignment PIN_AE30 -to CPLD_FPGA_GPIO[11]
+set_location_assignment PIN_AK29 -to CPLD_FPGA_GPIO[12]
+set_location_assignment PIN_AK30 -to CPLD_FPGA_GPIO[13]
+set_location_assignment PIN_AD29 -to CPLD_FPGA_GPIO[14]
+set_location_assignment PIN_AD28 -to CPLD_FPGA_GPIO[15]
+set_location_assignment PIN_AB30 -to FLASH_ACCESS_GRANTED
+set_location_assignment PIN_AC31 -to FLASH_ACCESS_REQUEST
+set_location_assignment PIN_AD30 -to FLASH_IMAGE[2]
+set_location_assignment PIN_AD31 -to FLASH_IMAGE[1]
+set_location_assignment PIN_AC32 -to FLASH_IMAGE[0]
+set_location_assignment PIN_AB31 -to FLASH_nRECONFIG
+
+
+#**************************************************************
+# Transceiver
+#**************************************************************
+
+
+set_location_assignment PIN_C2 -to FIBER_RX[0]
+set_location_assignment PIN_C38 -to FIBER_RX[1]
+set_location_assignment PIN_E2 -to FIBER_RX[2]
+set_location_assignment PIN_E38 -to FIBER_RX[3]
+set_location_assignment PIN_D36 -to FIBER_TX[0]
+set_location_assignment PIN_D4 -to FIBER_TX[1]
+set_location_assignment PIN_B36 -to FIBER_TX[2]
+set_location_assignment PIN_B4 -to FIBER_TX[3]
+
+
+#**************************************************************
+# DDR2
+#**************************************************************
+set_location_assignment PIN_C15 -to MEM0_DQS_N[1]
+set_location_assignment PIN_C14 -to MEM0_DQS_N[0]
+set_location_assignment PIN_A11 -to MEM0_DQ[0]
+set_location_assignment PIN_C13 -to MEM0_DQ[1]
+set_location_assignment PIN_B10 -to MEM0_DQ[2]
+set_location_assignment PIN_C12 -to MEM0_DQ[3]
+set_location_assignment PIN_C11 -to MEM0_DQ[4]
+set_location_assignment PIN_A10 -to MEM0_DQ[5]
+set_location_assignment PIN_D11 -to MEM0_DQ[6]
+set_location_assignment PIN_B11 -to MEM0_DQ[7]
+set_location_assignment PIN_E16 -to MEM0_DQ[8]
+set_location_assignment PIN_F16 -to MEM0_DQ[9]
+set_location_assignment PIN_A16 -to MEM0_DQ[10]
+set_location_assignment PIN_C16 -to MEM0_DQ[11]
+set_location_assignment PIN_G17 -to MEM0_DQ[12]
+set_location_assignment PIN_F15 -to MEM0_DQ[13]
+set_location_assignment PIN_D16 -to MEM0_DQ[14]
+set_location_assignment PIN_G16 -to MEM0_DQ[15]
+set_location_assignment PIN_B13 -to MEM0_LDM_RDQS_P
+set_location_assignment PIN_B16 -to MEM0_UDM
+set_location_assignment PIN_D15 -to MEM0_DQS_P[1]
+set_location_assignment PIN_D14 -to MEM0_DQS_P[0]
+set_location_assignment PIN_D5 -to MEM0_A[15]
+set_location_assignment PIN_C5 -to MEM0_A[14]
+set_location_assignment PIN_E7 -to MEM0_A[13]
+set_location_assignment PIN_A14 -to MEM0_A[12]
+set_location_assignment PIN_G5 -to MEM0_A[11]
+set_location_assignment PIN_F12 -to MEM0_A[10]
+set_location_assignment PIN_C7 -to MEM0_A[9]
+set_location_assignment PIN_F5 -to MEM0_A[8]
+set_location_assignment PIN_F10 -to MEM0_A[7]
+set_location_assignment PIN_E14 -to MEM0_A[6]
+set_location_assignment PIN_D9 -to MEM0_A[5]
+set_location_assignment PIN_C9 -to MEM0_A[4]
+set_location_assignment PIN_F14 -to MEM0_A[3]
+set_location_assignment PIN_F8 -to MEM0_A[2]
+set_location_assignment PIN_B14 -to MEM0_A[1]
+set_location_assignment PIN_F6 -to MEM0_A[0]
+set_location_assignment PIN_E13 -to MEM0_BA[2]
+set_location_assignment PIN_D10 -to MEM0_BA[1]
+set_location_assignment PIN_F9 -to MEM0_BA[0]
+set_location_assignment PIN_H7 -to MEM0_CK
+set_location_assignment PIN_G7 -to MEM0_CK_N
+set_location_assignment PIN_D13 -to MEM0_CAS_N
+set_location_assignment PIN_D8 -to MEM0_CKE
+set_location_assignment PIN_C8 -to MEM0_CS_N
+set_location_assignment PIN_D7 -to MEM0_ODT
+set_location_assignment PIN_C10 -to MEM0_RAS_N
+set_location_assignment PIN_E10 -to MEM0_WE_N
+
+set_location_assignment PIN_C25 -to MEM1_DQ[0]
+set_location_assignment PIN_D26 -to MEM1_DQ[1]
+set_location_assignment PIN_A26 -to MEM1_DQ[2]
+set_location_assignment PIN_B26 -to MEM1_DQ[3]
+set_location_assignment PIN_G25 -to MEM1_DQ[4]
+set_location_assignment PIN_F24 -to MEM1_DQ[5]
+set_location_assignment PIN_D25 -to MEM1_DQ[6]
+set_location_assignment PIN_B25 -to MEM1_DQ[7]
+set_location_assignment PIN_A27 -to MEM1_DQ[8]
+set_location_assignment PIN_B29 -to MEM1_DQ[9]
+set_location_assignment PIN_A29 -to MEM1_DQ[10]
+set_location_assignment PIN_A31 -to MEM1_DQ[11]
+set_location_assignment PIN_C30 -to MEM1_DQ[12]
+set_location_assignment PIN_C29 -to MEM1_DQ[13]
+set_location_assignment PIN_B31 -to MEM1_DQ[14]
+set_location_assignment PIN_C27 -to MEM1_DQ[15]
+set_location_assignment PIN_E25 -to MEM1_DQS_N[0]
+set_location_assignment PIN_B28 -to MEM1_DQS_N[1]
+set_location_assignment PIN_C26 -to MEM1_LDM_RDQS_P
+set_location_assignment PIN_A28 -to MEM1_UDM
+set_location_assignment PIN_F25 -to MEM1_DQS_P[0]
+set_location_assignment PIN_C28 -to MEM1_DQS_P[1]
+set_location_assignment PIN_F27 -to MEM1_A[15]
+set_location_assignment PIN_C33 -to MEM1_A[14]
+set_location_assignment PIN_G28 -to MEM1_A[13]
+set_location_assignment PIN_F35 -to MEM1_A[12]
+set_location_assignment PIN_D33 -to MEM1_A[11]
+set_location_assignment PIN_D31 -to MEM1_A[10]
+set_location_assignment PIN_D29 -to MEM1_A[9]
+set_location_assignment PIN_D28 -to MEM1_A[8]
+set_location_assignment PIN_E34 -to MEM1_A[7]
+set_location_assignment PIN_E28 -to MEM1_A[6]
+set_location_assignment PIN_D35 -to MEM1_A[5]
+set_location_assignment PIN_G27 -to MEM1_A[4]
+set_location_assignment PIN_E32 -to MEM1_A[3]
+set_location_assignment PIN_E29 -to MEM1_A[2]
+set_location_assignment PIN_C35 -to MEM1_A[1]
+set_location_assignment PIN_D27 -to MEM1_A[0]
+set_location_assignment PIN_F33 -to MEM1_BA[2]
+set_location_assignment PIN_F32 -to MEM1_BA[1]
+set_location_assignment PIN_F31 -to MEM1_BA[0]
+set_location_assignment PIN_L23 -to MEM1_CK
+set_location_assignment PIN_K23 -to MEM1_CK_N
+set_location_assignment PIN_F28 -to MEM1_CAS_N
+set_location_assignment PIN_C31 -to MEM1_CKE
+set_location_assignment PIN_F26 -to MEM1_CS_N
+set_location_assignment PIN_G26 -to MEM1_ODT
+set_location_assignment PIN_E31 -to MEM1_RAS_N
+set_location_assignment PIN_F34 -to MEM1_WE_N
+
+#**************************************************************
+# Code Flash
+#**************************************************************
+set_location_assignment PIN_AV14 -to CODE_ADDR[26]
+set_location_assignment PIN_AW12 -to CODE_ADDR[25]
+set_location_assignment PIN_AR17 -to CODE_ADDR[24]
+set_location_assignment PIN_AT5 -to CODE_ADDR[23]
+set_location_assignment PIN_AW14 -to CODE_ADDR[22]
+set_location_assignment PIN_AV16 -to CODE_ADDR[21]
+set_location_assignment PIN_AW16 -to CODE_ADDR[20]
+set_location_assignment PIN_AV13 -to CODE_ADDR[19]
+set_location_assignment PIN_AW13 -to CODE_ADDR[18]
+set_location_assignment PIN_AU16 -to CODE_ADDR[17]
+set_location_assignment PIN_AU15 -to CODE_ADDR[16]
+set_location_assignment PIN_AV11 -to CODE_ADDR[15]
+set_location_assignment PIN_AV10 -to CODE_ADDR[14]
+set_location_assignment PIN_AW11 -to CODE_ADDR[13]
+set_location_assignment PIN_AU10 -to CODE_ADDR[12]
+set_location_assignment PIN_AU8 -to CODE_ADDR[11]
+set_location_assignment PIN_AW7 -to CODE_ADDR[10]
+set_location_assignment PIN_AW8 -to CODE_ADDR[9]
+set_location_assignment PIN_AV8 -to CODE_ADDR[8]
+set_location_assignment PIN_AV5 -to CODE_ADDR[7]
+set_location_assignment PIN_AV7 -to CODE_ADDR[6]
+set_location_assignment PIN_AU7 -to CODE_ADDR[5]
+set_location_assignment PIN_AU6 -to CODE_ADDR[4]
+set_location_assignment PIN_AW4 -to CODE_ADDR[3]
+set_location_assignment PIN_AW6 -to CODE_ADDR[2]
+set_location_assignment PIN_AW5 -to CODE_ADDR[1]
+set_location_assignment PIN_AT14 -to CODE_DATA[15]
+set_location_assignment PIN_AP17 -to CODE_DATA[14]
+set_location_assignment PIN_AR14 -to CODE_DATA[13]
+set_location_assignment PIN_AU12 -to CODE_DATA[12]
+set_location_assignment PIN_AT10 -to CODE_DATA[11]
+set_location_assignment PIN_AR13 -to CODE_DATA[10]
+set_location_assignment PIN_AT8 -to CODE_DATA[9]
+set_location_assignment PIN_AT6 -to CODE_DATA[8]
+set_location_assignment PIN_AR16 -to CODE_DATA[7]
+set_location_assignment PIN_AP16 -to CODE_DATA[6]
+set_location_assignment PIN_AU11 -to CODE_DATA[5]
+set_location_assignment PIN_AU14 -to CODE_DATA[4]
+set_location_assignment PIN_AT9 -to CODE_DATA[3]
+set_location_assignment PIN_AR8 -to CODE_DATA[2]
+set_location_assignment PIN_AT7 -to CODE_DATA[1]
+set_location_assignment PIN_AR5 -to CODE_DATA[0]
+set_location_assignment PIN_AW10 -to CODE_NCE
+set_location_assignment PIN_AT15 -to CODE_NOE
+set_location_assignment PIN_AU9 -to CODE_NRST
+set_location_assignment PIN_AT16 -to CODE_NWE
+set_location_assignment PIN_AT13 -to CODE_WAIT
+set_location_assignment PIN_AR20 -to CODE_CLK
+set_location_assignment PIN_AT12 -to CODE_NADV
+
+#**************************************************************
+# Config Flash
+#**************************************************************
+set_location_assignment PIN_AV34 -to CONFIG_ADDR[26]
+set_location_assignment PIN_AU32 -to CONFIG_ADDR[25]
+set_location_assignment PIN_AR34 -to CONFIG_ADDR[24]
+set_location_assignment PIN_AP24 -to CONFIG_ADDR[23]
+set_location_assignment PIN_AW33 -to CONFIG_ADDR[22]
+set_location_assignment PIN_AU34 -to CONFIG_ADDR[21]
+set_location_assignment PIN_AW34 -to CONFIG_ADDR[20]
+set_location_assignment PIN_AV32 -to CONFIG_ADDR[19]
+set_location_assignment PIN_AW32 -to CONFIG_ADDR[18]
+set_location_assignment PIN_AU33 -to CONFIG_ADDR[17]
+set_location_assignment PIN_AT32 -to CONFIG_ADDR[16]
+set_location_assignment PIN_AU31 -to CONFIG_ADDR[15]
+set_location_assignment PIN_AW31 -to CONFIG_ADDR[14]
+set_location_assignment PIN_AV31 -to CONFIG_ADDR[13]
+set_location_assignment PIN_AT28 -to CONFIG_ADDR[12]
+set_location_assignment PIN_AU27 -to CONFIG_ADDR[11]
+set_location_assignment PIN_AW30 -to CONFIG_ADDR[10]
+set_location_assignment PIN_AW28 -to CONFIG_ADDR[9]
+set_location_assignment PIN_AV28 -to CONFIG_ADDR[8]
+set_location_assignment PIN_AU26 -to CONFIG_ADDR[7]
+set_location_assignment PIN_AU28 -to CONFIG_ADDR[6]
+set_location_assignment PIN_AU25 -to CONFIG_ADDR[5]
+set_location_assignment PIN_AT25 -to CONFIG_ADDR[4]
+set_location_assignment PIN_AW27 -to CONFIG_ADDR[3]
+set_location_assignment PIN_AW26 -to CONFIG_ADDR[2]
+set_location_assignment PIN_AV26 -to CONFIG_ADDR[1]
+set_location_assignment PIN_AR32 -to CONFIG_DATA[15]
+set_location_assignment PIN_AT34 -to CONFIG_DATA[14]
+set_location_assignment PIN_AT29 -to CONFIG_DATA[13]
+set_location_assignment PIN_AT30 -to CONFIG_DATA[12]
+set_location_assignment PIN_AP28 -to CONFIG_DATA[11]
+set_location_assignment PIN_AP27 -to CONFIG_DATA[10]
+set_location_assignment PIN_AT27 -to CONFIG_DATA[9]
+set_location_assignment PIN_AR25 -to CONFIG_DATA[8]
+set_location_assignment PIN_AP33 -to CONFIG_DATA[7]
+set_location_assignment PIN_AP32 -to CONFIG_DATA[6]
+set_location_assignment PIN_AP30 -to CONFIG_DATA[5]
+set_location_assignment PIN_AU29 -to CONFIG_DATA[4]
+set_location_assignment PIN_AR28 -to CONFIG_DATA[3]
+set_location_assignment PIN_AP26 -to CONFIG_DATA[2]
+set_location_assignment PIN_AT26 -to CONFIG_DATA[1]
+set_location_assignment PIN_AP25 -to CONFIG_DATA[0]
+set_location_assignment PIN_AW29 -to CONFIG_NCE
+set_location_assignment PIN_AT33 -to CONFIG_NOE
+set_location_assignment PIN_AV29 -to CONFIG_NRST
+set_location_assignment PIN_AR35 -to CONFIG_NWE
+set_location_assignment PIN_AT31 -to CONFIG_WAIT
+set_location_assignment PIN_AT20 -to CONFIG_CLK
+set_location_assignment PIN_AR31 -to CONFIG_NADV
+
+#**************************************************************
+# Trigger Output Signals
+#**************************************************************
+set_location_assignment PIN_AG8 -to TRIG_OUT[31]
+set_location_assignment PIN_AL10 -to TRIG_OUT[30]
+set_location_assignment PIN_AG10 -to TRIG_OUT[29]
+set_location_assignment PIN_AH11 -to TRIG_OUT[28]
+set_location_assignment PIN_AF13 -to TRIG_OUT[27]
+set_location_assignment PIN_AG12 -to TRIG_OUT[26]
+set_location_assignment PIN_AD13 -to TRIG_OUT[25]
+set_location_assignment PIN_AN10 -to TRIG_OUT[24]
+set_location_assignment PIN_AN9 -to TRIG_OUT[23]
+set_location_assignment PIN_AN7 -to TRIG_OUT[22]
+set_location_assignment PIN_AK9 -to TRIG_OUT[21]
+set_location_assignment PIN_AL8 -to TRIG_OUT[20]
+set_location_assignment PIN_AH9 -to TRIG_OUT[19]
+set_location_assignment PIN_AH10 -to TRIG_OUT[18]
+set_location_assignment PIN_AK8 -to TRIG_OUT[17]
+set_location_assignment PIN_AF11 -to TRIG_OUT[16]
+set_location_assignment PIN_AE11 -to TRIG_OUT[15]
+set_location_assignment PIN_AC11 -to TRIG_OUT[14]
+set_location_assignment PIN_AD10 -to TRIG_OUT[13]
+set_location_assignment PIN_AE13 -to TRIG_OUT[12]
+set_location_assignment PIN_AB13 -to TRIG_OUT[11]
+set_location_assignment PIN_AB11 -to TRIG_OUT[10]
+set_location_assignment PIN_W12 -to TRIG_OUT[9]
+set_location_assignment PIN_V10 -to TRIG_OUT[8]
+set_location_assignment PIN_V12 -to TRIG_OUT[7]
+set_location_assignment PIN_U10 -to TRIG_OUT[6]
+set_location_assignment PIN_R9 -to TRIG_OUT[5]
+set_location_assignment PIN_T10 -to TRIG_OUT[4]
+set_location_assignment PIN_N9 -to TRIG_OUT[3]
+set_location_assignment PIN_M8 -to TRIG_OUT[2]
+set_location_assignment PIN_L8 -to TRIG_OUT[1]
+set_location_assignment PIN_K7 -to TRIG_OUT[0]
+set_instance_assignment -name IO_STANDARD LVDS -to TRIG_OUT
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to TRIG_OUT -entity GTP -disable
+
+#**************************************************************
+# Payload Single Ended
+#**************************************************************
+set_location_assignment PIN_AE15 -to PP_LINKUP[1]
+set_location_assignment PIN_AD15 -to PP_LINKUP[2]
+set_location_assignment PIN_AC8 -to PP_LINKUP[3]
+set_location_assignment PIN_AB9 -to PP_LINKUP[4]
+set_location_assignment PIN_R7 -to PP_LINKUP[5]
+set_location_assignment PIN_N6 -to PP_LINKUP[6]
+set_location_assignment PIN_W8 -to PP_LINKUP[7]
+set_location_assignment PIN_W7 -to PP_LINKUP[8]
+set_location_assignment PIN_K6 -to PP_LINKUP[9]
+set_location_assignment PIN_K5 -to PP_LINKUP[10]
+set_location_assignment PIN_J5 -to PP_LINKUP[11]
+set_location_assignment PIN_AM6 -to PP_LINKUP[12]
+set_location_assignment PIN_AL6 -to PP_LINKUP[13]
+set_location_assignment PIN_AK6 -to PP_LINKUP[14]
+set_location_assignment PIN_AJ6 -to PP_LINKUP[15]
+set_location_assignment PIN_AH6 -to PP_LINKUP[16]
+set_location_assignment PIN_AP5 -to PP_BUSY[1]
+set_location_assignment PIN_AN5 -to PP_BUSY[2]
+set_location_assignment PIN_AM5 -to PP_BUSY[3]
+set_location_assignment PIN_AL5 -to PP_BUSY[4]
+set_location_assignment PIN_AK5 -to PP_BUSY[5]
+set_location_assignment PIN_AJ5 -to PP_BUSY[6]
+set_location_assignment PIN_AH5 -to PP_BUSY[7]
+set_location_assignment PIN_AG5 -to PP_BUSY[8]
+set_location_assignment PIN_V6 -to PP_BUSY[9]
+set_location_assignment PIN_U5 -to PP_BUSY[10]
+set_location_assignment PIN_R6 -to PP_BUSY[11]
+set_location_assignment PIN_R5 -to PP_BUSY[12]
+set_location_assignment PIN_P6 -to PP_BUSY[13]
+set_location_assignment PIN_N5 -to PP_BUSY[14]
+set_location_assignment PIN_M6 -to PP_BUSY[15]
+set_location_assignment PIN_L5 -to PP_BUSY[16]
+set_location_assignment PIN_AP6 -to BUSY_DIR
+set_location_assignment PIN_AN6 -to LINKUP_DIR
+
+#**************************************************************
+# Control Payload
+#**************************************************************
+set_location_assignment PIN_AG6 -to PP17_SCL
+set_location_assignment PIN_AE5 -to PP17_SDA
+set_location_assignment PIN_AF6 -to PP17_SDA_OE
+
+set_location_assignment PIN_AH34 -to SD_TRIG[2]
+set_location_assignment PIN_AH32 -to SD_TRIG[1]
+set_location_assignment PIN_AJ34 -to SD_SYNC
+set_instance_assignment -name IO_STANDARD LVDS -to SD_TRIG
+set_instance_assignment -name IO_STANDARD LVDS -to SD_SYNC
+
+set_location_assignment PIN_J6 -to TI_SCL
+set_location_assignment PIN_N8 -to TI_SDA
+set_location_assignment PIN_N7 -to TI_SDA_OE
+set_location_assignment PIN_AJ32 -to TI_BUSY
+set_location_assignment PIN_AK34 -to TI_GTP_RX
+set_location_assignment PIN_AG29 -to TI_GTP_TX
+set_instance_assignment -name IO_STANDARD LVDS_E_3R -to TI_BUSY
+set_instance_assignment -name IO_STANDARD LVDS -to TI_GTP_RX
+set_instance_assignment -name IO_STANDARD LVDS -to TI_GTP_TX
+
+#**************************************************************
+# Ethernet
+#**************************************************************
+set_location_assignment PIN_W35 -to RGMII_RXC
+set_location_assignment PIN_N33 -to RGMII_RX_CTL
+set_location_assignment PIN_R33 -to RGMII_RXD[0]
+set_location_assignment PIN_M33 -to RGMII_RXD[1]
+set_location_assignment PIN_N34 -to RGMII_RXD[2]
+set_location_assignment PIN_M34 -to RGMII_RXD[3]
+set_location_assignment PIN_W33 -to RGMII_TXC
+set_location_assignment PIN_L35 -to RGMII_TX_CTL
+set_location_assignment PIN_L34 -to RGMII_TXD[0]
+set_location_assignment PIN_J34 -to RGMII_TXD[1]
+set_location_assignment PIN_J35 -to RGMII_TXD[2]
+set_location_assignment PIN_K34 -to RGMII_TXD[3]
+set_location_assignment PIN_W32 -to ENET_PHY_MDC
+set_location_assignment PIN_V31 -to ENET_PHY_MDIO
+set_location_assignment PIN_U31 -to ENET_PHY_RESET_N
+set_location_assignment PIN_L32 -to ENET_PHY_INT_N
+
+set_location_assignment PIN_AE28 -to ENET_TX
+set_location_assignment PIN_AL34 -to ENET_RX
+set_instance_assignment -name IO_STANDARD "2.5 V" -to ENET_TX
+set_instance_assignment -name IO_STANDARD LVDS -to ENET_RX
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to ENET_RX -entity GTP -disable
+
+#**************************************************************
+# Misc
+#**************************************************************
+set_location_assignment PIN_T31 -to LED_AMBER
+set_location_assignment PIN_T30 -to LED_RED
+
+
+
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON
+set_global_assignment -name AUTO_SHIFT_REGISTER_RECOGNITION OFF
+set_global_assignment -name RAPID_RECOMPILE_MODE OFF
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to FIBER_RX
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to FIBER_TX
+set_global_assignment -name POWER_USE_INPUT_FILES ON
+set_global_assignment -name STRATIXIII_CONFIGURATION_SCHEME "FAST PASSIVE PARALLEL"
+set_global_assignment -name USE_CONFIGURATION_DEVICE OFF
+set_global_assignment -name ON_CHIP_BITSTREAM_DECOMPRESSION OFF
+set_global_assignment -name RESERVE_DATA7_THROUGH_DATA1_AFTER_CONFIGURATION "AS INPUT TRI-STATED"
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_NEAR_END_VMEAS "HALF VCCIO" -fall
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -rise
+set_global_assignment -name OUTPUT_IO_TIMING_FAR_END_VMEAS "HALF SIGNAL SWING" -fall
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name FITTER_EFFORT "AUTO FIT"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_location_assignment PIN_AE29 -to ENET_TXn
+set_global_assignment -name TIMEQUEST_MULTICORNER_ANALYSIS ON
+set_global_assignment -name SYNCHRONIZER_IDENTIFICATION AUTO
+set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL ON
+set_location_assignment PIN_C6 -to OCT_RDN0
+set_location_assignment PIN_C34 -to OCT_RDN1 -disable
+set_location_assignment PIN_D6 -to OCT_RUP0
+set_location_assignment PIN_D34 -to OCT_RUP1 -disable
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to CLK250_L
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to CLK250_R
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to FIBER_RX
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to FIBER_TX
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to SD_TRIG
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to SD_SYNC
+set_instance_assignment -name SLEW_RATE 0 -to CPLD_CLK
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CPLD_CLK
+set_instance_assignment -name SLEW_RATE 0 -to ENET_PHY_MDC
+set_instance_assignment -name SLEW_RATE 0 -to ENET_PHY_RESET_N
+set_instance_assignment -name SLEW_RATE 0 -to CODE_ADDR
+set_instance_assignment -name SLEW_RATE 0 -to CODE_CLK
+set_instance_assignment -name SLEW_RATE 0 -to CODE_NADV
+set_instance_assignment -name SLEW_RATE 0 -to CODE_NCE
+set_instance_assignment -name SLEW_RATE 0 -to CODE_NOE
+set_instance_assignment -name SLEW_RATE 0 -to CODE_NRST
+set_instance_assignment -name SLEW_RATE 0 -to CODE_NWE
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_ADDR
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_CLK
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_NADV
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_NCE
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_NOE
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_NRST
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_NWE
+set_instance_assignment -name SLEW_RATE 0 -to FLASH_ACCESS_REQUEST
+set_instance_assignment -name SLEW_RATE 0 -to FLASH_IMAGE
+set_instance_assignment -name SLEW_RATE 0 -to FLASH_nRECONFIG
+set_instance_assignment -name SLEW_RATE 0 -to PP_BUSY
+set_instance_assignment -name SLEW_RATE 0 -to PP_LINKUP
+set_instance_assignment -name SLEW_RATE 0 -to BUSY_DIR
+set_instance_assignment -name SLEW_RATE 0 -to LINKUP_DIR
+set_instance_assignment -name SLEW_RATE 0 -to ENET_PHY_MDIO
+set_instance_assignment -name SLEW_RATE 0 -to LED_AMBER
+set_instance_assignment -name SLEW_RATE 0 -to LED_RED
+set_instance_assignment -name SLEW_RATE 0 -to PP17_SDA_OE
+set_instance_assignment -name SLEW_RATE 0 -to TI_BUSY
+set_instance_assignment -name SLEW_RATE 0 -to TI_SDA_OE
+set_instance_assignment -name SLEW_RATE 0 -to CPLD_FPGA_GPIO
+set_instance_assignment -name SLEW_RATE 0 -to CODE_DATA
+set_instance_assignment -name SLEW_RATE 0 -to CONFIG_DATA
+set_instance_assignment -name SLEW_RATE 0 -to TI_SDA
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to ENET_PHY_MDC
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to ENET_PHY_RESET_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_ADDR
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_CLK
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_NADV
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_NCE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_NOE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_NRST
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_NWE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_ADDR
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_CLK
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_NADV
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_NCE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_NOE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_NRST
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_NWE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FLASH_ACCESS_REQUEST
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FLASH_IMAGE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FLASH_nRECONFIG
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to PP_BUSY
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to PP_LINKUP
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to BUSY_DIR
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to LINKUP_DIR
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to ENET_PHY_MDIO
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to LED_AMBER
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to LED_RED
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to PP17_SDA_OE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to TI_SDA_OE
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CPLD_FPGA_GPIO
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CODE_DATA
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to CONFIG_DATA
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to TI_SDA
+set_global_assignment -name VCCT_L_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCT_R_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCL_GXBL_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCL_GXBR_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCR_L_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCR_R_USER_VOLTAGE 1.1V
+set_global_assignment -name VCCA_L_USER_VOLTAGE 3.0V
+set_global_assignment -name VCCA_R_USER_VOLTAGE 3.0V
+set_global_assignment -name VCCH_GXBL_USER_VOLTAGE 1.5V
+set_global_assignment -name VCCH_GXBR_USER_VOLTAGE 1.5V
+set_global_assignment -name POWER_HSSI_VCCHIP_LEFT "Opportunistically power off"
+set_global_assignment -name POWER_HSSI_VCCHIP_RIGHT "Opportunistically power off"
+set_global_assignment -name POWER_HSSI_LEFT "Opportunistically power off"
+set_global_assignment -name POWER_HSSI_RIGHT "Opportunistically power off"
+set_global_assignment -name REMOVE_DUPLICATE_REGISTERS OFF
+set_global_assignment -name ROUTER_REGISTER_DUPLICATION OFF
+set_global_assignment -name DISABLE_REGISTER_MERGING_ACROSS_HIERARCHIES ON
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_2008
+set_global_assignment -name VHDL_SHOW_LMF_MAPPING_MESSAGES OFF
+set_global_assignment -name CLAMPING_DIODE OFF
+set_location_assignment PIN_AK16 -to FP_IN[0]
+set_location_assignment PIN_AJ13 -to FP_IN[1]
+set_location_assignment PIN_AH14 -to FP_IN[2]
+set_location_assignment PIN_AE14 -to FP_IN[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FP_OUT[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FP_OUT[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FP_OUT[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to FP_OUT[0]
+set_location_assignment PIN_AH13 -to FP_OUT[0]
+set_location_assignment PIN_AN16 -to FP_OUT[1]
+set_location_assignment PIN_AH16 -to FP_OUT[2]
+set_location_assignment PIN_AE16 -to FP_OUT[3]
+set_instance_assignment -name SLEW_RATE 0 -to FP_OUT[3]
+set_instance_assignment -name SLEW_RATE 0 -to FP_OUT[2]
+set_instance_assignment -name SLEW_RATE 0 -to FP_OUT[1]
+set_instance_assignment -name SLEW_RATE 0 -to FP_OUT[0]
+set_global_assignment -name TIMEQUEST_DO_REPORT_TIMING ON
+set_global_assignment -name ENABLE_DA_RULE "A109, A110"
+set_global_assignment -name IGNORE_PARTITIONS OFF
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to PAYLOAD_TX2
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to PAYLOAD_TX3
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to PAYLOAD_RX2
+set_instance_assignment -name IO_STANDARD "1.5-V PCML" -to PAYLOAD_RX3
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to nios_wrapper_inst|sopc_system_inst|sdram -tag __sopc_system_sdram_p0
+set_instance_assignment -name PLL_ENFORCE_USER_PHASE_SHIFT ON -to nios_wrapper_inst|sopc_system_inst|sdram|pll0|upll_memphy|auto_generated|pll1 -tag __sopc_system_sdram_p0
+set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 1546608530
+set_global_assignment -name ECO_REGENERATE_REPORT ON
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to nios_wrapper_inst|sopc_system_inst|sdram_0 -tag __sopc_system_sdram_0_p0
+set_instance_assignment -name PLL_ENFORCE_USER_PHASE_SHIFT ON -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|pll1 -tag __sopc_system_sdram_0_p0
+set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to nios_wrapper_inst|sopc_system_inst|sdram_1 -tag __sopc_system_sdram_0_p0
+set_instance_assignment -name PLL_ENFORCE_USER_PHASE_SHIFT ON -to nios_wrapper_inst|sopc_system_inst|sdram_1|pll0|upll_memphy|auto_generated|pll1 -tag __sopc_system_sdram_0_p0
+
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[2]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[2]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[3]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[3]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[3]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[4]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[4]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[4]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[5]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[5]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[5]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[6]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[6]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[6]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[7]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[7]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[7]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[8]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[8]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[8]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[9]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[9]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[9]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[10]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[10]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[10]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[11]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[11]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[11]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[12]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[12]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[12]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[13]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[13]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[13]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[14]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[14]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[14]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_DQ[15]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQ[15]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQ[15]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_DQS_P[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQS_P[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQS_P[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_DQS_P[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQS_P[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQS_P[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_DQS_N[0]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQS_N[0]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQS_N[0]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_DQS_N[1]
+set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to MEM0_DQS_N[1]
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_DQS_N[1]
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_CK
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to MEM0_CK
+set_instance_assignment -name IO_STANDARD "DIFFERENTIAL 1.8-V SSTL CLASS I" -to MEM0_CK_N
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to MEM0_CK_N
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[10]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[10]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[11]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[11]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[12]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[12]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[13]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[13]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[3]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[3]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[4]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[4]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[5]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[5]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[6]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[6]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[7]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[7]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[8]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[8]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[9]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_A[9]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_BA[0]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_BA[0]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_BA[1]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_BA[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_BA[2]
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_BA[2]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_CS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_CS_N
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_WE_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_WE_N
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_RAS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_RAS_N
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_CAS_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_CAS_N
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_ODT
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_ODT
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_CKE
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to MEM0_CKE
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_LDM_RDQS_P
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_LDM_RDQS_P
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_UDM
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to MEM0_UDM
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[0]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[1]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[2]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[3]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[4]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[5]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[6]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_DQ[7]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[8]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[9]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[10]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[11]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[12]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[13]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[14]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_DQ[15]
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[0] -to MEM0_LDM_RDQS_P
+set_instance_assignment -name DQ_GROUP 9 -from MEM0_DQS_P[1] -to MEM0_UDM
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[1]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[2]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[3]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[4]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[5]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[6]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[7]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[8]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[9]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[10]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[11]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[12]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[13]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[14]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQ[15]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_LDM_RDQS_P
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_UDM
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQS_P[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQS_P[1]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQS_N[0]
+set_instance_assignment -name MEM_INTERFACE_DELAY_CHAIN_CONFIG FLEXIBLE_TIMING -to MEM0_DQS_N[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[3]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[4]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[5]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[6]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[7]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[8]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[9]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[10]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[11]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[12]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[13]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[14]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQ[15]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_LDM_RDQS_P
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_UDM
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQS_P[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQS_P[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQS_N[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_DQS_N[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[10]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[11]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[12]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[13]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[3]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[4]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[5]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[6]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[7]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[8]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_A[9]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_BA[0]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_BA[1]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_BA[2]
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_CS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_WE_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_RAS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_CAS_N
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_ODT
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_CKE
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_CK
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to MEM0_CK_N
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[1]
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[2]
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[3]
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[5]
+set_instance_assignment -name GLOBAL_SIGNAL "DUAL-REGIONAL CLOCK" -to nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[6]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|ureset|phy_reset_mem_stable_n
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|ureset|phy_reset_n
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uio_pads|dq_ddio[0].read_capture_clk_buffer
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uread_datapath|reset_n_fifo_write_side[0]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[0]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uio_pads|dq_ddio[1].read_capture_clk_buffer
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uread_datapath|reset_n_fifo_write_side[1]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -to nios_wrapper_inst|sopc_system_inst|sdram_0|p0|umemphy|uread_datapath|reset_n_fifo_wraddress[1]
+set_instance_assignment -name GLOBAL_SIGNAL OFF -from nios_wrapper_inst|sopc_system_inst|sdram_0|pll0|upll_memphy|auto_generated|clk[2] -to nios_wrapper_inst|sopc_system_inst|sdram_0|dll0|dll_wys_m
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[14]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to MEM0_A[15]
+set_global_assignment -name DISABLE_DA_RULE "C101, C102, C103, C104, C105, C106, R101, R102, R103, R104, R105, T101, T102, A101, A102, A103, A104, A105, A106, A107, A108, S101, S102, S103, S104, D101, D102, D103"
+set_global_assignment -name NUM_PARALLEL_PROCESSORS ALL
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to PAYLOAD_RX2
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to PAYLOAD_RX3
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to PAYLOAD_TX2
+set_instance_assignment -name GXB_0PPM_CORE_CLOCK ON -from * -to PAYLOAD_TX3
+set_location_assignment PIN_U2 -to PAYLOAD_RX2[11]
+set_location_assignment PIN_N2 -to PAYLOAD_RX2[13]
+set_location_assignment PIN_J2 -to PAYLOAD_RX2[15]
+set_location_assignment PIN_AU2 -to PAYLOAD_RX2[1]
+set_location_assignment PIN_AN2 -to PAYLOAD_RX2[3]
+set_location_assignment PIN_AJ2 -to PAYLOAD_RX2[5]
+set_location_assignment PIN_AE2 -to PAYLOAD_RX2[7]
+set_location_assignment PIN_AA2 -to PAYLOAD_RX2[9]
+set_location_assignment PIN_R2 -to PAYLOAD_RX3[11]
+set_location_assignment PIN_L2 -to PAYLOAD_RX3[13]
+set_location_assignment PIN_G2 -to PAYLOAD_RX3[15]
+set_location_assignment PIN_AR2 -to PAYLOAD_RX3[1]
+set_location_assignment PIN_AL2 -to PAYLOAD_RX3[3]
+set_location_assignment PIN_AG2 -to PAYLOAD_RX3[5]
+set_location_assignment PIN_AC2 -to PAYLOAD_RX3[7]
+set_location_assignment PIN_W2 -to PAYLOAD_RX3[9]
+set_location_assignment PIN_T4 -to PAYLOAD_TX2[11]
+set_location_assignment PIN_M4 -to PAYLOAD_TX2[13]
+set_location_assignment PIN_H4 -to PAYLOAD_TX2[15]
+set_location_assignment PIN_AT4 -to PAYLOAD_TX2[1]
+set_location_assignment PIN_AM4 -to PAYLOAD_TX2[3]
+set_location_assignment PIN_AH4 -to PAYLOAD_TX2[5]
+set_location_assignment PIN_AD4 -to PAYLOAD_TX2[7]
+set_location_assignment PIN_Y4 -to PAYLOAD_TX2[9]
+set_location_assignment PIN_P4 -to PAYLOAD_TX3[11]
+set_location_assignment PIN_K4 -to PAYLOAD_TX3[13]
+set_location_assignment PIN_F4 -to PAYLOAD_TX3[15]
+set_location_assignment PIN_AP4 -to PAYLOAD_TX3[1]
+set_location_assignment PIN_AK4 -to PAYLOAD_TX3[3]
+set_location_assignment PIN_AF4 -to PAYLOAD_TX3[5]
+set_location_assignment PIN_AB4 -to PAYLOAD_TX3[7]
+set_location_assignment PIN_V4 -to PAYLOAD_TX3[9]
+set_instance_assignment -name SLEW_RATE 3 -to RGMII_TXD
+set_instance_assignment -name SLEW_RATE 3 -to RGMII_TXC
+set_instance_assignment -name SLEW_RATE 3 -to RGMII_TX_CTL
+set_instance_assignment -name D6_DELAY 6 -to RGMII_TXC
+set_instance_assignment -name D5_DELAY 15 -to RGMII_TXC
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to RGMII_RXC
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to RGMII_TXD
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to RGMII_TXC
+set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITHOUT CALIBRATION" -to RGMII_TX_CTL
+set_location_assignment PIN_AR38 -to PAYLOAD_RX2[0]
+set_location_assignment PIN_R38 -to PAYLOAD_RX2[10]
+set_location_assignment PIN_L38 -to PAYLOAD_RX2[12]
+set_location_assignment PIN_G38 -to PAYLOAD_RX2[14]
+set_location_assignment PIN_AL38 -to PAYLOAD_RX2[2]
+set_location_assignment PIN_AG38 -to PAYLOAD_RX2[4]
+set_location_assignment PIN_AC38 -to PAYLOAD_RX2[6]
+set_location_assignment PIN_W38 -to PAYLOAD_RX2[8]
+set_location_assignment PIN_AU38 -to PAYLOAD_RX3[0]
+set_location_assignment PIN_U38 -to PAYLOAD_RX3[10]
+set_location_assignment PIN_N38 -to PAYLOAD_RX3[12]
+set_location_assignment PIN_J38 -to PAYLOAD_RX3[14]
+set_location_assignment PIN_AN38 -to PAYLOAD_RX3[2]
+set_location_assignment PIN_AJ38 -to PAYLOAD_RX3[4]
+set_location_assignment PIN_AE38 -to PAYLOAD_RX3[6]
+set_location_assignment PIN_AA38 -to PAYLOAD_RX3[8]
+set_location_assignment PIN_AP36 -to PAYLOAD_TX2[0]
+set_location_assignment PIN_P36 -to PAYLOAD_TX2[10]
+set_location_assignment PIN_K36 -to PAYLOAD_TX2[12]
+set_location_assignment PIN_F36 -to PAYLOAD_TX2[14]
+set_location_assignment PIN_AK36 -to PAYLOAD_TX2[2]
+set_location_assignment PIN_AF36 -to PAYLOAD_TX2[4]
+set_location_assignment PIN_AB36 -to PAYLOAD_TX2[6]
+set_location_assignment PIN_V36 -to PAYLOAD_TX2[8]
+set_location_assignment PIN_AT36 -to PAYLOAD_TX3[0]
+set_location_assignment PIN_T36 -to PAYLOAD_TX3[10]
+set_location_assignment PIN_M36 -to PAYLOAD_TX3[12]
+set_location_assignment PIN_H36 -to PAYLOAD_TX3[14]
+set_location_assignment PIN_AM36 -to PAYLOAD_TX3[2]
+set_location_assignment PIN_AH36 -to PAYLOAD_TX3[4]
+set_location_assignment PIN_AD36 -to PAYLOAD_TX3[6]
+set_location_assignment PIN_Y36 -to PAYLOAD_TX3[8]
+set_global_assignment -name GENERATE_RBF_FILE ON
+set_global_assignment -name OPTIMIZATION_TECHNIQUE BALANCED
+set_instance_assignment -name INPUT_TERMINATION DIFFERENTIAL -to TI_GTP_RX
+set_location_assignment PLL_B1 -to "gtpclkrst_per:gtpclkrst_per_inst|sysclkpll:sysclkpll_inst|altpll:altpll_component|sysclkpll_altpll:auto_generated|pll1"
+set_instance_assignment -name GLOBAL_SIGNAL "GLOBAL CLOCK" -to "nios_wrapper:nios_wrapper_inst|ETH_CLK"
+set_global_assignment -name SEED 1
+set_global_assignment -name SLD_FILE /home/braydo/Projects/HPS_restructured/Firmware/GTP_Project/stp1_auto_stripped.stp
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name LL_ENABLED ON -section_id nios
+set_global_assignment -name LL_AUTO_SIZE OFF -section_id nios
+set_global_assignment -name LL_STATE LOCKED -section_id nios
+set_global_assignment -name LL_RESERVED OFF -section_id nios
+set_global_assignment -name LL_SECURITY_ROUTING_INTERFACE OFF -section_id nios
+set_global_assignment -name LL_IGNORE_IO_BANK_SECURITY_CONSTRAINT OFF -section_id nios
+set_global_assignment -name LL_PR_REGION OFF -section_id nios
+set_global_assignment -name LL_WIDTH 119 -section_id nios
+set_global_assignment -name LL_HEIGHT 16 -section_id nios
+set_global_assignment -name LL_ORIGIN X1_Y81 -section_id nios
+set_global_assignment -name LL_ENABLED ON -section_id gxbvxs_odd
+set_global_assignment -name LL_AUTO_SIZE OFF -section_id gxbvxs_odd
+set_global_assignment -name LL_RESERVED OFF -section_id gxbvxs_odd
+set_global_assignment -name LL_SECURITY_ROUTING_INTERFACE OFF -section_id gxbvxs_odd
+set_global_assignment -name LL_IGNORE_IO_BANK_SECURITY_CONSTRAINT OFF -section_id gxbvxs_odd
+set_global_assignment -name LL_PR_REGION OFF -section_id gxbvxs_odd
+set_global_assignment -name LL_WIDTH 19 -section_id gxbvxs_odd
+set_global_assignment -name LL_HEIGHT 90 -section_id gxbvxs_odd
+set_global_assignment -name LL_ENABLED ON -section_id gxbvxs_even
+set_global_assignment -name LL_AUTO_SIZE OFF -section_id gxbvxs_even
+set_global_assignment -name LL_STATE LOCKED -section_id gxbvxs_even
+set_global_assignment -name LL_RESERVED OFF -section_id gxbvxs_even
+set_global_assignment -name LL_SECURITY_ROUTING_INTERFACE OFF -section_id gxbvxs_even
+set_global_assignment -name LL_IGNORE_IO_BANK_SECURITY_CONSTRAINT OFF -section_id gxbvxs_even
+set_global_assignment -name LL_PR_REGION OFF -section_id gxbvxs_even
+set_global_assignment -name LL_WIDTH 19 -section_id gxbvxs_even
+set_global_assignment -name LL_HEIGHT 90 -section_id gxbvxs_even
+set_global_assignment -name LL_ORIGIN X101_Y0 -section_id gxbvxs_even
+set_global_assignment -name LL_ORIGIN X0_Y0 -section_id gxbvxs_odd
+set_global_assignment -name LL_STATE LOCKED -section_id gxbvxs_odd
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 39423 -section_id "gxbvxs_per:_gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 52377 -section_id "gxbvxs_per:_gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16776960 -section_id "gxbvxs_per:_gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16711935 -section_id "gxbvxs_per:_gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 65535 -section_id "gxbvxs_per:_gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16777164 -section_id "gxbvxs_per:_gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 10198015 -section_id "gxbvxs_per:_gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 32896 -section_id "gxbvxs_per:_gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 14622752 -section_id "gxbvxs_per:_gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 2105567 -section_id "gxbvxs_per:_gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 2154272 -section_id "gxbvxs_per:_gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16037301 -section_id "gxbvxs_per:_gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 11908596 -section_id "gxbvxs_per:_gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 11924661 -section_id "gxbvxs_per:_gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16774902 -section_id "gxbvxs_per:_gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE POST_FIT -section_id "gxbvxs_per:_gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "gxbvxs_per:_gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_COLOR 16709301 -section_id "gxbvxs_per:_gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id "sopc_system:sopc_system_inst"
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id "sopc_system:sopc_system_inst"
+set_global_assignment -name PARTITION_COLOR 16168438 -section_id "sopc_system:sopc_system_inst"
+set_instance_assignment -name LL_MEMBER_OF nios -to "nios_wrapper:nios_wrapper_inst|sopc_system:sopc_system_inst" -section_id nios
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_odd -to "gxbvxs_per:\\gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_odd
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_instance_assignment -name LL_MEMBER_OF gxbvxs_even -to "gxbvxs_per:\\gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst" -section_id gxbvxs_even
+set_global_assignment -name LL_ENABLED OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_AUTO_SIZE OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_STATE LOCKED -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_RESERVED OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_SECURITY_ROUTING_INTERFACE OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_IGNORE_IO_BANK_SECURITY_CONSTRAINT OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_PR_REGION OFF -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_WIDTH 101 -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_HEIGHT 15 -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name LL_ORIGIN X19_Y66 -section_id "hps_funnel:hps_funnel_inst"
+set_instance_assignment -name LL_MEMBER_OF "hps_funnel:hps_funnel_inst" -to "hps_per:hps_per_inst|hps_cluster_find:hps_cluster_find_inst|hps_funnel:hps_funnel_inst" -section_id "hps_funnel:hps_funnel_inst"
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_mon.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser_wrapper.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser_rx_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser_rx.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_proc_tx_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_proc_rx_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_proc.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/tigtp_per/tigtp_ser_tx.vhd
+set_global_assignment -name QIP_FILE ../Source/gtp/nios/sopc_system/synthesis/sopc_system.qip
+set_global_assignment -name SDC_FILE ../Source/gtp/GTP.sdc
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/utils_pkg.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/ucrc_par.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/tdp_ram.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/sum_mon.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/SpiInterface.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/serdeslanecrc_tx.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/serdeslanecrc_rx.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/scfifo_std.vhd
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/scfifo_generic.vhd
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/sdp_ram.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/Scaler.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/PulseStretcher.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/Pulser.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/pipelinedelay.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/pipeline_reg.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/log32b_10b.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/LEDPulser.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/integrator.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/ibuf_path.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/hist.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/fixedlatencybit.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/delay_ram.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/utils/counter.vhd -library utils
+set_global_assignment -name VHDL_FILE ../Source/lib/la/la_ram.vhd -library la
+set_global_assignment -name VHDL_FILE ../Source/lib/la/la_pkg.vhd -library la
+set_global_assignment -name VHDL_FILE ../Source/lib/la/la_mask.vhd -library la
+set_global_assignment -name VHDL_FILE ../Source/lib/la/la_cmp.vhd -library la
+set_global_assignment -name VHDL_FILE ../Source/lib/la/la_sm.vhd -library la
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/ti_i2c_slave_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/ti_i2c_slave_io.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/ti_i2c_slave.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/gtpcfg_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/gtpcfg_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpcfg_per/ti_i2c_slave_sreg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpclkrst_per/pll_250_b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpclkrst_per/gtpclkrst_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpclkrst_per/gtpclkrst_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpclkrst_per/atx_pll.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gtpclkrst_per/sysclkpll.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbconfig_per/gxbconfig_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbconfig_per/gxbconfig_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbconfig_per/reconfig_side.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_wrapper.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_tx_stream.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_sym_gen.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_sym_dec.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_rx_stream.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_lane_init_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_idle_and_ver_gen.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_global_logic.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_err_detect.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_chbond_count_dec.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_channel_init_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_channel_err_detect.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_aurora_lane.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str_altera.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/aurora/aurora_4lane_fd_str.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/gxbqsfp_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/gxbqsfp_mon.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbqsfp_per/gxbqsfp_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/lane_bond.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/x2_encoder_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/x2_decoder_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/word_align.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/tx_pcs_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/SRL16.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/rx_phase_comp.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/rx_pcs_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/gxb_transceiver_pma.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/gxb_transceiver_pcs.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/gxb_transceiver.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/FDR.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/FD.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/encoder_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/primitives/decoder_8b10b.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_wrapper.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_tx_stream.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_sym_gen.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_sym_dec.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_rx_stream.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_lane_init_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_idle_and_ver_gen.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_global_logic.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_err_detect.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_chbond_count_dec.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_channel_init_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_channel_err_detect.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G_aurora_lane.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/aurora_5G.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/backplane_aurora/altera_aurora_5Gx2.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/gxbvxs_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/gxbvxs_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/gxbvxs_mon.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/gxbvxs_per/serdeslatency.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/nios/nios_wrapper_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/nios/nios_wrapper.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/perutils/perbusctrl.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/perutils/perbus_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/perutils/perbus_mst_sm.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/sd_per/sd_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/sd_per/sd_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/sd_per/sd_mux.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/sd_per/sd_iobuf.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/sd_per/sd_scalers.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/trigger_per/trigger_per.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/trigger_per/trigger_per_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/trigger_per/trigger_word_format.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/work/gtp.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/work/aurora_pkg.vhd
+set_global_assignment -name VHDL_FILE ../Source/gtp/work/gtp_pkg.vhd
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 1517
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE 3
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_b54d1 -to "gxbvxs_per:\\gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:0:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_459b1 -to "gxbvxs_per:\\gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:10:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_ca481 -to "gxbvxs_per:\\gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:11:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_7b891 -to "gxbvxs_per:\\gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:12:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_7a841 -to "gxbvxs_per:\\gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:13:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_55001 -to "gxbvxs_per:\\gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:14:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_a6751 -to "gxbvxs_per:\\gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:15:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_e5d01 -to "gxbvxs_per:\\gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:1:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_84151 -to "gxbvxs_per:\\gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:2:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_5fc61 -to "gxbvxs_per:\\gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:3:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_10591 -to "gxbvxs_per:\\gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:4:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_8a211 -to "gxbvxs_per:\\gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:5:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_50601 -to "gxbvxs_per:\\gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:6:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_e1311 -to "gxbvxs_per:\\gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:7:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_71e41 -to "gxbvxs_per:\\gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:8:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY gxbvx_7bfc1 -to "gxbvxs_per:\\gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst" -section_id "gxbvxs_per:_gxbvxs_per_gen:9:gxbvxs_gen_true:gxbvxs_per_inst"
+set_instance_assignment -name PARTITION_HIERARCHY sopcs_af5c1 -to "nios_wrapper:nios_wrapper_inst|sopc_system:sopc_system_inst" -section_id "sopc_system:sopc_system_inst"

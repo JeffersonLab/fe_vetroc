@@ -9,7 +9,9 @@ use utils.utils_pkg.all;
 entity scfifo_std is
 	generic(
 		D_WIDTH	: integer := 32;
-		A_WIDTH	: integer := 10
+		A_WIDTH		: integer := 10;
+		RD_PROTECT	: boolean := true;
+		WR_PROTECT	: boolean := true
 	);
 	port(
 		CLK		: in std_logic;
@@ -44,10 +46,24 @@ begin
 	FULL_i <= '1' when WR_ADDR_NEXT = RD_ADDR else '0';
 
 	WR_ADDR_NEXT <= WR_ADDR + 1;
-	WR_ACTIVE <= WR and not FULL_i;
 
 	RD_ADDR_NEXT <= RD_ADDR + 1;
+
+	wr_protect_gen_true: if WR_PROTECT = true generate
+		WR_ACTIVE <= WR and not FULL_i;
+	end generate;
+
+	wr_protect_gen_false: if WR_PROTECT = false generate
+		WR_ACTIVE <= WR;
+	end generate;
+
+	rd_protect_gen_true: if RD_PROTECT = true generate
 	RD_ACTIVE <= RD and not EMPTY_i;
+	end generate;
+
+	rd_protect_gen_false: if RD_PROTECT = false generate
+		RD_ACTIVE <= RD;
+	end generate;
 
 	process(CLK)
 	begin
