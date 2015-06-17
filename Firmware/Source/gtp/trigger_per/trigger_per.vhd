@@ -142,7 +142,7 @@ begin
 	-- Trigger bit output - perform latency adjustment to maintain a fixed latency trigger decision 
 	fixedlatencybit_inst: fixedlatencybit
 		port map(
-				CLK			=> CLK,
+				CLK			=> CLK_DIV4,
 				SYNC			=> SYNC,
 				LATENCY		=> LATENCY,
 				BIT_IN_EN	=> CLUSTER_TRIGGER,
