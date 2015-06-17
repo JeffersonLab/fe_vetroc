@@ -23,6 +23,7 @@ entity sd_scalers is
 
 		-- Scaler control
 		SCALER_LATCH		: in std_logic;
+		SCALER_RESET		: in std_logic;
 
 		-- Scaler registers
 		SCALER_SYSCLK_50	: out std_logic_vector(31 downto 0);
@@ -42,42 +43,42 @@ begin
 
 	Scaler_CLK50_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => SYSCLK_50, SCALER => SCALER_SYSCLK_50);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => SYSCLK_50, SCALER => SCALER_SYSCLK_50);
 
 	Scaler_CLK_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => false, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => '1', SCALER => SCALER_CLK);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => '1', SCALER => SCALER_CLK);
 
 	Scaler_Sync_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => SYNC_SYNC, SCALER => SCALER_SYNC);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => SYNC_SYNC, SCALER => SCALER_SYNC);
 
 	Scaler_Trig1_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => TRIG1_SYNC, SCALER => SCALER_TRIG1);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => TRIG1_SYNC, SCALER => SCALER_TRIG1);
 
 	Scaler_Trig2_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => TRIG2_SYNC, SCALER => SCALER_TRIG2);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => TRIG2_SYNC, SCALER => SCALER_TRIG2);
 
 	Scaler_FP_IN_gen: for I in 0 to 3 generate
 		Scaler_FP_IN_inst: Scaler
 			generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-			port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => FP_IN_SYNC(I), SCALER => SCALER_FP_IN(I));
+			port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => FP_IN_SYNC(I), SCALER => SCALER_FP_IN(I));
 	end generate;
 
 	Scaler_FP_OUT_gen: for I in 0 to 3 generate
 		Scaler_FP_OUT_inst: Scaler
 			generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-			port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => FP_OUT_MUX(I), SCALER => SCALER_FP_OUT(I));
+			port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => FP_OUT_MUX(I), SCALER => SCALER_FP_OUT(I));
 	end generate;
 
 	Scaler_Busy_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => true, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => BUSY, SCALER => SCALER_BUSY);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => BUSY, SCALER => SCALER_BUSY);
 
 	Scaler_BusyCycles_inst: Scaler
 		generic map(LEN => 32, EDGE_DET => false, BUFFERED => false)
-		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, INPUT => BUSY, SCALER => SCALER_BUSYCYCLES);
+		port map(CLK => CLK, GATE => '1', LATCH => SCALER_LATCH, RESET => SCALER_RESET, INPUT => BUSY, SCALER => SCALER_BUSYCYCLES);
 
 end Synthesis;

@@ -25,6 +25,7 @@ package sd_per_pkg is
 			TRIG_BIT_OUT	: in std_logic_vector(31 downto 0);
 
 			SCALER_LATCH	: out std_logic;
+			SCALER_RESET	: out std_logic;
 
 			-- SSP I/O ports (muxed)
 			FP_OUT			: out std_logic_vector(3 downto 0);

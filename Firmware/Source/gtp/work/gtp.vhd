@@ -206,6 +206,7 @@ architecture synthesis of gtp is
 	signal TIGTP_PLL_RESET			: std_logic;
 
 	signal SCALER_LATCH				: std_logic;
+	signal SCALER_RESET				: std_logic;
 
 	signal RX_D							: slv32a(15 downto 0) := (others=>x"00000000");
 	signal RX_SRC_RDY_N				: std_logic_vector(15 downto 0) := (others=>'0');
@@ -360,6 +361,7 @@ begin
 			BUSY				=> BUSY,
 			TRIG_BIT_OUT	=> TRIG_BIT_OUT,
 			SCALER_LATCH	=> SCALER_LATCH,
+			SCALER_RESET	=> SCALER_RESET,
 			FP_OUT			=> FP_OUT,
 			FP_IN				=> FP_IN,
 			SD_SYNC			=> SD_SYNC,

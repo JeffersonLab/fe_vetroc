@@ -26,6 +26,7 @@ entity sd_per is
 		TRIG_BIT_OUT	: in std_logic_vector(31 downto 0);
 
 		SCALER_LATCH	: out std_logic;
+		SCALER_RESET		: out std_logic;
 
 		-- SSP I/O ports (muxed)
 		FP_OUT			: out std_logic_vector(3 downto 0);
@@ -133,6 +134,7 @@ architecture Synthesis of sd_per is
 
 			-- Scaler control
 			SCALER_LATCH		: in std_logic;
+			SCALER_RESET		: in std_logic;
 
 			-- Scaler registers
 			SCALER_SYSCLK_50	: out std_logic_vector(31 downto 0);
@@ -160,40 +162,41 @@ architecture Synthesis of sd_per is
 	signal SYNC_SRC_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal FP_OUT_SRC_REG			: slv32a(3 downto 0) := (others=>x"00000000");
 
-	signal TRIG1_SYNC				: std_logic;
-	signal TRIG2_SYNC				: std_logic;
-	signal SYNC_SYNC				: std_logic;
-	signal FP_IN_SYNC				: std_logic_vector(3 downto 0);
+	signal TRIG1_SYNC					: std_logic;
+	signal TRIG2_SYNC					: std_logic;
+	signal SYNC_SYNC					: std_logic;
+	signal FP_IN_SYNC					: std_logic_vector(3 downto 0);
 
-	signal TRIG1_ASYNC			: std_logic;
-	signal TRIG2_ASYNC			: std_logic;
-	signal SYNC_ASYNC				: std_logic;
-	signal FP_IN_ASYNC			: std_logic_vector(3 downto 0);
+	signal TRIG1_ASYNC				: std_logic;
+	signal TRIG2_ASYNC				: std_logic;
+	signal SYNC_ASYNC					: std_logic;
+	signal FP_IN_ASYNC				: std_logic_vector(3 downto 0);
 	
-	signal FP_OUT_MUX				: std_logic_vector(3 downto 0);
+	signal FP_OUT_MUX					: std_logic_vector(3 downto 0);
 
-	signal SCALER_LATCH_i		: std_logic;
+	signal SCALER_LATCH_i			: std_logic;
+	signal SCALER_RESET_i			: std_logic;
 
-	signal SCALER_SYSCLK_50		: std_logic_vector(31 downto 0);
-	signal SCALER_CLK				: std_logic_vector(31 downto 0);
-	signal SCALER_SYNC			: std_logic_vector(31 downto 0);
-	signal SCALER_TRIG1			: std_logic_vector(31 downto 0);
-	signal SCALER_TRIG2			: std_logic_vector(31 downto 0);
-	signal SCALER_FP_IN			: slv32a(3 downto 0);
-	signal SCALER_FP_OUT			: slv32a(3 downto 0);
-	signal SCALER_BUSY			: std_logic_vector(31 downto 0);
-	signal SCALER_BUSYCYCLES	: std_logic_vector(31 downto 0);
+	signal SCALER_SYSCLK_50			: std_logic_vector(31 downto 0);
+	signal SCALER_CLK					: std_logic_vector(31 downto 0);
+	signal SCALER_SYNC				: std_logic_vector(31 downto 0);
+	signal SCALER_TRIG1				: std_logic_vector(31 downto 0);
+	signal SCALER_TRIG2				: std_logic_vector(31 downto 0);
+	signal SCALER_FP_IN				: slv32a(3 downto 0);
+	signal SCALER_FP_OUT				: slv32a(3 downto 0);
+	signal SCALER_BUSY				: std_logic_vector(31 downto 0);
+	signal SCALER_BUSYCYCLES		: std_logic_vector(31 downto 0);
 
-	signal FP_OUT_SRC				: slv6a(3 downto 0);
-	signal TRIG_SRC				: std_logic_vector(5 downto 0);
-	signal SYNC_SRC				: std_logic_vector(5 downto 0);
+	signal FP_OUT_SRC					: slv6a(3 downto 0);
+	signal TRIG_SRC					: std_logic_vector(5 downto 0);
+	signal SYNC_SRC					: std_logic_vector(5 downto 0);
 
-	signal PULSER_PERIOD			: std_logic_vector(31 downto 0);
-	signal PULSER_LOW_CYCLES	: std_logic_vector(31 downto 0);
-	signal PULSER_NCYCLES		: std_logic_vector(31 downto 0);
-	signal PULSER_START			: std_logic;
-	signal PULSER_DONE			: std_logic;
-	signal PULSER_OUTPUT			: std_logic;
+	signal PULSER_PERIOD				: std_logic_vector(31 downto 0);
+	signal PULSER_LOW_CYCLES		: std_logic_vector(31 downto 0);
+	signal PULSER_NCYCLES			: std_logic_vector(31 downto 0);
+	signal PULSER_START				: std_logic;
+	signal PULSER_DONE				: std_logic;
+	signal PULSER_OUTPUT				: std_logic;
 begin
 
 	PP_BUSY <= (others=>'0');
@@ -235,6 +238,7 @@ begin
 			FP_IN_SYNC			=> FP_IN_SYNC,
 			FP_OUT_MUX			=> FP_OUT_MUX,
 			SCALER_LATCH		=> SCALER_LATCH_i,
+			SCALER_RESET		=> SCALER_RESET_i,
 			SCALER_SYSCLK_50	=> SCALER_SYSCLK_50,
 			SCALER_CLK			=> SCALER_CLK,
 			SCALER_SYNC			=> SCALER_SYNC,
@@ -304,13 +308,41 @@ begin
 			PER_ACK			=> PO.ACK
 		);
 
+	--SCALER_LATCH_REG
+	SCALER_LATCH_i <= SCALER_LATCH_REG(0);
+	SCALER_RESET_i <= SCALER_LATCH_REG(1);
+
+	--PULSER_PERIOD_REG
+	PULSER_PERIOD <= PULSER_PERIOD_REG;
+
+	--PULSER_LOW_CYCLES_REG
+	PULSER_LOW_CYCLES <= PULSER_LOW_CYCLES_REG;
+
+	--PULSER_NCYCLES_REG
+	PULSER_NCYCLES <= PULSER_NCYCLES_REG;
+
+	--PULSER_STATUS_REG
+	PULSER_STATUS_REG <= x"0000000" & "000" & PULSER_DONE;
+
+	--TRIG_SRC_REG
+	TRIG_SRC <= TRIG_SRC_REG(5 downto 0);
+
+	--SYNC_SRC_REG
+	SYNC_SRC <= SYNC_SRC_REG(5 downto 0);
+
+	--FP_OUT_SRC_REG
+	FP_OUT_SRC(0) <= FP_OUT_SRC_REG(0)(5 downto 0);
+	FP_OUT_SRC(1) <= FP_OUT_SRC_REG(1)(5 downto 0);
+	FP_OUT_SRC(2) <= FP_OUT_SRC_REG(2)(5 downto 0);
+	FP_OUT_SRC(3) <= FP_OUT_SRC_REG(3)(5 downto 0);
+
 	-- Registers
 	process(CLK)
 	begin
 		if rising_edge(CLK) then
 			PO.ACK <= '0';
 
-			rw_reg(		REG => SCALER_LATCH_REG			,PI=>PI,PO=>PO, A => x"0000", RW => x"00000001");
+			rw_reg(		REG => SCALER_LATCH_REG			,PI=>PI,PO=>PO, A => x"0000", RW => x"00000003");
 
 			ro_reg(		REG => SCALER_SYSCLK_50			,PI=>PI,PO=>PO, A => x"0004", RO => x"FFFFFFFF");
 			ro_reg(		REG => SCALER_CLK					,PI=>PI,PO=>PO, A => x"0008", RO => x"FFFFFFFF");
@@ -344,20 +376,4 @@ begin
 		end if;
 	end process;
 
-	SCALER_LATCH_i <= SCALER_LATCH_REG(0);
-
-	PULSER_PERIOD <= PULSER_PERIOD_REG;
-	PULSER_LOW_CYCLES <= PULSER_LOW_CYCLES_REG;
-	PULSER_NCYCLES <= PULSER_NCYCLES_REG;
-	PULSER_STATUS_REG <= x"0000000" & "000" & PULSER_DONE;
-
-	TRIG_SRC <= TRIG_SRC_REG(5 downto 0);
-
-	SYNC_SRC <= SYNC_SRC_REG(5 downto 0);
-
-	FP_OUT_SRC(0) <= FP_OUT_SRC_REG(0)(5 downto 0);
-	FP_OUT_SRC(1) <= FP_OUT_SRC_REG(1)(5 downto 0);
-	FP_OUT_SRC(2) <= FP_OUT_SRC_REG(2)(5 downto 0);
-	FP_OUT_SRC(3) <= FP_OUT_SRC_REG(3)(5 downto 0);
-
-end Synthesis;
+end synthesis;
