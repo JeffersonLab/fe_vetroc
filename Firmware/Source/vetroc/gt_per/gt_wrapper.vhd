@@ -144,6 +144,9 @@ architecture synthesis of gt_wrapper is
 	signal DRPDO_OUT						: slv16a(0 to 1);
 	signal DRPRDY_OUT						: std_logic_vector(0 to 1);
 	signal SOFT_ERR						: std_logic;
+	signal S_AXI_TX_TVALID				: std_logic;
+	signal S_AXI_TX_TREADY				: std_logic;
+	signal M_AXI_RX_TVALID				: std_logic;
 begin
 
 	gtpe2_common_inst: gtpe2_common
@@ -223,6 +226,10 @@ begin
 			RCALENB					=> '1'
 		);
 
+	S_AXI_TX_TVALID <= not TX_SRC_RDY_N;
+	TX_DST_RDY_N <= not S_AXI_TX_TREADY;
+	RX_SRC_RDY_N <= not M_AXI_RX_TVALID;
+
 	gtp2e_aurora_8b10b_core_inst: gtp2e_aurora_8b10b_core
 		generic map(
 			SIM_GTRESET_SPEEDUP			=> SIM_GTRESET_SPEEDUP,
@@ -230,10 +237,10 @@ begin
 		)
 		port map(
 			S_AXI_TX_TDATA					=> TX_D,
-			S_AXI_TX_TVALID				=> TX_SRC_RDY_N,
-			S_AXI_TX_TREADY				=> TX_DST_RDY_N,
+			S_AXI_TX_TVALID				=> S_AXI_TX_TVALID,
+			S_AXI_TX_TREADY				=> S_AXI_TX_TREADY,
 			M_AXI_RX_TDATA					=> RX_D,
-			M_AXI_RX_TVALID				=> RX_SRC_RDY_N,
+			M_AXI_RX_TVALID				=> M_AXI_RX_TVALID,
 			DO_CC								=> '0',
 			WARN_CC							=> '0',
 			RXP								=> RXP,

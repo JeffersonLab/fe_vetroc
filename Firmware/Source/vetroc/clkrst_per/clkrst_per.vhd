@@ -130,7 +130,7 @@ architecture synthesis of clkrst_per is
 	end component;
 
 	constant BOARD_ID					: std_logic_vector(31 downto 0) := x"56695452";
-	constant FIRMWARE_REV			: std_logic_vector(15 downto 0) := x"0100";
+	constant FIRMWARE_REV			: std_logic_vector(15 downto 0) := x"0101";
 
 	signal BOARD_ID_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal FIRMWARE_REV_REG			: std_logic_vector(31 downto 0) := x"00000000";

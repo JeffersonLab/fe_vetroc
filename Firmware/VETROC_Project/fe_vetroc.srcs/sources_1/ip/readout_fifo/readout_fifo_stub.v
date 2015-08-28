@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:47:07 MST 2014
-// Date        : Thu Apr 16 10:54:30 2015
+// Date        : Fri Jun 19 17:21:25 2015
 // Host        : braydopc2 running 64-bit Red Hat Enterprise Linux Workstation release 6.6 (Santiago)
 // Command     : write_verilog -force -mode synth_stub
-//               /home/braydo/Projects/fe_vetroc/Firmware/XilinxProject/fe_vetroc.srcs/sources_1/ip/readout_fifo/readout_fifo_stub.v
+//               /home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.srcs/sources_1/ip/readout_fifo/readout_fifo_stub.v
 // Design      : readout_fifo
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7a200tffg1156-2

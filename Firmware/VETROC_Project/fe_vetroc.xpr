@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="2" Path="/home/braydo/Projects/fe_vetroc/Firmware/XilinxProject/fe_vetroc.xpr">
+<Project Version="7" Minor="2" Path="/home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="0540c18178924519876eb9a08c14ef45"/>
@@ -17,13 +17,13 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_cdc_sync.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_cdc_sync.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_gtrxreset_seq.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_gtrxreset_seq.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -43,18 +43,6 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_gt.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_aurora_pkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PPRDIR/../Source/lib/utils/scfifo_std.vhd">
         <FileInfo>
           <Attr Name="Library" Val="utils"/>
@@ -62,157 +50,97 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/mux16_2_to_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/mux16_2_to_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/dff_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_gt.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/dffe_n.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_aurora_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/counter_9usl.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/dff_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/counter_12u8sl.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/dffe_n.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/compare.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/counter_9usl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_tx_startup_fsm.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/counter_12u8sl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_sym_gen.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/compare.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_sym_dec.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_word_select.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_rx_startup_fsm.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/token_ctrl_x4.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_multi_gt.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/tag_special_2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_lane_init_sm.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/std_cycle_x5.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_idle_and_ver_gen.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/sst_cycle_x5.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_hotplug.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/sst_ctrl_2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_err_detect.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/sramio.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_chbond_count_dec.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_channel_init_sm.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_channel_err_detect.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_word_select.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/token_ctrl_x4.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/tag_special_2.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/std_cycle_x5.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/sst_cycle_x5.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/sst_ctrl_2.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/sramio.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/sramclk.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/sramclk.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -225,169 +153,193 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/muxx8_to_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/perutils/perbus_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/mux36_2_to_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/muxx8_to_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/mux2_to_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/mux36_2_to_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/mblt_cycle_x3.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/mux2_to_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/io_buffer_reg_2.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/mblt_cycle_x3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/int_cycle_x1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/io_buffer_reg_2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/end_block_x3.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/int_cycle_x1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/e2_cycle_x3.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_tx_startup_fsm.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/dffe_1s.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_sym_gen.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/dffe_1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_sym_dec.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/cycle_select_x1.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_rx_startup_fsm.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/board_select_3.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_multi_gt.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/berr_status_ctrl.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_lane_init_sm.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/perutils/perbus_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_idle_and_ver_gen.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_tx_stream.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_hotplug.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_transceiver_wrapper.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_err_detect.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_rx_stream.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_chbond_count_dec.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_reset_logic.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_channel_init_sm.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_ll_to_axi.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_channel_err_detect.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_global_logic.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/end_block_x3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_axi_to_ll.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/e2_cycle_x3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_aurora_lane.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/dffe_1s.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_tx_rx.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/dffe_1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_sync.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/cycle_select_x1.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/v64xblk_x8.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/board_select_3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_index_finder.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/berr_status_ctrl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_event_writer.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_tx_rx.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/sramcntrl.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_sync.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/v64xblk_x8.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_index_finder.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_event_writer.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/sramcntrl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -400,56 +352,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/mux2_to_1_old.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/io_mux_reg_2.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/intr3.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/utils/indexer.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="utils"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/eventbuilder_per_pkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/dff_36.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/data_route4.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/data_not_valid.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/buffer_select.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/mux2_to_1_old.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -462,9 +365,105 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/lib/utils/SpiInterface.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/io_mux_reg_2.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/intr3.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_tx_stream.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_transceiver_wrapper.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_rx_stream.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_reset_logic.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_ll_to_axi.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_global_logic.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_axi_to_ll.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_aurora_lane.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/eventbuilder_per_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/dff_36.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/data_route4.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/data_not_valid.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/buffer_select.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/lib/utils/indexer.vhd">
         <FileInfo>
           <Attr Name="Library" Val="utils"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_io_reg_2.vhd">
+        <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -476,88 +475,44 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gtpe2/gtp2e_aurora_8b10b_core.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_input.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_io_reg_2.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_data_eb.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_input.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_channel_fifo_sort.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_data_eb.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/sramfifo.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_channel_fifo_sort.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/sramfifo.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/out_fifo_interface.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/interface_24.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/utils/ibuf_path.vhd">
+      <File Path="$PPRDIR/../Source/lib/utils/SpiInterface.vhd">
         <FileInfo>
           <Attr Name="Library" Val="utils"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/evtbuilderfull_sm.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/vme_mst/buffer_out_ctrl_12.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/out_fifo_interface.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../Source/lib/la/la_sm.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="la"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/la/la_cmp.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="la"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/la/la_mask.vhd">
         <FileInfo>
           <Attr Name="Library" Val="la"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -571,6 +526,45 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../Source/lib/la/la_mask.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="la"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/lib/la/la_cmp.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="la"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/interface_24.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/lib/utils/ibuf_path.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="utils"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gtpe2/gtp2e_aurora_8b10b_core.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/evtbuilderfull_sm.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../Source/lib/utils/counter.vhd">
         <FileInfo>
           <Attr Name="Library" Val="utils"/>
@@ -578,117 +572,49 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/sysclkpll.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/buffer_out_ctrl_12.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/spiflash.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_mst_sm.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/gclkpll.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_mst_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/clksel.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_interface_8.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gt_wrapper.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/triggerunit.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_mst_sm.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_channel_group.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_mst_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/sysclkpll.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_interface_8.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/triggerunit.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_channel_group.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/sd_per/sd_scalers.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/sd_per/sd_mux.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/sd_per/sd_iobuf.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/utils/Pulser.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="utils"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/lib/utils/LEDPulser.vhd">
-        <FileInfo>
-          <Attr Name="Library" Val="utils"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/evtbuilderstage.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/evtbuilderfull.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/perutils/perbusctrl.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../Source/gt_per/gt_mon.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/spiflash.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -701,85 +627,159 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/clkrst_per.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/sd_per/sd_scalers.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/trigger_per/trigger_per_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/sd_per/sd_mux.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/vme_mst/vme_mst.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/sd_per/sd_iobuf.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_proc_per_pkg.vhd">
+      <File Path="$PPRDIR/../Source/lib/utils/Pulser.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="utils"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/perutils/perbusctrl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/tdc_proc_per/tdc_proc_per.vhd">
+      <File Path="$PPRDIR/../Source/lib/utils/LEDPulser.vhd">
+        <FileInfo>
+          <Attr Name="Library" Val="utils"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gt_wrapper.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/sd_per/sd_per_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gt_mon.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/sd_per/sd_per.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/gclkpll.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/work/fe_vetroc_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/evtbuilderstage.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/eventbuilder_per/eventbuilder_per.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/evtbuilderfull.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/clkrst_per/clkrst_per_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/clksel.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gt_per.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/vme_mst/vme_mst.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/gt_per/gt_per_pkg.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/trigger_per/trigger_per_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/trigger_per/trigger_per.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/trigger_per/trigger_per.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/work/fe_vetroc.vhd">
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_proc_per_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/tdc_proc_per/tdc_proc_per.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/sd_per/sd_per_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/sd_per/sd_per.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gt_per_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/gt_per/gt_per.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/work/fe_vetroc_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/eventbuilder_per/eventbuilder_per.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/clkrst_per_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/clkrst_per/clkrst_per.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../Source/vetroc/work/fe_vetroc.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -793,18 +793,18 @@
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
       <Filter Type="Constrs"/>
-      <File Path="$PPRDIR/../Source/fe_vetroc.xdc">
+      <File Path="$PPRDIR/../Source/vetroc/fe_vetroc.xdc">
         <FileInfo>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../Source/fe_vetroc_vivado.xdc">
+      <File Path="$PPRDIR/../Source/vetroc/fe_vetroc_vivado.xdc">
         <FileInfo>
           <Attr Name="UsedIn" Val="implementation"/>
         </FileInfo>
       </File>
       <Config>
-        <Option Name="TargetConstrsFile" Val="$PPRDIR/../Source/fe_vetroc_vivado.xdc"/>
+        <Option Name="TargetConstrsFile" Val="$PPRDIR/../Source/vetroc/fe_vetroc_vivado.xdc"/>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>

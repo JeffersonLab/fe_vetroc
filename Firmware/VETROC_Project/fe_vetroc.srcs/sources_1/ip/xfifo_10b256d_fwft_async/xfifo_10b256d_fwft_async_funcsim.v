@@ -1,10 +1,10 @@
 // Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:47:07 MST 2014
-// Date        : Thu Apr 16 10:47:34 2015
+// Date        : Fri Jun 19 17:14:14 2015
 // Host        : braydopc2 running 64-bit Red Hat Enterprise Linux Workstation release 6.6 (Santiago)
 // Command     : write_verilog -force -mode funcsim
-//               /home/braydo/Projects/fe_vetroc/Firmware/XilinxProject/fe_vetroc.srcs/sources_1/ip/xfifo_10b256d_fwft_async/xfifo_10b256d_fwft_async_funcsim.v
+//               /home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.srcs/sources_1/ip/xfifo_10b256d_fwft_async/xfifo_10b256d_fwft_async_funcsim.v
 // Design      : xfifo_10b256d_fwft_async
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.

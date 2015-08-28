@@ -1,10 +1,10 @@
 -- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:47:07 MST 2014
--- Date        : Thu Apr 16 10:54:30 2015
+-- Date        : Fri Jun 19 17:21:26 2015
 -- Host        : braydopc2 running 64-bit Red Hat Enterprise Linux Workstation release 6.6 (Santiago)
 -- Command     : write_vhdl -force -mode funcsim
---               /home/braydo/Projects/fe_vetroc/Firmware/XilinxProject/fe_vetroc.srcs/sources_1/ip/readout_fifo/readout_fifo_funcsim.vhdl
+--               /home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.srcs/sources_1/ip/readout_fifo/readout_fifo_funcsim.vhdl
 -- Design      : readout_fifo
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
