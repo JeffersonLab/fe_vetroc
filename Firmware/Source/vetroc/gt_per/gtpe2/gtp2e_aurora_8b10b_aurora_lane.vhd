@@ -603,7 +603,7 @@ begin
     gtp2e_aurora_8b10b_hotplug_i : gtp2e_aurora_8b10b_HOTPLUG
     generic map
     (
-       ENABLE_HOTPLUG       => 1,
+       ENABLE_HOTPLUG       => 0,
        EXAMPLE_SIMULATION   => EXAMPLE_SIMULATION
     )
     port map

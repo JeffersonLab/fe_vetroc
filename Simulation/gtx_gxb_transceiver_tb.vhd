@@ -176,7 +176,7 @@ begin
 		generic map(
 			STARTING_CHANNEL_NUMBER		=> 0,
 			PMA_DIRECT						=> '0',
-			SIM_GTXRESET_SPEEDUP			=> 1
+			SIM_GTXRESET_SPEEDUP			=> 0
 		)
 		port map(
 			TX_D					=> GXB_TX_D,
@@ -210,7 +210,7 @@ begin
 
 	gt_wrapper_inst: gt_wrapper
 		generic map(
-			SIM_GTRESET_SPEEDUP => "TRUE"
+			SIM_GTRESET_SPEEDUP => "FALSE"
 		)
 		port map(
 			GT_REFCLK			=> GTX_GT_REFCLK,
@@ -244,16 +244,16 @@ begin
 			TX_LOCK				=> GTX_TX_LOCK
 		);
 
--- 	GTX_RXP <= GXB_TXP;
--- 	GTX_RXN <= not GXB_TXP;
--- 
--- 	GXB_RXP <= GTX_TXP;
--- 	--GTX_TXN
+ 	GTX_RXP <= GXB_TXP;
+ 	GTX_RXN <= not GXB_TXP;
+ 
+ 	GXB_RXP <= GTX_TXP;
+ 	--GTX_TXN
 
-	GTX_RXP <= GTX_TXP;
-	GTX_RXN <= GTX_TXN;
+--	GTX_RXP <= GTX_TXP;
+--	GTX_RXN <= GTX_TXN;
 
-	GXB_RXP <= GXB_TXP;
+--	GXB_RXP <= GXB_TXP;
 
 	process
 	begin
@@ -277,17 +277,20 @@ begin
 
 	process
 	begin
+		GXB_POWER_DOWN <= '1';
 		GXB_RESET <= '1';
 		GXB_GT_RESET <= '1';
 		wait for 100 ns;
 		wait until rising_edge(GXB_USER_CLK) and GXB_TX_LOCK = '1';
+		GXB_POWER_DOWN <= '0';
 		GXB_GT_RESET <= '0';
 
 		wait for 100 ns;
 		wait until rising_edge(GXB_USER_CLK);
 		GXB_RESET <= '0';
 
-		wait until rising_edge(GXB_USER_CLK) and GXB_CHANNEL_UP = '1';
+		wait until GXB_CHANNEL_UP = '1';
+		wait until rising_edge(GXB_USER_CLK);
 
 		while true loop
 			GXB_TX_SRC_RDY_N <= '0';
@@ -333,15 +336,19 @@ begin
 	process
 	begin
 		GTX_RESET <= '1';
-		GTX_GT_RESET <= '1';
+--		GTX_GT_RESET <= '1';
+--		GTX_POWER_DOWN <= '1';
+		wait for 2 us;
 		wait until rising_edge(GTX_CLK) and GTX_TX_LOCK = '1';
 		GTX_GT_RESET <= '0';
+		GTX_POWER_DOWN <= '0';
 
 		wait for 100 ns;
 		wait until rising_edge(GTX_CLK);
 		GTX_RESET <= '0';
 
-		wait until rising_edge(GTX_CLK) and GTX_CHANNEL_UP = '1';
+		wait until GTX_CHANNEL_UP = '1';
+		wait until rising_edge(GTX_CLK);
 
 		while true loop
 			GTX_TX_SRC_RDY_N <= '0';
