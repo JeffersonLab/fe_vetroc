@@ -1,8 +1,8 @@
--- Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:47:07 MST 2014
--- Date        : Fri Jun 19 17:21:25 2015
--- Host        : braydopc2 running 64-bit Red Hat Enterprise Linux Workstation release 6.6 (Santiago)
+-- Tool Version: Vivado v.2015.4 (lin64) Build 1412921 Wed Nov 18 09:44:32 MST 2015
+-- Date        : Mon Jul 11 10:41:10 2016
+-- Host        : braydopc2.jlab.org running 64-bit Red Hat Enterprise Linux Workstation release 7.2 (Maipo)
 -- Command     : write_vhdl -force -mode synth_stub
 --               /home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.srcs/sources_1/ip/readout_fifo/readout_fifo_stub.vhdl
 -- Design      : readout_fifo
@@ -33,6 +33,6 @@ attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
 attribute black_box_pad_pin of stub : architecture is "rst,wr_clk,rd_clk,din[35:0],wr_en,rd_en,dout[71:0],full,empty";
 attribute x_core_info : string;
-attribute x_core_info of stub : architecture is "fifo_generator_v12_0,Vivado 2014.4";
+attribute x_core_info of stub : architecture is "fifo_generator_v13_0_1,Vivado 2015.4";
 begin
 end;

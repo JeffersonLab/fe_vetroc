@@ -1,8 +1,8 @@
-// Copyright 1986-2014 Xilinx, Inc. All Rights Reserved.
+// Copyright 1986-2015 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
-// Tool Version: Vivado v.2014.4 (lin64) Build 1071353 Tue Nov 18 16:47:07 MST 2014
-// Date        : Fri Jun 19 17:17:45 2015
-// Host        : braydopc2 running 64-bit Red Hat Enterprise Linux Workstation release 6.6 (Santiago)
+// Tool Version: Vivado v.2015.4 (lin64) Build 1412921 Wed Nov 18 09:44:32 MST 2015
+// Date        : Mon Jul 11 10:43:22 2016
+// Host        : braydopc2.jlab.org running 64-bit Red Hat Enterprise Linux Workstation release 7.2 (Maipo)
 // Command     : write_verilog -force -mode synth_stub
 //               /home/braydo/Projects/fe_vetroc/Firmware/VETROC_Project/fe_vetroc.srcs/sources_1/ip/xfifo_33b512d_fwft_async/xfifo_33b512d_fwft_async_stub.v
 // Design      : xfifo_33b512d_fwft_async
@@ -13,7 +13,7 @@
 // This empty module with port declaration file causes synthesis tools to infer a black box for IP.
 // The synthesis directives are for Synopsys Synplify support to prevent IO buffer insertion.
 // Please paste the declaration into a Verilog source file or add the file as an additional source.
-(* x_core_info = "fifo_generator_v12_0,Vivado 2014.4" *)
+(* x_core_info = "fifo_generator_v13_0_1,Vivado 2015.4" *)
 module xfifo_33b512d_fwft_async(rst, wr_clk, rd_clk, din, wr_en, rd_en, prog_full_thresh, dout, full, empty, prog_full)
 /* synthesis syn_black_box black_box_pad_pin="rst,wr_clk,rd_clk,din[32:0],wr_en,rd_en,prog_full_thresh[8:0],dout[32:0],full,empty,prog_full" */;
   input rst;

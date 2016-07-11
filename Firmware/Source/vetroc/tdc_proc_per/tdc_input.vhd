@@ -11,16 +11,14 @@ library utils;
 use utils.utils_pkg.all;
 
 entity tdc_input is
-	generic(
-		INVERTED				: boolean := true
-	);
 	port(
 		GCLK_125				: in std_logic;
 		GCLK_500				: in std_logic;
 
 		ENABLE_N				: in std_logic;
 		HIT_TRIG_WIDTH		: in std_logic_vector(7 downto 0);
-		
+		TDC_INVERT			: in std_logic;
+
 		HIT					: in std_logic;
 		HIT_TRIG				: out std_logic;
 		HIT_ASYNC			: out std_logic;
@@ -152,45 +150,46 @@ begin
 	RE_HIT <= or_reduce(RE); 
 	FE_HIT <= or_reduce(FE); 
 
-	GenInverted_true: if INVERTED = true generate
-		RE(0) <= '1' when SREG_Q2(4) = '1' and SREG_Q2(3) = '0' else '0';
-		RE(1) <= '1' when SREG_Q2(3) = '1' and SREG_Q2(2) = '0' else '0';
-		RE(2) <= '1' when SREG_Q2(2) = '1' and SREG_Q2(1) = '0' else '0';
-		RE(3) <= '1' when SREG_Q2(1) = '1' and SREG_Q2(0) = '0' else '0';
-		RE(4) <= '1' when SREG_Q2(0) = '1' and SREG_Q1(7) = '0' else '0';
-		RE(5) <= '1' when SREG_Q1(7) = '1' and SREG_Q1(6) = '0' else '0';
-		RE(6) <= '1' when SREG_Q1(6) = '1' and SREG_Q1(5) = '0' else '0';
-		RE(7) <= '1' when SREG_Q1(5) = '1' and SREG_Q1(4) = '0' else '0';
-
-		FE(0) <= '1' when SREG_Q2(4) = '0' and SREG_Q2(3) = '1' else '0';
-		FE(1) <= '1' when SREG_Q2(3) = '0' and SREG_Q2(2) = '1' else '0';
-		FE(2) <= '1' when SREG_Q2(2) = '0' and SREG_Q2(1) = '1' else '0';
-		FE(3) <= '1' when SREG_Q2(1) = '0' and SREG_Q2(0) = '1' else '0';
-		FE(4) <= '1' when SREG_Q2(0) = '0' and SREG_Q1(7) = '1' else '0';
-		FE(5) <= '1' when SREG_Q1(7) = '0' and SREG_Q1(6) = '1' else '0';
-		FE(6) <= '1' when SREG_Q1(6) = '0' and SREG_Q1(5) = '1' else '0';
-		FE(7) <= '1' when SREG_Q1(5) = '0' and SREG_Q1(4) = '1' else '0';
-	end generate;
-
-	GenInverted_false: if INVERTED = false generate
-		RE(0) <= '1' when SREG_Q2(4) = '0' and SREG_Q2(3) = '1' else '0';
-		RE(1) <= '1' when SREG_Q2(3) = '0' and SREG_Q2(2) = '1' else '0';
-		RE(2) <= '1' when SREG_Q2(2) = '0' and SREG_Q2(1) = '1' else '0';
-		RE(3) <= '1' when SREG_Q2(1) = '0' and SREG_Q2(0) = '1' else '0';
-		RE(4) <= '1' when SREG_Q2(0) = '0' and SREG_Q1(7) = '1' else '0';
-		RE(5) <= '1' when SREG_Q1(7) = '0' and SREG_Q1(6) = '1' else '0';
-		RE(6) <= '1' when SREG_Q1(6) = '0' and SREG_Q1(5) = '1' else '0';
-		RE(7) <= '1' when SREG_Q1(5) = '0' and SREG_Q1(4) = '1' else '0';
-
-		FE(0) <= '1' when SREG_Q2(4) = '1' and SREG_Q2(3) = '0' else '0';
-		FE(1) <= '1' when SREG_Q2(3) = '1' and SREG_Q2(2) = '0' else '0';
-		FE(2) <= '1' when SREG_Q2(2) = '1' and SREG_Q2(1) = '0' else '0';
-		FE(3) <= '1' when SREG_Q2(1) = '1' and SREG_Q2(0) = '0' else '0';
-		FE(4) <= '1' when SREG_Q2(0) = '1' and SREG_Q1(7) = '0' else '0';
-		FE(5) <= '1' when SREG_Q1(7) = '1' and SREG_Q1(6) = '0' else '0';
-		FE(6) <= '1' when SREG_Q1(6) = '1' and SREG_Q1(5) = '0' else '0';
-		FE(7) <= '1' when SREG_Q1(5) = '1' and SREG_Q1(4) = '0' else '0';
-	end generate;
+	process(TDC_INVERT, SREG_Q2, SREG_Q1)
+	begin
+		if TDC_INVERT = '1' then
+			RE(0) <= SREG_Q2(4) and (not SREG_Q2(3));
+			RE(1) <= SREG_Q2(3) and (not SREG_Q2(2));
+			RE(2) <= SREG_Q2(2) and (not SREG_Q2(1));
+			RE(3) <= SREG_Q2(1) and (not SREG_Q2(0));
+			RE(4) <= SREG_Q2(0) and (not SREG_Q1(7));
+			RE(5) <= SREG_Q1(7) and (not SREG_Q1(6));
+			RE(6) <= SREG_Q1(6) and (not SREG_Q1(5));
+			RE(7) <= SREG_Q1(5) and (not SREG_Q1(4));
+	
+			FE(0) <= (not SREG_Q2(4)) and SREG_Q2(3);
+			FE(1) <= (not SREG_Q2(3)) and SREG_Q2(2);
+			FE(2) <= (not SREG_Q2(2)) and SREG_Q2(1);
+			FE(3) <= (not SREG_Q2(1)) and SREG_Q2(0);
+			FE(4) <= (not SREG_Q2(0)) and SREG_Q1(7);
+			FE(5) <= (not SREG_Q1(7)) and SREG_Q1(6);
+			FE(6) <= (not SREG_Q1(6)) and SREG_Q1(5);
+			FE(7) <= (not SREG_Q1(5)) and SREG_Q1(4);
+		else
+			RE(0) <= (not SREG_Q2(4)) and SREG_Q2(3);
+			RE(1) <= (not SREG_Q2(3)) and SREG_Q2(2);
+			RE(2) <= (not SREG_Q2(2)) and SREG_Q2(1);
+			RE(3) <= (not SREG_Q2(1)) and SREG_Q2(0);
+			RE(4) <= (not SREG_Q2(0)) and SREG_Q1(7);
+			RE(5) <= (not SREG_Q1(7)) and SREG_Q1(6);
+			RE(6) <= (not SREG_Q1(6)) and SREG_Q1(5);
+			RE(7) <= (not SREG_Q1(5)) and SREG_Q1(4);
+	
+			FE(0) <= SREG_Q2(4) and (not SREG_Q2(3));
+			FE(1) <= SREG_Q2(3) and (not SREG_Q2(2));
+			FE(2) <= SREG_Q2(2) and (not SREG_Q2(1));
+			FE(3) <= SREG_Q2(1) and (not SREG_Q2(0));
+			FE(4) <= SREG_Q2(0) and (not SREG_Q1(7));
+			FE(5) <= SREG_Q1(7) and (not SREG_Q1(6));
+			FE(6) <= SREG_Q1(6) and (not SREG_Q1(5));
+			FE(7) <= SREG_Q1(5) and (not SREG_Q1(4));
+		end if;
+	end process;
 
 	-- Encode 1ns offset inside 8ns period
 	RE_OFFSET <= "000" when RE(0) = '1' else

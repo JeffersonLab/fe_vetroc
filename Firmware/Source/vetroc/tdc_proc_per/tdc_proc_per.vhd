@@ -64,13 +64,13 @@ end tdc_proc_per;
 architecture synthesis of tdc_proc_per is
 	component tdc_channel_group is
 		generic(
-			CHANNEL_START		: integer := 0;
-			INVERTED				: boolean := true
+			CHANNEL_START		: integer := 0
 		);
 		port(
 			SCALER_LATCH		: in std_logic;
 			SCALER_RESET		: in std_logic;
 			TDC_SCALER			: out slv32a(15 downto 0);
+			TDC_INVERT			: in std_logic_vector(15 downto 0);
 			ENABLE_N				: in std_logic_vector(15 downto 0);
 			HIT_TRIG_WIDTH		: in std_logic_vector(7 downto 0);
 
@@ -110,22 +110,24 @@ architecture synthesis of tdc_proc_per is
 	-- Registers
 	signal ENABLE_N_REG				: std_logic_vector(31 downto 0) := x"00000000";
 	signal HIT_TRIG_REG				: std_logic_vector(31 downto 0) := x"00000000";
+	signal TDC_INVERT_REG			: std_logic_vector(31 downto 0) := x"00000000";
 	signal TDC_SCALER					: slv32a(15 downto 0) := (others=>x"00000000");
 
 	-- Register bits
 	signal ENABLE_N					: std_logic_vector(15 downto 0);
+	signal TDC_INVERT					: std_logic_vector(15 downto 0);
 	signal HIT_TRIG_WIDTH			: std_logic_vector(7 downto 0);
 begin
 
 	tdc_channel_group_inst: tdc_channel_group
 		generic map(
-			CHANNEL_START		=> CHANNEL_START,
-			INVERTED				=> false
+			CHANNEL_START		=> CHANNEL_START
 		)
 		port map(
 			SCALER_LATCH		=> SCALER_LATCH,
 			SCALER_RESET		=> SCALER_RESET,
 			TDC_SCALER			=> TDC_SCALER,
+			TDC_INVERT			=> TDC_INVERT,
 			ENABLE_N				=> ENABLE_N,
 			HIT_TRIG_WIDTH		=> HIT_TRIG_WIDTH,
 			GCLK_125				=> GCLK_125,
@@ -179,6 +181,9 @@ begin
 	--HIT_TRIG_REG
 	HIT_TRIG_WIDTH <= HIT_TRIG_REG(7 downto 0);
 
+	--TDC_INVERT_REG
+	TDC_INVERT <= TDC_INVERT_REG(15 downto 0);
+
 	process(BUS_CLK)
 	begin
 		if rising_edge(BUS_CLK) then
@@ -186,6 +191,7 @@ begin
 
 			rw_reg(		REG => ENABLE_N_REG			,PI=>PI,PO=>PO, A => x"0000", RW => x"0000FFFF");
 			rw_reg(		REG => HIT_TRIG_REG			,PI=>PI,PO=>PO, A => x"0004", RW => x"000000FF");
+			rw_reg(		REG => TDC_INVERT_REG		,PI=>PI,PO=>PO, A => x"0008", RW => x"0000FFFF");
 
 			ro_reg(		REG => TDC_SCALER(0)			,PI=>PI,PO=>PO, A => x"0080", RO => x"FFFFFFFF");
 			ro_reg(		REG => TDC_SCALER(1)			,PI=>PI,PO=>PO, A => x"0084", RO => x"FFFFFFFF");

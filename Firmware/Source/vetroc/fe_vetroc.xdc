@@ -1,3 +1,6 @@
+set_property CFGBVS VCCO [current_design]
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+
 #**************************************************************
 # Create Clock
 #**************************************************************
@@ -11,7 +14,8 @@ create_clock -period 8.000 -name CLKREFA_P -waveform {0.000 4.000} [get_ports CL
 #**************************************************************
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets eventbuilder_per_inst/evtbuilderfull_inst/sramfifo_inst/sramcntrl_inst/sramclk_inst/CLKIN1]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clkrst_per_inst/sysclkpll_inst/CLK_50MHZ_IBUFG]
-
+#set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets clkrst_per_inst/gclkpll_inst/CLKIN1]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clkrst_per_inst/sysclkpll_inst/CLKIN1]
 #**************************************************************
 # Create Generated Clock
 #**************************************************************

@@ -8,13 +8,13 @@ use utils.utils_pkg.all;
 
 entity tdc_channel_group is
 	generic(
-		CHANNEL_START		: integer := 0;
-		INVERTED				: boolean := true
+		CHANNEL_START		: integer := 0
 	);
 	port(
 		SCALER_LATCH			: in std_logic;
 		SCALER_RESET			: in std_logic;
 		TDC_SCALER				: out slv32a(15 downto 0);
+		TDC_INVERT				: in std_logic_vector(15 downto 0);
 		ENABLE_N					: in std_logic_vector(15 downto 0);
 		HIT_TRIG_WIDTH			: in std_logic_vector(7 downto 0);
 
@@ -50,15 +50,13 @@ end tdc_channel_group;
 
 architecture synthesis of tdc_channel_group is
 	component tdc_input is
-		generic(
-			INVERTED				: boolean := true
-		);
 		port(
 			GCLK_125				: in std_logic;
 			GCLK_500				: in std_logic;
 
 			ENABLE_N				: in std_logic;
 			HIT_TRIG_WIDTH		: in std_logic_vector(7 downto 0);
+			TDC_INVERT			: in std_logic;
 			
 			HIT					: in std_logic;
 			HIT_TRIG				: out std_logic;
@@ -159,14 +157,12 @@ begin
 		WR(I) <= TDC_HIT(I);
 
 		tdc_input_inst: tdc_input
-			generic map(
-				INVERTED				=> INVERTED
-			)
 			port map(
 				GCLK_125				=> GCLK_125,
 				GCLK_500				=> GCLK_500,
 				ENABLE_N				=> ENABLE_N(I),
 				HIT_TRIG_WIDTH		=> HIT_TRIG_WIDTH,
+				TDC_INVERT			=> TDC_INVERT(I),
 				HIT					=> HIT(I),
 				HIT_ASYNC			=> HIT_ASYNC(I),
 				HIT_TRIG				=> HIT_TRIG(I),
